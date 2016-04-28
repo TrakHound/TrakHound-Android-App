@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="100dp">
+
+    <View
+        android:id="@+id/indicator"
+        android:layout_width="20dp"
+        android:layout_height="fill_parent"
+        android:background="@drawable/indicator_gradient"
+        />
+
+    <TextView
+        android:id="@+id/Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Device_Name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_toRightOf="@+id/indicator"
+        android:layout_toEndOf="@+id/indicator"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/Manufacturer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Manufacturer"
+        android:textSize="10sp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_toRightOf="@+id/indicator"
+        android:layout_toEndOf="@+id/indicator"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:id="@+id/Model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Model"
+        android:textSize="10sp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_toRightOf="@+id/indicator"
+        android:layout_toEndOf="@+id/indicator"
+        android:layout_marginTop="55dp" />
+
+    <TextView
+        android:id="@+id/Serial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Serial"
+        android:textSize="10sp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_toRightOf="@+id/indicator"
+        android:layout_toEndOf="@+id/indicator"
+        android:layout_marginTop="75dp" />
+
+</RelativeLayout>
