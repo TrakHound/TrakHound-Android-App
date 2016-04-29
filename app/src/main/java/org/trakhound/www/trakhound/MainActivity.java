@@ -28,13 +28,6 @@ public class MainActivity extends Activity  {
         method = (TextView)findViewById(R.id.textView9);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-
     public void login(View view){
 //        String username = usernameField.getText().toString();
 //        String password = passwordField.getText().toString();

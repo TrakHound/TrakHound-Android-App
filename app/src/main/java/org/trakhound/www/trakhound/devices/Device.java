@@ -14,7 +14,10 @@ import java.util.ArrayList;
  */
 public class Device {
 
-    private static String TABLE_DELIMITER_START = "^^^";
+//    private static String TABLE_DELIMITER_START = "^^^";
+//    private static String TABLE_DELIMITER_END = "~~~";
+
+    private static String TABLE_DELIMITER_START = "\\^\\^\\^";
     private static String TABLE_DELIMITER_END = "~~~";
 
     // Table Addresses ------------------------------------------------------------------
@@ -34,14 +37,18 @@ public class Device {
 
     // Database
     private static String ADR_DATABASE_ID = "/DatabaseId";
-
+    private static String ADR_DATABASE_NAME = "/Databases_Client/MySQL||00/Database";
+    private static String ADR_DATABASE_USERNAME = "/Databases_Client/MySQL||00/Username";
+    private static String ADR_DATABASE_PASSWORD = "/Databases_Client/MySQL||00/Password";
     // ----------------------------------------------------------------------------------
 
+
+    public DeviceStatus Status;
 
     public String UniqueId;
     public String Tablename;
     public Integer Index;
-    public String DatabaseId;
+
 
     public Boolean ClientEnabled;
 
@@ -53,8 +60,19 @@ public class Device {
     public String Serial;
     public String Controller;
 
+    // Database
+    public String DatabaseId;
+    public String DatabaseName;
+    public String DatabaseUsername;
+    public String DatabasePassword;
 
-    public static Device[] ReadAll(UserConfiguration userConfig) {
+    public Device() {
+
+        Status = new DeviceStatus();
+
+    }
+
+    public static Device[] readAll(UserConfiguration userConfig) {
 
         Device[] result = null;
 
@@ -63,21 +81,19 @@ public class Device {
         PostData[] postDatas = new PostData[1];
         postDatas[0] = new PostData("username", userConfig.Username);
 
-        String response = Requests.POST(url, postDatas);
+        String response = Requests.post(url, postDatas);
         if (response != null) {
 
-            String[] tables = GetTablesJSON(response);
+            String[] tables = getTablesJSON(response);
             if (tables != null) {
 
                 ArrayList<Device> devices = new ArrayList<>();
 
-//                result = new Device[tables.length];
-
                 for (int i = 0; i < tables.length; i++) {
 
-                    Table table = GetDeviceTable(tables[i]);
+                    Table table = getDeviceTable(tables[i]);
                     if (table != null) {
-                        Device device = Parse(table);
+                        Device device = parse(table);
                         if (device != null) {
                             devices.add(device);
                         }
@@ -92,21 +108,41 @@ public class Device {
         return result;
     }
 
-    private static String[] GetTablesJSON(String s) {
+    private static String[] getTablesJSON(String s) {
 
-        return s.split(TABLE_DELIMITER_START);
+        String[] tables = s.split(TABLE_DELIMITER_START);
+        if (tables != null && tables.length > 0) {
+
+            ArrayList<String> result = new ArrayList<>();
+
+            for (int i = 0; i < tables.length; i++) {
+
+                if (tables[i] != null && tables[i].length() > 0) {
+
+                    result.add(tables[i]);
+
+                }
+            }
+
+            String[] a = new String[result.size()];
+            return result.toArray(a);
+
+        } else {
+
+            return null;
+        }
 
     }
 
-    private static Table GetDeviceTable(String s) {
+    private static Table getDeviceTable(String s) {
 
         Table result = null;
 
         int delimiter = s.indexOf(TABLE_DELIMITER_END);
-        if (delimiter > 0) {
+        if (delimiter >= 0) {
 
             result = new Table();
-            result.Name = s.substring(TABLE_DELIMITER_START.length(), delimiter);
+            result.Name = s.substring(0, delimiter);
             result.Data = s.substring(delimiter + TABLE_DELIMITER_END.length());
 
         }
@@ -114,7 +150,7 @@ public class Device {
         return result;
     }
 
-    private static Device Parse(Table table) {
+    private static Device parse(Table table) {
 
         Device result = null;
 
@@ -136,7 +172,6 @@ public class Device {
                     if (address.equals(ADR_UNIQUE_ID)) result.UniqueId = obj.getString("value");
                     else if (address.equals(ADR_INDEX)) result.Index = Integer.parseInt(obj.getString("value"));
                     else if (address.equals(ADR_CLIENT_ENABLED)) result.ClientEnabled = Boolean.parseBoolean(obj.getString("value"));
-                    else if (address.equals(ADR_DATABASE_ID)) result.DatabaseId = obj.getString("value");
 
                     else if (address.equals(ADR_DESCRIPTION)) result.Description = obj.getString("value");
                     else if (address.equals(ADR_DEVICE_ID)) result.Device_Id = obj.getString("value");
@@ -144,6 +179,11 @@ public class Device {
                     else if (address.equals(ADR_MODEL)) result.Model = obj.getString("value");
                     else if (address.equals(ADR_SERIAL)) result.Serial = obj.getString("value");
                     else if (address.equals(ADR_CONTROLLER)) result.Controller = obj.getString("value");
+
+                    else if (address.equals(ADR_DATABASE_ID)) result.DatabaseId = obj.getString("value");
+                    else if (address.equals(ADR_DATABASE_NAME)) result.DatabaseName = obj.getString("value");
+                    else if (address.equals(ADR_DATABASE_USERNAME)) result.DatabaseUsername = obj.getString("value");
+                    else if (address.equals(ADR_DATABASE_PASSWORD)) result.DatabasePassword = obj.getString("value");
 
                 }
 
@@ -154,5 +194,6 @@ public class Device {
 
         return result;
     }
+
 
 }

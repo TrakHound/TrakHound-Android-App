@@ -1,10 +1,12 @@
 package org.trakhound.www.trakhound.http;
 
 import java.io.BufferedReader;
+import java.net.HttpURLConnection;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 
 /**
@@ -12,49 +14,21 @@ import java.net.URLEncoder;
  */
 public class Requests {
 
-    public static String POST (String url, PostData[] postDatas) {
+    public static String POST = "Post";
+    public static String GET = "GET";
 
-        String result = null;
+    public static String post (String url, PostData[] postDatas) {
 
-        try{
-
-            // Format PostData array
-            String postData = FormatPostData(postDatas);
-
-            // Open Connection
-            URL u = new URL(url);
-            URLConnection conn = u.openConnection();
-
-            if (postData != null) {
-                conn.setDoOutput(true);
-                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-
-                wr.write( postData );
-                wr.flush();
-            }
-
-            // Read Response
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-
-            // Build response string
-            while((line = reader.readLine()) != null)
-            {
-                sb.append(line);
-                break;
-            }
-
-            result = sb.toString();
-
-        }
-        catch(Exception e) { e.printStackTrace(); }
-
-        return result;
+        return runRequest(url, postDatas, POST);
     }
 
-    private static String FormatPostData(PostData[] postDatas) {
+    public static String get (String url) {
+
+        return runRequest(url, null, GET);
+    }
+
+
+    private static String formatPostData(PostData[] postDatas) {
 
         String result = null;
         if (postDatas != null) {
@@ -62,7 +36,7 @@ public class Requests {
             result = "";
 
             for (int i = 0; i < postDatas.length; i++)  {
-                result += EncodePostData(postDatas[i]);
+                result += encodePostData(postDatas[i]);
                 if (i < postDatas.length - 1) result += "&";
             }
 
@@ -71,7 +45,7 @@ public class Requests {
         return result;
     }
 
-    private static String EncodePostData(PostData postData) {
+    private static String encodePostData(PostData postData) {
 
         String result = null;
 
@@ -83,6 +57,81 @@ public class Requests {
             result = URLEncoder.encode(id, "UTF-8") + "=" + URLEncoder.encode(value, "UTF-8");
 
         } catch (Exception ex) { }
+
+        return result;
+    }
+
+
+    private static String runRequest(String url, PostData[] postDatas, String method) {
+
+        String result = null;
+
+        // Format PostData array
+        String postData = formatPostData(postDatas);
+
+        InputStream stream = null;
+
+        try {
+
+            // Open Connection
+            URL u = new URL(url);
+
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(10000);
+            conn.setRequestMethod(method);
+
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            conn.connect();
+
+            if (postData != null) {
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write( postData );
+                wr.flush();
+                wr.close();
+            }
+
+            stream = conn.getInputStream();
+            result = readStream(stream);
+
+            conn.disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+
+        return result;
+    }
+
+
+    private static String readStream(InputStream stream) throws IOException {
+
+        String result = null;
+
+        if (stream != null) {
+
+            InputStreamReader streamReader = new InputStreamReader(stream);
+            if (streamReader != null) {
+
+                BufferedReader reader = new BufferedReader(streamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Build response string
+                while((line = reader.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+
+                result = sb.toString();
+
+                // Close IO Readers
+                reader.close();
+                streamReader.close();
+            }
+        }
 
         return result;
     }

@@ -43,6 +43,7 @@
                 <!--android:name="android.support.PARENT_ACTIVITY"-->
                 <!--android:value="org.trakhound.www.trakhound.MainActivity" />-->
         </activity>
+
     </application>
 
 </manifest>

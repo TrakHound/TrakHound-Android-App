@@ -40,11 +40,15 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         TextView tvModel = (TextView) convertView.findViewById(R.id.Model);
         TextView tvSerial = (TextView) convertView.findViewById(R.id.Serial);
 
+        TextView tvProductionStatus = (TextView) convertView.findViewById(R.id.ProductionStatus);
+
         // Populate the data into the template view using the data object
         tvDescription.setText(device.Description);
         tvManufacturer.setText(device.Manufacturer);
         tvModel.setText(device.Model);
         tvSerial.setText(device.Serial);
+
+        tvProductionStatus.setText(device.Status.ProductionStatus);
 
         // Return the completed view to render on screen
         return convertView;

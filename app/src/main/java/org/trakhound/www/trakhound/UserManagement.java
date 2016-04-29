@@ -20,7 +20,7 @@ public class UserManagement {
             postDatas[0] = new PostData("id", id);
             postDatas[1] = new PostData("password", password);
 
-            String response = Requests.POST(url, postDatas);
+            String response = Requests.post(url, postDatas);
             if (response != null) {
 
                 result = UserConfiguration.Get(response);

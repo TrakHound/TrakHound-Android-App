@@ -61,7 +61,7 @@ public class SigninActivity extends AsyncTask<String,Void,Device[]> {
         UserConfiguration userConfig = UserManagement.Login(id, password);
         if (userConfig != null) {
 
-            result = Device.ReadAll(userConfig);
+            result = Device.readAll(userConfig);
         }
 
         return result;

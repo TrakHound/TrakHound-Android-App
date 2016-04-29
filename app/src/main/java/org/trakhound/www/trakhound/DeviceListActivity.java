@@ -1,29 +1,36 @@
 package org.trakhound.www.trakhound;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ArrayAdapter;
+import android.os.Handler;
 import android.widget.ListView;
+import java.util.ArrayList;
 
 import org.trakhound.www.trakhound.devices.Device;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class DeviceListActivity extends Activity {
 
-    private ListView deviceListView ;
-    private DeviceListAdapter listAdapter ;
+    private ListView deviceListView;
+    public DeviceListAdapter listAdapter;
+
+    Handler statusH = new Handler();
+
+    Thread statusThread;
 
 
-//    ArrayList<String> litItems = new ArrayList<String>();
-//    ArrayAdapter<String> adapter;
+    public void updateStatus(String msg) {
+
+        final String str = msg;
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                listAdapter.notifyDataSetChanged();
+
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,40 +39,11 @@ public class DeviceListActivity extends Activity {
         setContentView(R.layout.activity_device_list);
 
         // Set local variable to Id of ListView in layout
-        deviceListView = (ListView) findViewById( R.id.device_list);
+        deviceListView = (ListView) findViewById(R.id.device_list);
 
-
-        // Create and populate a List of planet names.
-        String[] planets = new String[] { "Mercury", "Venus", "Earth", "Mars",
-                "Jupiter", "Saturn", "Uranus", "Neptune"};
-
-
-
-//        planetList.addAll(Arrays.asList(planets));
-
-
-
-      // Load devices
-//      Device[] devices = ((MyApplication) this.getApplication()).Devices;
-//      if (devices != null && devices.length > 0)
-//      {
-//          ArrayList<String> deviceList = new ArrayList<String>();
-//
-//          // Initialize ArrayAdapter
-//          listAdapter = new ArrayAdapter<String>(this, R.layout.layout_device_item, deviceList);
-//
-//          for (int i = 0; i < devices.length; i++) {
-//
-//              Device device = devices[i];
-//              String uniqueId = device.UniqueId;
-//
-//              listAdapter.add(uniqueId);
-//          }
-//      }
-
+        // Add each device found in static Devices array
         Device[] devices = ((MyApplication) this.getApplication()).Devices;
-        if (devices != null && devices.length > 0)
-        {
+        if (devices != null && devices.length > 0) {
             ArrayList<Device> deviceList = new ArrayList<Device>();
 
             // Initialize ArrayAdapter
@@ -74,8 +52,6 @@ public class DeviceListActivity extends Activity {
             for (int i = 0; i < devices.length; i++) {
 
                 Device device = devices[i];
-//                String uniqueId = device.UniqueId;
-
                 listAdapter.add(device);
             }
         }
@@ -84,20 +60,11 @@ public class DeviceListActivity extends Activity {
         deviceListView.setAdapter(listAdapter);
 
 
+        // Start Status Updates on separate thread
+        StatusHandler statusHandler = new StatusHandler(this, statusH);
+        statusThread = new Thread(statusHandler);
+        statusThread.start();
 
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }

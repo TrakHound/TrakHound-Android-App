@@ -71,4 +71,18 @@
         android:layout_toEndOf="@+id/indicator"
         android:layout_marginTop="75dp" />
 
+    <TextView
+        android:id="@+id/ProductionStatus"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Production Status"
+        android:textSize="16sp"
+        android:layout_below="@+id/Manufacturer"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        />
+
 </RelativeLayout>
