@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
@@ -35,15 +36,15 @@ import org.trakhound.www.trakhound.devices.Device;
 
 public class SigninActivity extends AsyncTask<String,Void,Device[]> {
 
-    private TextView statusField,roleField;
     private Context context;
+    private TextView errorText;
+    private ProgressDialog progressDialog;
 
-    public SigninActivity(Context context,TextView statusField,TextView roleField) {
+    public SigninActivity(Context context, TextView errorText, ProgressDialog progressDialog) {
 
         this.context = context;
-        this.statusField = statusField;
-        this.roleField = roleField;
-
+        this.errorText = errorText;
+        this.progressDialog = progressDialog;
     }
 
     protected void onPreExecute(){
@@ -72,8 +73,7 @@ public class SigninActivity extends AsyncTask<String,Void,Device[]> {
 
         if (devices != null) {
 
-            this.statusField.setText("Login Successful");
-            this.roleField.setText(Integer.toString(devices.length));
+            errorText.setVisibility(View.INVISIBLE);
 
             ((MyApplication)(((MainActivity)context).getApplication())).loggedIn = true;
             ((MyApplication)(((MainActivity)context).getApplication())).Devices = devices;
@@ -83,11 +83,13 @@ public class SigninActivity extends AsyncTask<String,Void,Device[]> {
 
         } else {
 
-            this.statusField.setText("Login Failed");
+            errorText.setVisibility(View.VISIBLE);
 
-            ((MyApplication)context).loggedIn = false;
+            ((MyApplication)(((MainActivity)context).getApplication())).loggedIn = false;
 
         }
+
+        progressDialog.dismiss();
 
     }
 

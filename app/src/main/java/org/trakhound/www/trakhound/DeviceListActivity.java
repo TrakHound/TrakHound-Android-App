@@ -1,14 +1,16 @@
 package org.trakhound.www.trakhound;
 
-import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 import java.util.ArrayList;
 
 import org.trakhound.www.trakhound.devices.Device;
 
-public class DeviceListActivity extends Activity {
+public class DeviceListActivity extends AppCompatActivity {
 
     private ListView deviceListView;
     public DeviceListAdapter listAdapter;
@@ -38,6 +40,10 @@ public class DeviceListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
+        // Setup Toolbar/ActionBar
+        SetToolbar();
+
+
         // Set local variable to Id of ListView in layout
         deviceListView = (ListView) findViewById(R.id.device_list);
 
@@ -65,6 +71,26 @@ public class DeviceListActivity extends Activity {
         statusThread = new Thread(statusHandler);
         statusThread.start();
 
+    }
+
+    private void SetToolbar() {
+
+        // Set Toolbar
+        Toolbar trakhoundToolbar = (Toolbar) findViewById(R.id.TrakhoundToolbar);
+
+        // Set Title
+        trakhoundToolbar.setTitle(R.string.app_name);
+        trakhoundToolbar.setTitleTextColor(Color.WHITE);
+
+        // Set Icon
+        trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
+
+
+
+        // Set Navigation Button Icon
+        trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
+
+        setSupportActionBar(trakhoundToolbar);
     }
 
 }

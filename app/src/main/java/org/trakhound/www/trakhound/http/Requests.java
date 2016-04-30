@@ -14,7 +14,7 @@ import java.net.URLEncoder;
  */
 public class Requests {
 
-    public static String POST = "Post";
+    public static String POST = "POST";
     public static String GET = "GET";
 
     public static String post (String url, PostData[] postDatas) {

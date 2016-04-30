@@ -15,5 +15,6 @@
     <string name="Password">Password</string>
     <string name="title_activity_signin">SigninActivity</string>
     <string name="title_activity_device_list">DeviceListActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

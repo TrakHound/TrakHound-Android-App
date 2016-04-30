@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Layout;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.trakhound.www.trakhound.devices.Device;
@@ -34,95 +35,43 @@ public class StatusHandler implements Runnable {
 
     }
 
-//    public StatusHandler(Context context) {
-//
-//        this.context = context;
-//    }
 
     @Override
     public void run() {
 
-        Device[] devices = ((MyApplication)(((DeviceListActivity)context).getApplication())).Devices;
-        if (devices != null && devices.length > 0) {
+        while (true) {
 
-            for (int i = 0; i < devices.length; i++) {
+            try
+            {
+                Device[] devices = ((MyApplication)(((DeviceListActivity)context).getApplication())).Devices;
+                if (devices != null && devices.length > 0) {
 
-                DeviceStatus status = DeviceStatus.get(devices[i]);
-                if (status != null) devices[i].Status = status;
+                    for (int i = 0; i < devices.length; i++) {
 
-//                devices[i].Status = DeviceStatus.get(devices[i]);
+                        DeviceStatus status = DeviceStatus.get(devices[i]);
+                        if (status != null) devices[i].Status = status;
 
-//                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
-//                Date currentLocalTime = cal.getTime();
-//                DateFormat date = new SimpleDateFormat("HH:mm:ss a");
-//                // you can get seconds by adding  "...:ss" to it
-//                date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-//
-//                String localTime = date.format(currentLocalTime);
-//
-//                devices[i].Status.ProductionStatus = localTime;
+                    }
+                }
 
-            }
+                ((DeviceListActivity) context).updateStatus("test");
+
+
+                Thread.sleep(5000);
+
+            } catch (InterruptedException ex) { }
+
         }
 
 
 
 
-        ((DeviceListActivity) context).updateStatus("test");
 
 
-        handler.postDelayed(new StatusHandler(context, handler), 5000);
-//
-//        Message msg = handler.obtainMessage();
-//        handler.sendMessage(msg);
 
-//        handler.postDelayed(this, 2000);
+//        handler.postDelayed(new StatusHandler(context, handler), 5000);
+//        handler.postDelayed(this, 5000);
 
     }
 
 }
-
-
-
-
-
-
-//public class StatusActivity extends AsyncTask<Integer,Void,String> {
-//
-//    private Context context;
-//
-//    public StatusActivity(Context context) {
-//
-//        this.context = context;
-//
-//    }
-//
-//
-//    protected void onPreExecute(){
-//
-//    }
-//
-//    @Override
-//    protected String doInBackground(Integer... arg0) {
-//
-//        Device[] devices = ((MyApplication)(((DeviceListActivity)context).getApplication())).Devices;
-//        if (devices != null && devices.length > 0) {
-//
-//            for (int i = 0; i < devices.length; i++) {
-//
-//                devices[i].Status = DeviceStatus.get(devices[i]);
-//
-//            }
-//        }
-//
-//        return null;
-//    }
-//
-//    @Override
-//    protected void onPostExecute(String arg) {
-//
-//        ((DeviceListActivity) context).listAdapter.notifyDataSetChanged();
-//
-//    }
-//
-//}

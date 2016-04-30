@@ -1,10 +1,24 @@
 package org.trakhound.www.trakhound.devices;
 
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.PeriodFormat;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.trakhound.www.trakhound.http.PostData;
 import org.trakhound.www.trakhound.http.Requests;
+
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
+
 
 /**
  * Created by Patrick on 4/28/2016.
@@ -24,6 +38,7 @@ public class DeviceStatus {
     public Boolean Production;
 
     public String ProductionStatus;
+    public String ProductionStatusDuration;
 
     public DeviceStatus() {
 
@@ -32,6 +47,7 @@ public class DeviceStatus {
         Production = false;
 
         ProductionStatus = "Default";
+        ProductionStatus = "00:00";
 
     }
 
@@ -40,7 +56,7 @@ public class DeviceStatus {
         DeviceStatus result = null;
 
         String url = "https://www.feenux.com/php/Retrieve.php";
-        String sql = "SELECT NAME,VALUE FROM " + device.DatabaseId + "_snapshots";
+        String sql = "SELECT * FROM " + device.DatabaseId + "_snapshots";
 
         PostData[] postDatas = new PostData[5];
         postDatas[0] = new PostData("server", "localhost");
@@ -80,7 +96,43 @@ public class DeviceStatus {
                     else if (address.equals(ADR_IDLE)) result.Idle = Boolean.parseBoolean(obj.getString("VALUE"));
                     else if (address.equals(ADR_PRODUCTION)) result.Production = Boolean.parseBoolean(obj.getString("VALUE"));
 
-                    else if (address.equals(ADR_PRODUCTION_STATUS)) result.ProductionStatus = obj.getString("VALUE");
+                    else if (address.equals(ADR_PRODUCTION_STATUS)) {
+                        result.ProductionStatus = obj.getString("VALUE");
+
+                        String startString = obj.getString("PREVIOUS_TIMESTAMP");
+                        String endString = obj.getString("TIMESTAMP");
+
+                        if (startString != null && endString != null) {
+
+                            DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+
+
+                            DateTime start = dateFormatter.parseDateTime(startString);
+                            DateTime end = dateFormatter.parseDateTime(endString);
+
+                            Period duration = new Period(start, end);
+
+//                            PeriodFormatter periodFormatter = new PeriodFormatterBuilder()
+//                                    .appendYears().appendSuffix(" year, ", " years, ")
+//                                    .appendMonths().appendSuffix(" month, ", " months, ")
+//                                    .appendWeeks().appendSuffix(" week, ", " weeks, ")
+//                                    .appendDays().appendSuffix(" day, ", " days, ")
+//                                    .appendHours().appendSuffix(" hour, ", " hours, ")
+//                                    .appendMinutes().appendSuffix(" minute, ", " minutes, ")
+//                                    .appendSeconds().appendSuffix(" second", " seconds")
+//                                    .printZeroNever()
+//                                    .toFormatter();
+
+
+                            String elapsed= String.format("%02d:%02d:%02d", duration.getHours(), duration.getMinutes(), duration.getSeconds());
+
+//                            String elapsed = PeriodFormat.getDefault().print(duration);
+                            result.ProductionStatusDuration = elapsed;
+
+                        } else result.ProductionStatusDuration = "00:00";
+
+                    }
+
 
                 }
 

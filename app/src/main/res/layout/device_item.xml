@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="100dp">
+
+    <View
+        android:id="@+id/statusIndicator"
+        android:layout_width="30dp"
+        android:layout_height="fill_parent"
+        android:background="@color/statusRed"
+        />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="#33000000"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/statusIndicator"
+        android:layout_toEndOf="@+id/statusIndicator" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="fill_parent"
+        android:id="@+id/AlertIcon"
+        android:src="@drawable/warning_01"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_marginLeft="5dp" />
+
+
+    <TextView
+        android:id="@+id/Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Device_Name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_toRightOf="@+id/statusIndicator"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/Manufacturer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#888"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Manufacturer"
+        android:textSize="10sp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_toRightOf="@+id/statusIndicator"
+        android:layout_marginTop="35dp"
+        android:layout_alignRight="@+id/Description"
+        android:layout_alignEnd="@+id/Description" />
+
+    <TextView
+        android:id="@+id/Model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#888"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Model"
+        android:textSize="10sp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_toRightOf="@+id/statusIndicator"
+        android:layout_marginTop="55dp"
+        android:layout_alignRight="@+id/Manufacturer"
+        android:layout_alignEnd="@+id/Manufacturer" />
+
+    <TextView
+        android:id="@+id/Serial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#888"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Serial"
+        android:textSize="10sp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_toRightOf="@+id/statusIndicator"
+        android:layout_marginTop="75dp"
+        android:layout_alignRight="@+id/Model"
+        android:layout_alignEnd="@+id/Model" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Status"
+        android:id="@+id/Status"
+        android:textColor="#333"
+        android:layout_alignBottom="@+id/Serial"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Device_Id"
+        android:id="@+id/DeviceID"
+        android:layout_alignTop="@+id/Description"
+        android:layout_alignRight="@+id/Status"
+        android:layout_alignEnd="@+id/Status"
+        android:textColor="#888" />
+
+
+    <!--Gloss Overlay-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#10000000" />
+
+    <!--Gloss Overlay-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#33000000" />
+
+
+</RelativeLayout>
