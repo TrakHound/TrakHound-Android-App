@@ -9,6 +9,8 @@ import org.json.JSONObject;
  */
 public class UserConfiguration {
 
+    public UserType Type;
+
     public String Username;
     public String FirstName;
     public String LastName;
@@ -22,6 +24,8 @@ public class UserConfiguration {
     public String Country;
     public String ZipCode;
     public String Image_Url;
+
+    public enum UserType { LOCAL, REMOTE }
 
     public static UserConfiguration Get(String json) {
 

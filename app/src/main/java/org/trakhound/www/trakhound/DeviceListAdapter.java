@@ -1,7 +1,6 @@
 package org.trakhound.www.trakhound;
 
 import android.content.Context;
-import android.opengl.Visibility;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.joda.time.Duration;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormat;
+import org.joda.time.format.PeriodFormatter;
 import org.trakhound.www.trakhound.devices.Device;
 
 import java.util.ArrayList;
@@ -43,22 +46,30 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         // Set the Status Indicator Color
         SetStatusIndicator(view, device);
 
+        // Set Production Status Info
+        SetProductionStatus(view, device);
+
         // Lookup view for data population
-        TextView tvDescription = (TextView) view.findViewById(R.id.Description);
-        TextView tvDeviceId = (TextView) view.findViewById(R.id.DeviceID);
-        TextView tvManufacturer = (TextView) view.findViewById(R.id.Manufacturer);
-        TextView tvModel = (TextView) view.findViewById(R.id.Model);
-        TextView tvSerial = (TextView) view.findViewById(R.id.Serial);
+        TextView description = (TextView) view.findViewById(R.id.Description);
+        TextView deviceId = (TextView) view.findViewById(R.id.DeviceId);
+        TextView manufacturer = (TextView) view.findViewById(R.id.Manufacturer);
+//        TextView model = (TextView) view.findViewById(R.id.Model);
+//        TextView serial = (TextView) view.findViewById(R.id.Serial);
+
+        // Images
+        ImageView logo = (ImageView) view.findViewById(R.id.ManufacturerLogo);
 
 
 //        TextView tvProductionStatus = (TextView) view.findViewById(R.id.ProductionStatus);
 
         // Populate the data into the template view using the data object
-        tvDescription.setText(device.Description);
-        tvDeviceId.setText(device.Device_Id);
-        tvManufacturer.setText(device.Manufacturer);
-        tvModel.setText(device.Model);
-        tvSerial.setText(device.Serial);
+        description.setText(device.Description);
+        deviceId.setText(device.Device_Id);
+        manufacturer.setText(device.Manufacturer);
+//        model.setText(device.Model);
+//        serial.setText(device.Serial);
+
+        logo.setImageBitmap(device.Logo);
 
 //        tvProductionStatus.setText(device.Status.ProductionStatus);
 
@@ -69,12 +80,8 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
 
     private void SetStatusIndicator(View view, Device device) {
 
-        View statusIndicator = (View) view.findViewById(R.id.statusIndicator);
+        View statusIndicator = view.findViewById(R.id.statusIndicator);
         ImageView alertIcon = (ImageView) view.findViewById(R.id.AlertIcon);
-
-        TextView tvStatus = (TextView) view.findViewById(R.id.Status);
-        String status = device.Status.ProductionStatus + " " + device.Status.ProductionStatusDuration;
-        tvStatus.setText(status);
 
         if (device.Status.Alert) {
             statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusRed));
@@ -85,7 +92,26 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
             if (device.Status.Idle) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusYellow));
             else if (device.Status.Production) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusGreen));
         }
-
     }
 
+    private void SetProductionStatus(View view, Device device) {
+
+        // Set Production Status
+        TextView productionStatus = (TextView) view.findViewById(R.id.ProductionStatus);
+        String status = device.Status.ProductionStatus;
+        productionStatus.setText(status);
+
+        // Set Production Status Duration
+        TextView productionStatusTimer = (TextView) view.findViewById(R.id.ProductionStatusTimer);
+        String statusTimer = device.Status.ProductionStatusTimer;
+        if (statusTimer != null && statusTimer.length() > 0) {
+
+            int seconds = Integer.parseInt(statusTimer);
+
+            Period period = new Period(seconds * 1000);
+            String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
+
+            productionStatusTimer.setText(statusPeriod);
+        }
+    }
 }

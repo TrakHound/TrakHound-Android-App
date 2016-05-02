@@ -1,5 +1,8 @@
 package org.trakhound.www.trakhound.http;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.BufferedReader;
 import java.net.HttpURLConnection;
 import java.io.IOException;
@@ -25,6 +28,26 @@ public class Requests {
     public static String get (String url) {
 
         return runRequest(url, null, GET);
+    }
+
+    public static Bitmap getImage(String url) {
+
+        try {
+
+            HttpURLConnection conn = getConnection(url, GET);
+
+            InputStream input = conn.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+
+            conn.disconnect();
+
+            return bitmap;
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
@@ -61,7 +84,6 @@ public class Requests {
         return result;
     }
 
-
     private static String runRequest(String url, PostData[] postDatas, String method) {
 
         String result = null;
@@ -70,6 +92,32 @@ public class Requests {
         String postData = formatPostData(postDatas);
 
         InputStream stream = null;
+
+        try {
+
+            HttpURLConnection conn = getConnection(url, method);
+            if (conn != null) {
+
+                if (postData != null) {
+                    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                    wr.write( postData );
+                    wr.flush();
+                    wr.close();
+                }
+
+                stream = conn.getInputStream();
+                result = readTextStream(stream);
+
+                conn.disconnect();
+            }
+        }
+        catch(Exception e) { e.printStackTrace(); }
+
+        return result;
+    }
+
+    private static HttpURLConnection getConnection(String url, String method) {
 
         try {
 
@@ -86,26 +134,15 @@ public class Requests {
 
             conn.connect();
 
-            if (postData != null) {
-                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            return conn;
 
-                wr.write( postData );
-                wr.flush();
-                wr.close();
-            }
-
-            stream = conn.getInputStream();
-            result = readStream(stream);
-
-            conn.disconnect();
         }
         catch(Exception e) { e.printStackTrace(); }
 
-        return result;
+        return null;
     }
 
-
-    private static String readStream(InputStream stream) throws IOException {
+    private static String readTextStream(InputStream stream) throws IOException {
 
         String result = null;
 

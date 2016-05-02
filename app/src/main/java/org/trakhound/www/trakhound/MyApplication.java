@@ -7,7 +7,9 @@ import org.trakhound.www.trakhound.devices.Device;
  */
 public class MyApplication extends android.app.Application {
 
-    public Boolean loggedIn;
+    public Boolean LoggedIn;
+
+    public UserConfiguration User;
 
     public Device[] Devices;
 

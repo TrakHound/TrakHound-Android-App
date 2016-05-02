@@ -1,46 +1,30 @@
-package org.trakhound.www.trakhound;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-
-import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.os.Looper;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+package org.trakhound.www.trakhound.devices;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.os.Handler;
-
-import java.lang.Object;
-import android.content.Intent;
-
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
-import org.trakhound.www.trakhound.devices.Device;
+import org.trakhound.www.trakhound.DeviceListActivity;
+import org.trakhound.www.trakhound.MainActivity;
+import org.trakhound.www.trakhound.MyApplication;
+import org.trakhound.www.trakhound.UserConfiguration;
+import org.trakhound.www.trakhound.UserManagement;
 
-public class SigninActivity extends AsyncTask<String,Void,Device[]> {
+import java.lang.reflect.AccessibleObject;
+
+public class GetDeviceActivity extends AsyncTask<String,Void,Device[]> {
 
     private Context context;
     private TextView errorText;
     private ProgressDialog progressDialog;
 
-    public SigninActivity(Context context, TextView errorText, ProgressDialog progressDialog) {
+    public GetDeviceActivity(Context context) {
 
         this.context = context;
         this.errorText = errorText;
@@ -75,9 +59,7 @@ public class SigninActivity extends AsyncTask<String,Void,Device[]> {
 
         if (devices != null) {
 
-            errorText.setVisibility(View.INVISIBLE);
-
-            ((MyApplication)(((MainActivity)context).getApplication())).LoggedIn = true;
+//            ((MyApplication)((Activity)context.getApplication())).LoggedIn = true;
 
             ((MyApplication)(((MainActivity)context).getApplication())).Devices = devices;
 

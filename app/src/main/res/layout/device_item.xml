@@ -16,7 +16,8 @@
         android:background="#33000000"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/statusIndicator"
-        android:layout_toEndOf="@+id/statusIndicator" />
+        android:layout_toEndOf="@+id/statusIndicator"
+        android:id="@+id/StatusIndicatorBorder" />
 
     <ImageView
         android:layout_width="20dp"
@@ -28,6 +29,28 @@
         android:layout_alignParentStart="false"
         android:layout_marginLeft="5dp" />
 
+    <!--Manufacturer Logo-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:id="@+id/ManufacturerLogo"
+        android:layout_gravity="start"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/StatusIndicatorBorder"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ID"
+        android:id="@+id/DeviceId"
+        android:textSize="16dp"
+        android:textColor="#888"
+        android:layout_below="@+id/Manufacturer"
+        android:layout_alignLeft="@+id/Manufacturer"
+        android:layout_alignStart="@+id/Manufacturer" />
 
     <TextView
         android:id="@+id/Description"
@@ -37,12 +60,11 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="Device_Name"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_toRightOf="@+id/statusIndicator"
-        android:layout_marginTop="10dp" />
+        android:layout_toRightOf="@+id/StatusIndicatorBorder"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="35dp" />
 
     <TextView
         android:id="@+id/Manufacturer"
@@ -52,69 +74,38 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="Manufacturer"
-        android:textSize="10sp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_toRightOf="@+id/statusIndicator"
-        android:layout_marginTop="35dp"
-        android:layout_alignRight="@+id/Description"
-        android:layout_alignEnd="@+id/Description" />
+        android:textSize="12dp"
+        android:layout_alignLeft="@+id/Description"
+        android:layout_alignStart="@+id/Description"
+        android:layout_below="@+id/Description" />
 
-    <TextView
-        android:id="@+id/Model"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#888"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:text="Model"
-        android:textSize="10sp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_toRightOf="@+id/statusIndicator"
-        android:layout_marginTop="55dp"
-        android:layout_alignRight="@+id/Manufacturer"
-        android:layout_alignEnd="@+id/Manufacturer" />
-
-    <TextView
-        android:id="@+id/Serial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#888"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:text="Serial"
-        android:textSize="10sp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_toRightOf="@+id/statusIndicator"
-        android:layout_marginTop="75dp"
-        android:layout_alignRight="@+id/Model"
-        android:layout_alignEnd="@+id/Model" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Status"
-        android:id="@+id/Status"
+        android:text="Production Status"
+        android:id="@+id/ProductionStatus"
+        android:textSize="18dp"
         android:textColor="#333"
-        android:layout_alignBottom="@+id/Serial"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp" />
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Device_Id"
-        android:id="@+id/DeviceID"
-        android:layout_alignTop="@+id/Description"
-        android:layout_alignRight="@+id/Status"
-        android:layout_alignEnd="@+id/Status"
-        android:textColor="#888" />
+        android:text="00:00"
+        android:id="@+id/ProductionStatusTimer"
+        android:textSize="20dp"
+        android:textColor="#333"
+
+        android:layout_below="@+id/ProductionStatus"
+        android:layout_alignRight="@+id/ProductionStatus"
+        android:layout_alignEnd="@+id/ProductionStatus" />
 
 
     <!--Gloss Overlay-->
@@ -122,14 +113,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="#10000000" />
+        android:background="#10000000"
+        android:id="@+id/view" />
 
-    <!--Gloss Overlay-->
+    <!--Bottom Border-->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
         android:background="#33000000" />
-
 
 </RelativeLayout>

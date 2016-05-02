@@ -43,35 +43,34 @@ public class StatusHandler implements Runnable {
 
             try
             {
+                UserConfiguration user = ((MyApplication)(((DeviceListActivity)context).getApplication())).User;
                 Device[] devices = ((MyApplication)(((DeviceListActivity)context).getApplication())).Devices;
-                if (devices != null && devices.length > 0) {
+                if (user != null && devices != null) {
 
-                    for (int i = 0; i < devices.length; i++) {
+                    DeviceStatus[] statuses = DeviceStatus.get(user);
+                    if (statuses != null) {
 
-                        DeviceStatus status = DeviceStatus.get(devices[i]);
-                        if (status != null) devices[i].Status = status;
+                        for (int i = 0; i < statuses.length; i++) {
 
+                            for (int x = 0; x < devices.length; x++) {
+
+                                if (statuses[i].UniqueId != null &&
+                                    devices[x].UniqueId != null &&
+                                    statuses[i].UniqueId.equals(devices[x].UniqueId)) {
+
+                                    devices[x].Status = statuses[i];
+                                }
+                            }
+                        }
                     }
                 }
 
                 ((DeviceListActivity) context).updateStatus("test");
 
+                Thread.sleep(2000);
 
-                Thread.sleep(5000);
-
-            } catch (InterruptedException ex) { }
-
+            } catch (Exception ex) { }
         }
-
-
-
-
-
-
-
-//        handler.postDelayed(new StatusHandler(context, handler), 5000);
-//        handler.postDelayed(this, 5000);
-
     }
 
 }
