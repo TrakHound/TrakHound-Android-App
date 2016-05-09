@@ -7,14 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.joda.time.Duration;
+import java.util.ArrayList;
 import org.joda.time.Period;
-import org.joda.time.format.PeriodFormat;
-import org.joda.time.format.PeriodFormatter;
+
 import org.trakhound.www.trakhound.devices.Device;
 
-import java.util.ArrayList;
 
 /**
  * Created by Patrick on 4/28/2016.
@@ -28,7 +25,6 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         super(context, 0, devices);
 
         this.context = context;
-
     }
 
 
@@ -40,7 +36,8 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.device_item, parent, false);
+//            view = LayoutInflater.from(getContext()).inflate(R.layout.device_item, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.activity_device_list_item, parent, false);
         }
 
         // Set the Status Indicator Color
@@ -53,25 +50,17 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         TextView description = (TextView) view.findViewById(R.id.Description);
         TextView deviceId = (TextView) view.findViewById(R.id.DeviceId);
         TextView manufacturer = (TextView) view.findViewById(R.id.Manufacturer);
-//        TextView model = (TextView) view.findViewById(R.id.Model);
-//        TextView serial = (TextView) view.findViewById(R.id.Serial);
 
         // Images
         ImageView logo = (ImageView) view.findViewById(R.id.ManufacturerLogo);
-
-
-//        TextView tvProductionStatus = (TextView) view.findViewById(R.id.ProductionStatus);
+        ImageView image = (ImageView) view.findViewById(R.id.DeviceImage);
 
         // Populate the data into the template view using the data object
         description.setText(device.Description);
         deviceId.setText(device.Device_Id);
         manufacturer.setText(device.Manufacturer);
-//        model.setText(device.Model);
-//        serial.setText(device.Serial);
-
         logo.setImageBitmap(device.Logo);
-
-//        tvProductionStatus.setText(device.Status.ProductionStatus);
+        image.setImageBitmap(device.Image);
 
         // Return the completed view to render on screen
         return view;
@@ -80,7 +69,7 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
 
     private void SetStatusIndicator(View view, Device device) {
 
-        View statusIndicator = view.findViewById(R.id.statusIndicator);
+        View statusIndicator = view.findViewById(R.id.StatusIndicator);
         ImageView alertIcon = (ImageView) view.findViewById(R.id.AlertIcon);
 
         if (device.Status.Alert) {

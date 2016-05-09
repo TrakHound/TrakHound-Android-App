@@ -1,9 +1,5 @@
 package org.trakhound.www.trakhound.devices;
 
-import org.joda.time.DateTime;
-import org.joda.time.Period;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,44 +111,12 @@ public class DeviceStatus {
                     if (name.equals(ADR_PRODUCTION_STATUS)) {
 
                         result.ProductionStatus = obj.getString(VALUE);
-
                     }
 
                     if (name.equals(ADR_PRODUCTION_STATUS_TIMER)) {
 
                         result.ProductionStatusTimer = obj.getString(VALUE);
-
                     }
-
-//                    if (address.equals(ADR_ALERT)) result.Alert = Boolean.parseBoolean(obj.getString("VALUE"));
-//                    else if (address.equals(ADR_IDLE)) result.Idle = Boolean.parseBoolean(obj.getString("VALUE"));
-//                    else if (address.equals(ADR_PRODUCTION)) result.Production = Boolean.parseBoolean(obj.getString("VALUE"));
-
-
-
-
-//                    else if (address.equals(ADR_PRODUCTION_STATUS)) {
-//                        result.ProductionStatus = obj.getString("VALUE");
-//
-//                        String startString = obj.getString("PREVIOUS_TIMESTAMP");
-//                        String endString = obj.getString("TIMESTAMP");
-//
-//                        if (startString != null && endString != null) {
-//
-//                            DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-//
-//
-//                            DateTime start = dateFormatter.parseDateTime(startString);
-//                            DateTime end = dateFormatter.parseDateTime(endString);
-//
-//                            Period duration = new Period(start, end);
-//
-//                            String elapsed= String.format("%02d:%02d:%02d", duration.getHours(), duration.getMinutes(), duration.getSeconds());
-//
-//                            result.ProductionStatusDuration = elapsed;
-//
-//                        } else result.ProductionStatusDuration = "00:00";
-//                    }
                 }
             }
             catch (JSONException ex) { ex.getStackTrace(); }

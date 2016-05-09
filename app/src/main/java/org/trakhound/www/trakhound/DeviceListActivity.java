@@ -1,5 +1,7 @@
 package org.trakhound.www.trakhound;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,12 +22,14 @@ import org.trakhound.www.trakhound.devices.Device;
 
 public class DeviceListActivity extends AppCompatActivity {
 
-    private ListView deviceListView;
+    public ListView deviceListView;
     public DeviceListAdapter listAdapter;
 
     Handler statusH = new Handler();
 
     Thread statusThread;
+
+    Context context;
 
 
     public void updateStatus(String msg) {
@@ -38,7 +44,8 @@ public class DeviceListActivity extends AppCompatActivity {
 
                     listAdapter.notifyDataSetChanged();
 
-                } catch (Exception ex) { }
+                } catch (Exception ex) {
+                }
             }
         });
 
@@ -49,6 +56,8 @@ public class DeviceListActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
+
+        context = this;
 
         Log.d("test", "onCreate");
 
@@ -108,7 +117,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
         super.onDestroy();
 
-        Log.d("test","onDestroy");
+        Log.d("test", "onDestroy");
     }
 
 
@@ -121,6 +130,21 @@ public class DeviceListActivity extends AppCompatActivity {
         // Set local variable to Id of ListView in layout
         deviceListView = (ListView) findViewById(R.id.device_list);
 
+        // Set onClick listener
+        deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                Intent intent = new Intent(context, DeviceDetailsActivity.class);
+
+                // Pass the index of the device in the MyApplication.Devices array
+                intent.putExtra(DeviceDetailsActivity.DEVICE_INDEX, position);
+
+                context.startActivity(intent);
+            }
+        });
+
         // Add each device found in static Devices array
         Device[] devices = ((MyApplication) this.getApplication()).Devices;
         if (devices != null && devices.length > 0) {
@@ -129,9 +153,11 @@ public class DeviceListActivity extends AppCompatActivity {
             // Initialize ArrayAdapter
             listAdapter = new DeviceListAdapter(this, deviceList);
 
+
             for (int i = 0; i < devices.length; i++) {
 
                 Device device = devices[i];
+//                if (device.Enabled) listAdapter.add(device);
                 listAdapter.add(device);
             }
         }

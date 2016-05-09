@@ -89,7 +89,6 @@ public class SigninActivity extends AsyncTask<String,Void,Device[]> {
             errorText.setVisibility(View.VISIBLE);
 
             ((MyApplication)(((MainActivity)context).getApplication())).LoggedIn = false;
-
         }
 
         progressDialog.dismiss();

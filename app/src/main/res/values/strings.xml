@@ -16,5 +16,9 @@
     <string name="title_activity_signin">SigninActivity</string>
     <string name="title_activity_device_list">DeviceListActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_device_list_item">DeviceListItemActivity</string>
+    <string name="title_devicedetailsactivity_list">Items</string>
+    <string name="title_devicedetailsactivity_detail">DeviceDetailsActivity Detail</string>
+    <string name="title_activity_device_details">DeviceDetailsActivity</string>
 
 </resources>
