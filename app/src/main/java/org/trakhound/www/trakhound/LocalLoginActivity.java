@@ -54,7 +54,7 @@ public class LocalLoginActivity extends AppCompatActivity {
 
         ProgressDialog progress = new ProgressDialog(this);
 
-        new SigninActivity(this, errorLabel, progress).execute(id, null);
+        new Login(this, errorLabel, progress).execute(id, null);
 
         progress.setTitle("Logging In");
         progress.setMessage("Wait while loading...");

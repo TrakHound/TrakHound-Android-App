@@ -6,13 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
 
 public class UserLoginActivity extends AppCompatActivity {
 
     private EditText usernameText;
     private EditText passwordText;
+    private CheckBox rememberCHKBX;
     private TextView errorLabel;
 
     @Override
@@ -27,6 +30,7 @@ public class UserLoginActivity extends AppCompatActivity {
         // Assign EditTexts to local variables
         usernameText = (EditText)findViewById(R.id.UsernameText);
         passwordText = (EditText)findViewById(R.id.PasswordText);
+        rememberCHKBX = (CheckBox)findViewById(R.id.RememberCHKBX);
 
         // Assign TextViews local variable
         errorLabel = (TextView)findViewById(R.id.ErrorLabel);
@@ -55,13 +59,26 @@ public class UserLoginActivity extends AppCompatActivity {
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
 
+//        String remember = "false";
+        Boolean r = rememberCHKBX.isChecked();
+//        if (r) remember = "true";
+
         ProgressDialog progress = new ProgressDialog(this);
 
-        new SigninActivity(this, errorLabel, progress).execute(username, password);
+        if (r) {
 
+            String senderId = UserManagement.getSenderId();
 
-        progress.setTitle("Logging In");
-        progress.setMessage("Wait while loading...");
+            // Create Token Login
+            new Login(this, errorLabel, progress).execute(username, password, senderId);
+        } else {
+
+            // Basic Login
+            new Login(this, errorLabel, progress).execute(username, password);
+        }
+
+        progress.setTitle("Logging In " + username);
+        progress.setMessage("Please Wait...");
         progress.show();
     }
 }

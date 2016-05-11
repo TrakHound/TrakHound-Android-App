@@ -1,9 +1,8 @@
 package org.trakhound.www.trakhound;
 
-import android.graphics.Color;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.content.Intent;
 
@@ -16,26 +15,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Setup Toolbar/ActionBar
-        SetToolbar();
+        UserManagement.context = getApplicationContext();
+
+        // Attempt to login using saved credentials
+        login();
     }
 
-    private void SetToolbar() {
+    private void login() {
 
-        // Set Toolbar
-        Toolbar trakhoundToolbar = (Toolbar) findViewById(R.id.TrakhoundToolbar);
+        String token = UserManagement.getRememberToken();
+        if (token != null) {
 
-        // Set Title
-        trakhoundToolbar.setTitle(R.string.app_name);
-        trakhoundToolbar.setTitleTextColor(Color.WHITE);
+            ProgressDialog progress = new ProgressDialog(this);
 
-        // Set Icon
-        trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
+            new Login(this, null, progress).execute(token);
 
-        // Set Navigation Button Icon
-        //trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
-
-        setSupportActionBar(trakhoundToolbar);
+            progress.setTitle("Logging In");
+            progress.setMessage("Wait while loading...");
+            progress.show();
+        }
     }
 
     public void userLogin(View view){

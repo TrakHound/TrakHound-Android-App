@@ -1,23 +1,13 @@
 package org.trakhound.www.trakhound;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
-import android.os.Message;
-import android.text.Layout;
-import android.util.Log;
-import android.widget.TextView;
 
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.devices.DeviceStatus;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Created by Patrick on 4/28/2016.
@@ -32,7 +22,6 @@ public class StatusHandler implements Runnable {
 
         this.context = context;
         this.handler = handler;
-
     }
 
 
@@ -43,34 +32,59 @@ public class StatusHandler implements Runnable {
 
             try
             {
-                UserConfiguration user = ((MyApplication)(((DeviceListActivity)context).getApplication())).User;
-                Device[] devices = ((MyApplication)(((DeviceListActivity)context).getApplication())).Devices;
-                if (user != null && devices != null) {
+                boolean connected = isNetworkConnected();
 
-                    DeviceStatus[] statuses = DeviceStatus.get(user);
-                    if (statuses != null) {
+                // Only run if connected to Wifi or Ethernet
+                if (connected) {
 
-                        for (int i = 0; i < statuses.length; i++) {
+                    UserConfiguration user = ((MyApplication) (((DeviceListActivity) context).getApplication())).User;
+                    Device[] devices = ((MyApplication) (((DeviceListActivity) context).getApplication())).Devices;
+                    if (user != null && devices != null) {
 
-                            for (int x = 0; x < devices.length; x++) {
+                        DeviceStatus[] statuses = DeviceStatus.get(user);
+                        if (statuses != null) {
 
-                                if (statuses[i].UniqueId != null &&
-                                    devices[x].UniqueId != null &&
-                                    statuses[i].UniqueId.equals(devices[x].UniqueId)) {
+                            for (int i = 0; i < statuses.length; i++) {
 
-                                    devices[x].Status = statuses[i];
+                                for (int x = 0; x < devices.length; x++) {
+
+                                    if (statuses[i].UniqueId != null &&
+                                            devices[x].UniqueId != null &&
+                                            statuses[i].UniqueId.equals(devices[x].UniqueId)) {
+
+                                        devices[x].Status = statuses[i];
+                                    }
                                 }
                             }
                         }
                     }
+
+                    ((DeviceListActivity) context).updateStatus("test");
                 }
 
-                ((DeviceListActivity) context).updateStatus("test");
+                ((DeviceListActivity) context).updateConnectionStatus(connected);
 
                 Thread.sleep(2000);
 
             } catch (Exception ex) { }
         }
+    }
+
+    private boolean isNetworkConnected() {
+
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        boolean isConnected;
+
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) isConnected = true;
+        else isConnected = false;
+
+        boolean isWifi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+        boolean isEthernet = activeNetwork.getType() == ConnectivityManager.TYPE_ETHERNET;
+
+        return isConnected && (isWifi || isEthernet);
     }
 
 }

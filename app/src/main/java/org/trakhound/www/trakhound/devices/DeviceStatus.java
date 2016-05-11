@@ -47,7 +47,7 @@ public class DeviceStatus {
 
     public static DeviceStatus[] get(UserConfiguration userConfig) {
 
-        String url = "https://www.feenux.com/php/mobile/get.php";
+        String url = "https://www.feenux.com/trakhound/api/mobile/get/";
 
         PostData[] postDatas = new PostData[1];
         postDatas[0] = new PostData("user_id", userConfig.Username);

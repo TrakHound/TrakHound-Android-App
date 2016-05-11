@@ -1,28 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context="org.trakhound.www.trakhound.MainActivity">
+    tools:context="org.trakhound.www.trakhound.MainActivity"
+    android:background="@drawable/activity_background_gradient">
 
-    <!--TrakHound Toolbar-->
-    <android.support.v7.widget.Toolbar
-    android:id="@+id/TrakhoundToolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@drawable/trakhound_toolbar"
-    android:elevation="4dp"
-    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    android:clickable="false" />
+    <!--&lt;!&ndash;TrakHound Toolbar&ndash;&gt;-->
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/TrakhoundToolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:background="@drawable/trakhound_toolbar"-->
+    <!--android:elevation="4dp"-->
+    <!--android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
+    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+    <!--android:clickable="false" />-->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp">
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/trakhound_logo_dark"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login to TrakHound to view your devices"
+        android:id="@+id/textView"
+        android:layout_below="@+id/imageView"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginBottom="40dp">
 
         <Button
             android:text="User Login"
@@ -56,3 +84,5 @@
     </LinearLayout>
 
 </RelativeLayout>
+
+</FrameLayout>

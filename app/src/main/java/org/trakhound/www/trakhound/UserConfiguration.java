@@ -1,6 +1,8 @@
 package org.trakhound.www.trakhound;
 
-import org.json.JSONArray;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,6 +26,10 @@ public class UserConfiguration {
     public String Country;
     public String ZipCode;
     public String Image_Url;
+    public DateTime LastLogin;
+    public String PlanType;
+
+    public String RememberToken;
 
     public enum UserType { LOCAL, REMOTE }
 
@@ -32,28 +38,39 @@ public class UserConfiguration {
         UserConfiguration result = null;
 
         try {
-            JSONArray a = new JSONArray(json);
 
-            if (a.length() > 0) {
-                JSONObject root = a.getJSONObject(0);
+            JSONObject root = new JSONObject(json);
 
-                result = new UserConfiguration();
+            result = new UserConfiguration();
 
-                result.Username = root.getString("username");
+            result.Username = root.getString("username");
 
-                result.FirstName = root.optString("firstName");
-                result.LastName = root.optString("lastName");
-                result.Company = root.optString("company");
-                result.Email = root.optString("email");
-                result.Phone = root.optString("phone");
-                result.Address1 = root.optString("address1");
-                result.Address2 = root.optString("address2");
-                result.City = root.optString("city");
-                result.State = root.optString("state");
-                result.Country = root.optString("country");
-                result.ZipCode = root.optString("zipcode");
-                result.Image_Url = root.optString("image_url");
+            result.FirstName = root.optString("firstName");
+            result.LastName = root.optString("lastName");
+            result.Company = root.optString("company");
+            result.Email = root.optString("email");
+            result.Phone = root.optString("phone");
+            result.Address1 = root.optString("address1");
+            result.Address2 = root.optString("address2");
+            result.City = root.optString("city");
+            result.State = root.optString("state");
+            result.Country = root.optString("country");
+            result.ZipCode = root.optString("zipcode");
+            result.Image_Url = root.optString("imageUrl");
+
+            String lastLogin = root.optString("lastLogin");
+            if (lastLogin != null) {
+
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+                result.LastLogin = formatter.parseDateTime(lastLogin);
             }
+
+            String planType = root.optString("planType");
+            if (planType.equals("0")) result.PlanType = "Basic";
+            else if (planType.equals("1")) result.PlanType = "Pro";
+
+
+            result.RememberToken = root.optString("token");
 
         } catch (JSONException e) { e.printStackTrace(); }
 

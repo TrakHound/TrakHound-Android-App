@@ -1,5 +1,6 @@
 package org.trakhound.www.trakhound;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,11 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
 import org.trakhound.www.trakhound.devices.Device;
+import org.trakhound.www.trakhound.devices.GetDeviceStatus;
+import org.trakhound.www.trakhound.devices.GetDevices;
 
 public class DeviceListActivity extends AppCompatActivity {
 
@@ -31,25 +32,8 @@ public class DeviceListActivity extends AppCompatActivity {
 
     Context context;
 
+    Toolbar toolbar;
 
-    public void updateStatus(String msg) {
-
-        final String str = msg;
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-
-                    listAdapter.notifyDataSetChanged();
-
-                } catch (Exception ex) {
-                }
-            }
-        });
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +46,84 @@ public class DeviceListActivity extends AppCompatActivity {
         Log.d("test", "onCreate");
 
         // Setup Toolbar/ActionBar
-        SetToolbar();
+        setToolbar();
 
-        AddDevices();
 
-        // Start Status Updates on separate thread
-        StatusHandler statusHandler = new StatusHandler(this, statusH);
-        statusThread = new Thread(statusHandler);
-        statusThread.start();
+        Device[] devices = ((MyApplication) this.getApplication()).Devices;
+        if (devices == null) {
+
+            Log.d("test", "devices == null");
+
+            loadDevices();
+        } else {
+
+            Log.d("test", "devices != null");
+
+            addDevices();
+        }
     }
+
+    private void loadDevices() {
+
+        ProgressDialog progress = new ProgressDialog(this);
+
+        new GetDevices(this, progress).execute();
+
+        progress.setTitle("Loading Devices");
+        progress.setMessage("Please Wait...");
+        progress.show();
+    }
+
+    private void refreshStatus() {
+
+        ProgressDialog progress = new ProgressDialog(this);
+
+        new GetDeviceStatus(this, progress).execute();
+
+        progress.setTitle("Refreshing");
+        progress.setMessage("Please Wait...");
+        progress.show();
+    }
+
+    public void updateStatus(String msg) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+            try {
+
+                listAdapter.notifyDataSetChanged();
+
+            } catch (Exception ex) {
+            }
+            }
+        });
+    }
+
+    public void updateConnectionStatus(boolean connected) {
+
+        final boolean c = connected;
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+            try {
+
+                // Hide Refresh button if connected to Wifi or Ethernet
+                View refreshBT = toolbar.findViewById(R.id.action_refresh);
+                if (refreshBT != null) {
+                    if (c) refreshBT.setVisibility(View.INVISIBLE);
+                    else refreshBT.setVisibility(View.VISIBLE);
+                }
+
+            } catch (Exception ex) { }
+            }
+        });
+    }
+
+
 
     @Override
     protected void onResume() {
@@ -125,7 +178,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
 
 
-    private void AddDevices() {
+    public void addDevices() {
 
         // Set local variable to Id of ListView in layout
         deviceListView = (ListView) findViewById(R.id.device_list);
@@ -153,11 +206,9 @@ public class DeviceListActivity extends AppCompatActivity {
             // Initialize ArrayAdapter
             listAdapter = new DeviceListAdapter(this, deviceList);
 
-
             for (int i = 0; i < devices.length; i++) {
 
                 Device device = devices[i];
-//                if (device.Enabled) listAdapter.add(device);
                 listAdapter.add(device);
             }
         }
@@ -165,50 +216,63 @@ public class DeviceListActivity extends AppCompatActivity {
         // Set the ArrayAdapter as the ListView's adapter.
         deviceListView.setAdapter(listAdapter);
 
+        if (statusThread == null) startStatusThread();
     }
 
-    private void SetToolbar() {
+    private void startStatusThread() {
+
+        // Start Status Updates on separate thread
+        StatusHandler statusHandler = new StatusHandler(this, statusH);
+        statusThread = new Thread(statusHandler);
+        statusThread.start();
+    }
+
+
+
+    private void setToolbar() {
 
         // Set Toolbar
         Toolbar trakhoundToolbar = (Toolbar) findViewById(R.id.TrakhoundToolbar);
 
         // Set Title
-        trakhoundToolbar.setTitle(R.string.app_name);
+        trakhoundToolbar.setTitle("Device List");
         trakhoundToolbar.setTitleTextColor(Color.WHITE);
 
         // Set Icon
         trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
 
 
-
         // Set Navigation Button Icon
-        trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
+        //trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
+
+        toolbar = trakhoundToolbar;
 
         setSupportActionBar(trakhoundToolbar);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            // action with ID action_refresh was selected
-//            case R.id.action_refresh:
-//
-////                Device.readAll()
-//
-//                break;
-//
-//            default:
-//                break;
-//        }
-//
-//        return true;
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()) {
+           // action with ID action_refresh was selected
+           case R.id.action_refresh:
+
+               refreshStatus();
+
+               break;
+
+           default:
+               break;
+       }
+
+       return true;
+    }
 
 }

@@ -40,7 +40,6 @@ public class Device {
     public DeviceStatus Status;
 
     public String UniqueId;
-
     public Boolean Enabled;
 
     // Description
@@ -69,7 +68,7 @@ public class Device {
 
         Device[] result = null;
 
-        String url = "https://www.feenux.com/php/mobile/get.php";
+        String url = "https://www.feenux.com/trakhound/api/mobile/get/";
 
         PostData[] postDatas = new PostData[1];
         postDatas[0] = new PostData("user_id", userConfig.Username);
@@ -155,7 +154,6 @@ public class Device {
             if (logo != null) {
 
                 device.Logo = logo;
-
             }
         }
     }
@@ -170,7 +168,6 @@ public class Device {
             if (img != null) {
 
                 device.Image = img;
-
             }
         }
     }
