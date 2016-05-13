@@ -17,33 +17,187 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="57dp">
 
-        <View
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_alignParentBottom="true"
-            android:background="#FF0000" />
+            android:layout_height="150dp">
 
-        <View
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#00FF00"
+                android:id="@+id/StatusBanner" />
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="175dp"
+                android:id="@+id/DeviceImage"
+                android:layout_gravity="right"
+                android:layout_marginRight="-60dp"
+                android:layout_marginTop="10dp"
+                android:alpha="0.8" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/details_banner_background" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/AlertIndicator"
+                android:layout_gravity="bottom|top"
+                android:src="@drawable/warning_01"
+                android:alpha="0.8" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#888888" />
+            android:layout_height="match_parent"
+            android:background="@drawable/activity_background_gradient">
 
-        <TextView
-            android:id="@+id/Description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#333"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#888888" />
 
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:text="Device_Description"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_alignLeft="@+id/Slide"
-            android:textAlignment="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DeviceLogo"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:id="@+id/DescriptionLayout">
+
+                <TextView
+                    android:id="@+id/Description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:text="[Device Description]"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_alignLeft="@+id/Slide"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Controller"
+                    android:id="@+id/textView2"
+                    android:textSize="14dp"
+                    android:textColor="#888"
+                    android:layout_below="@+id/Serial"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Serial"
+                    android:id="@+id/textView3"
+                    android:textSize="14dp"
+                    android:textColor="#888"
+                    android:layout_below="@+id/Model"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Model"
+                    android:id="@+id/textView7"
+                    android:textSize="14dp"
+                    android:textColor="#888"
+                    android:layout_below="@+id/Manufacturer"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Manufacturer"
+                    android:id="@+id/textView8"
+                    android:layout_below="@+id/Description"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14dp"
+                    android:textColor="#888" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="[Manufacturer]"
+                    android:id="@+id/Manufacturer"
+                    android:textColor="#333"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/textView8"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="[Controller]"
+                    android:id="@+id/Controller"
+                    android:textColor="#333"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/textView2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="[Serial]"
+                    android:id="@+id/Serial"
+                    android:textColor="#333"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/textView3"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="[Model]"
+                    android:id="@+id/Model"
+                    android:textColor="#333"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/textView7"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="10dp" />
+
+            </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
