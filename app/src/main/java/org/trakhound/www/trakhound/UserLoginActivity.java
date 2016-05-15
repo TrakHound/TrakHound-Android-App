@@ -25,7 +25,7 @@ public class UserLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_login);
 
         // Setup Toolbar/ActionBar
-        SetToolbar();
+        setToolbar();
 
         // Assign EditTexts to local variables
         usernameText = (EditText)findViewById(R.id.UsernameText);
@@ -36,7 +36,7 @@ public class UserLoginActivity extends AppCompatActivity {
         errorLabel = (TextView)findViewById(R.id.ErrorLabel);
     }
 
-    private void SetToolbar() {
+    private void setToolbar() {
 
         // Set Toolbar
         Toolbar trakhoundToolbar = (Toolbar) findViewById(R.id.TrakhoundToolbar);
@@ -49,7 +49,7 @@ public class UserLoginActivity extends AppCompatActivity {
         trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
 
         // Set Navigation Button Icon
-        trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
+//        trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
 
         setSupportActionBar(trakhoundToolbar);
     }
@@ -59,9 +59,7 @@ public class UserLoginActivity extends AppCompatActivity {
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
 
-//        String remember = "false";
         Boolean r = rememberCHKBX.isChecked();
-//        if (r) remember = "true";
 
         ProgressDialog progress = new ProgressDialog(this);
 

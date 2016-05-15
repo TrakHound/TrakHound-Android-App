@@ -1,6 +1,7 @@
 package org.trakhound.www.trakhound;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +42,13 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         }
 
         // Set the Status Indicator Color
-        SetStatusIndicator(view, device);
+        setStatusIndicator(view, device);
 
         // Set Production Status Info
-        SetProductionStatus(view, device);
+        setProductionStatus(view, device);
+
+        // Set OEE Status Info
+        setOEEStatus(view, device);
 
         // Lookup view for data population
         TextView description = (TextView) view.findViewById(R.id.Description);
@@ -67,7 +71,7 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
     }
 
 
-    private void SetStatusIndicator(View view, Device device) {
+    private void setStatusIndicator(View view, Device device) {
 
         View statusIndicator = view.findViewById(R.id.StatusIndicator);
         ImageView alertIcon = (ImageView) view.findViewById(R.id.AlertIcon);
@@ -83,7 +87,7 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         }
     }
 
-    private void SetProductionStatus(View view, Device device) {
+    private void setProductionStatus(View view, Device device) {
 
         // Set Production Status
         TextView productionStatus = (TextView) view.findViewById(R.id.ProductionStatus);
@@ -103,4 +107,24 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
             productionStatusTimer.setText(statusPeriod);
         }
     }
+
+    private void setOEEStatus(View view, Device device) {
+
+        // Set OEE
+        TextView txt = (TextView) view.findViewById(R.id.OEE);
+        if (txt != null) {
+
+            double d = device.Status.Oee * 100;
+            String s = String.format("%.0f%%",d);
+            txt.setText(s);
+
+            if (device.Status.Oee > 0.6)
+                txt.setTextColor(view.getResources().getColor(R.color.statusGreen));
+            else if (device.Status.Oee > 0.3)
+                txt.setTextColor(view.getResources().getColor(R.color.foreground_normal_color));
+            else
+                txt.setTextColor(view.getResources().getColor(R.color.statusRed));
+        }
+    }
+
 }

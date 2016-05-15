@@ -33,7 +33,7 @@ public class UserConfiguration {
 
     public enum UserType { LOCAL, REMOTE }
 
-    public static UserConfiguration Get(String json) {
+    public static UserConfiguration get(String json) {
 
         UserConfiguration result = null;
 

@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="57dp">
+        android:layout_marginTop="55dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="#00FF00"
+                android:background="#EEEEEE"
                 android:id="@+id/StatusBanner" />
 
             <ImageView
@@ -36,6 +36,16 @@
                 android:layout_marginTop="10dp"
                 android:alpha="0.8" />
 
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:id="@+id/DeviceLogo"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="150dp"
+                android:scaleType="fitStart" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
@@ -45,11 +55,239 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/AlertIndicator"
-                android:layout_gravity="bottom|top"
+                android:layout_gravity="bottom|left"
                 android:src="@drawable/warning_01"
                 android:alpha="0.8" />
 
+            <View
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_marginRight="-10dp"
+                android:background="@drawable/details_banner_right_shade"
+                android:layout_marginBottom="-2dp"
+                android:layout_marginTop="-1dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="[OEE]"
+                    android:id="@+id/OEE"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:layout_gravity="right|top"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="28sp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="OEE"
+                    android:id="@+id/textView9"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="right|top"
+                    android:layout_marginEnd="9dp"
+                    android:layout_alignBottom="@+id/OEE"
+                    android:layout_toLeftOf="@+id/OEE"
+                    android:layout_toStartOf="@+id/OEE"
+                    android:textColor="#EEE" />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="[A]"
+                    android:id="@+id/Availability"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:layout_gravity="right|top"
+                    android:textSize="22sp"
+                    android:layout_below="@+id/OEE"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="A"
+                    android:id="@+id/textView10"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="right|top"
+                    android:layout_marginEnd="9dp"
+                    android:layout_alignBottom="@+id/Availability"
+                    android:layout_toLeftOf="@+id/Availability"
+                    android:layout_toStartOf="@+id/Availability"
+                    android:textColor="#EEE" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="[P]"
+                    android:id="@+id/Performance"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:layout_gravity="right|top"
+                    android:textSize="22sp"
+                    android:layout_below="@+id/Availability"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="P"
+                    android:id="@+id/textView11"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="right|top"
+                    android:layout_marginEnd="9dp"
+                    android:layout_alignBottom="@+id/Performance"
+                    android:layout_toLeftOf="@+id/Performance"
+                    android:layout_toStartOf="@+id/Performance"
+                    android:textColor="#EEE" />
+
+            </RelativeLayout>
+
+
         </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Production"
+                android:id="@+id/textView12"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Idle"
+                android:id="@+id/textView13"
+                android:layout_below="@+id/ProductionPercentage"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Alert"
+                android:id="@+id/textView14"
+                android:layout_below="@+id/IdlePercentage"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="80%"
+                android:id="@+id/ProductionPercentage"
+                android:layout_below="@+id/textView12"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="12%"
+                android:id="@+id/IdlePercentage"
+                android:layout_below="@+id/textView13"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="23%"
+                android:id="@+id/AlertPercentage"
+                android:layout_below="@+id/textView14"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:id="@+id/ProductionProgressBar"
+                android:progress="50"
+                android:max="100"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:progressDrawable="@drawable/progress_production_style"
+                android:layout_alignTop="@+id/textView12"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/textView12"
+                android:layout_toEndOf="@+id/textView12"
+                android:layout_marginLeft="20dp" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:id="@+id/IdleProgressBar"
+                android:progressDrawable="@drawable/progress_idle_style"
+                android:layout_alignTop="@+id/textView13"
+                android:layout_alignLeft="@+id/ProductionProgressBar"
+                android:layout_alignStart="@+id/ProductionProgressBar"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:max="100"
+                android:progress="40" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:id="@+id/AlertProgressBar"
+                android:max="100"
+                android:progress="30"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:progressDrawable="@drawable/progress_alert_style"
+                android:layout_alignTop="@+id/textView14"
+                android:layout_alignLeft="@+id/IdleProgressBar"
+                android:layout_alignStart="@+id/IdleProgressBar"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:orientation="vertical"
@@ -62,15 +300,6 @@
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:background="#888888" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/DeviceLogo"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
 
             <RelativeLayout
                 android:orientation="vertical"
@@ -197,6 +426,7 @@
                     android:layout_marginBottom="10dp" />
 
             </RelativeLayout>
+
         </LinearLayout>
 
     </LinearLayout>

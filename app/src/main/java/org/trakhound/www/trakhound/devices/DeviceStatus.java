@@ -16,8 +16,23 @@ public class DeviceStatus {
 
     private static String ADR_UNIQUE_ID = "device_unique_id";
     private static String ADR_STATUS = "status";
-    private static String ADR_PRODUCTION_STATUS= "production_status";
-    private static String ADR_PRODUCTION_STATUS_TIMER= "production_status_timer";
+    private static String ADR_PRODUCTION_STATUS = "production_status";
+    private static String ADR_PRODUCTION_STATUS_TIMER = "production_status_timer";
+
+    private static String ADR_EMERGENCY_STOP = "emergency_stop";
+    private static String ADR_CONTROLLER_MODE = "controller_mode";
+    private static String ADR_EXECUTION_MODE = "execution_mode";
+    private static String ADR_SYSTEM_STATUS = "system_status";
+    private static String ADR_SYSTEM_MESSAGE = "system_message";
+
+    private static String ADR_OEE = "oee";
+    private static String ADR_OEE_AVAILABILITY = "oee_availability";
+    private static String ADR_OEE_PERFORMANCE = "oee_performance";
+
+    private static String ADR_SECONDS_TOTAL = "seconds_total";
+    private static String ADR_SECONDS_PRODUCTION = "seconds_production";
+    private static String ADR_SECONDS_IDLE = "seconds_idle";
+    private static String ADR_SECONDS_ALERT = "seconds_alert";
 
     private static String NAME = "NAME";
     private static String VALUE = "VALUE";
@@ -31,6 +46,22 @@ public class DeviceStatus {
 
     public String ProductionStatus;
     public String ProductionStatusTimer;
+
+    public String EmergencyStop;
+    public String ControllerMode;
+    public String ExecutionMode;
+    public String SystemStatus;
+    public String SystemMessage;
+
+    public double Oee;
+    public double OeeAvailability;
+    public double OeePerformance;
+
+    public int SecondsTotal;
+    public int SecondsProduction;
+    public int SecondsIdle;
+    public int SecondsAlert;
+
 
     public DeviceStatus() {
 
@@ -117,6 +148,25 @@ public class DeviceStatus {
 
                         result.ProductionStatusTimer = obj.getString(VALUE);
                     }
+
+                    // Get Controller Status
+                    if (name.equals(ADR_EMERGENCY_STOP)) result.EmergencyStop = obj.getString(VALUE);
+                    if (name.equals(ADR_CONTROLLER_MODE)) result.ControllerMode = obj.getString(VALUE);
+                    if (name.equals(ADR_EXECUTION_MODE)) result.ExecutionMode = obj.getString(VALUE);
+                    if (name.equals(ADR_SYSTEM_STATUS)) result.SystemStatus = obj.getString(VALUE);
+                    if (name.equals(ADR_SYSTEM_MESSAGE)) result.SystemMessage = obj.getString(VALUE);
+
+//                    // Get OEE Status
+//                    if (name.equals(ADR_OEE)) result.Oee = obj.getDouble(VALUE);
+//                    if (name.equals(ADR_OEE_AVAILABILITY)) result.OeeAvailability = obj.getDouble(VALUE);
+//                    if (name.equals(ADR_OEE_PERFORMANCE)) result.OeePerformance = obj.getDouble(VALUE);
+
+                    // Production Status Counters
+                    if (name.equals(ADR_SECONDS_TOTAL)) result.SecondsTotal = obj.getInt(VALUE);
+                    if (name.equals(ADR_SECONDS_PRODUCTION)) result.SecondsProduction = obj.getInt(VALUE);
+                    if (name.equals(ADR_SECONDS_IDLE)) result.SecondsIdle = obj.getInt(VALUE);
+                    if (name.equals(ADR_SECONDS_ALERT)) result.SecondsAlert = obj.getInt(VALUE);
+
                 }
             }
             catch (JSONException ex) { ex.getStackTrace(); }

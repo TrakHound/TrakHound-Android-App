@@ -36,7 +36,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/device_list_slide"
+        android:background="#00ffff"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="-10dp"
@@ -55,14 +55,18 @@
 
     <!--Manufacturer Logo-->
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="30dp"
         android:id="@+id/ManufacturerLogo"
         android:layout_gravity="start"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/Slide"
+        android:layout_alignStart="@+id/Slide"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_alignParentLeft="false"
+        android:scaleType="fitCenter" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,13 +86,15 @@
         android:layout_height="wrap_content"
         android:textColor="#333"
         android:ellipsize="marquee"
-        android:singleLine="true"
+        android:singleLine="false"
         android:text="Device_Name"
         android:textSize="16dp"
         android:textStyle="bold"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="35dp"
-        android:layout_alignLeft="@+id/Slide" />
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@+id/Slide"
+        android:layout_below="@+id/ManufacturerLogo"
+        android:layout_marginRight="200dp" />
 
     <TextView
         android:id="@+id/Manufacturer"
@@ -116,7 +122,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="150dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -130,6 +137,30 @@
         android:layout_below="@+id/ProductionStatus"
         android:layout_alignRight="@+id/ProductionStatus"
         android:layout_alignEnd="@+id/ProductionStatus" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="OEE"
+        android:id="@+id/textView9"
+        android:layout_alignBottom="@+id/OEE"
+        android:layout_toLeftOf="@+id/OEE"
+        android:layout_toStartOf="@+id/OEE"
+        android:layout_marginRight="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="[OEE]"
+        android:id="@+id/OEE"
+        android:textColor="#ff0000"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/ManufacturerLogo"
+        android:layout_alignRight="@+id/ProductionStatus"
+        android:layout_alignEnd="@+id/ProductionStatus"
+        android:layout_marginBottom="5dp" />
 
 
     <!--Gloss Overlay-->

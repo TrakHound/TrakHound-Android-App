@@ -101,26 +101,31 @@ public class DeviceListActivity extends AppCompatActivity {
         });
     }
 
+
+    private boolean connected;
+
     public void updateConnectionStatus(boolean connected) {
 
-        final boolean c = connected;
+        this.connected = connected;
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-            try {
-
-                // Hide Refresh button if connected to Wifi or Ethernet
-                View refreshBT = toolbar.findViewById(R.id.action_refresh);
-                if (refreshBT != null) {
-                    if (c) refreshBT.setVisibility(View.INVISIBLE);
-                    else refreshBT.setVisibility(View.VISIBLE);
-                }
-
-            } catch (Exception ex) { }
-            }
-        });
+//        final boolean c = connected;
+//
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            try {
+//
+//                // Hide Refresh button if connected to Wifi or Ethernet
+////                View refreshBT = toolbar.findViewById(R.id.action_refresh);
+////                if (refreshBT != null) {
+////                    if (c) refreshBT.setVisibility(View.INVISIBLE);
+////                    else refreshBT.setVisibility(View.VISIBLE);
+////                }
+//
+//            } catch (Exception ex) { }
+//            }
+//        });
     }
 
 
@@ -265,6 +270,9 @@ public class DeviceListActivity extends AppCompatActivity {
            case R.id.action_refresh:
 
                refreshStatus();
+
+               if (connected) loadDevices();
+               else refreshStatus();
 
                break;
 

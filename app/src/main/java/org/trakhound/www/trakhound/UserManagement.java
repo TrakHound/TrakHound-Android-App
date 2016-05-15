@@ -17,15 +17,21 @@ public class UserManagement {
 
 
     // Local Login
-    public static UserConfiguration localLogin(String id) {
+    public static UserConfiguration localLogin(String id, boolean remember) {
 
         UserConfiguration result = null;
 
         if (id != null && id.length() > 0) {
 
+            id = id.toUpperCase();
+
+            String userId = "%%" + id;
+
             result = new UserConfiguration();
-            result.Username = "%%" + id;
+            result.Username = userId;
             result.Type = UserConfiguration.UserType.LOCAL;
+
+            if (remember) setRememberToken(userId);
         }
 
         return result;
@@ -49,7 +55,7 @@ public class UserManagement {
                 String response = Requests.post(url, postDatas);
                 if (response != null) {
 
-                    result = UserConfiguration.Get(response);
+                    result = UserConfiguration.get(response);
                     result.Type = UserConfiguration.UserType.REMOTE;
                 }
             }
@@ -80,7 +86,7 @@ public class UserManagement {
                 String response = Requests.post(url, postDatas);
                 if (response != null) {
 
-                    result = UserConfiguration.Get(response);
+                    result = UserConfiguration.get(response);
                     if (result != null) {
 
                         setRememberToken(result.RememberToken);
@@ -121,7 +127,7 @@ public class UserManagement {
                 String response = Requests.get(url);
                 if (response != null) {
 
-                    result = UserConfiguration.Get(response);
+                    result = UserConfiguration.get(response);
                     result.Type = UserConfiguration.UserType.REMOTE;
                 }
             }

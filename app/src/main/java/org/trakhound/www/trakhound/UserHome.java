@@ -154,10 +154,6 @@ public class UserHome extends AppCompatActivity {
         // Set Icon
         trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
 
-
-        // Set Navigation Button Icon
-        //trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
-
         setSupportActionBar(trakhoundToolbar);
     }
 

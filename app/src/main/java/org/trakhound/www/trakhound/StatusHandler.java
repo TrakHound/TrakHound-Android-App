@@ -16,12 +16,12 @@ public class StatusHandler implements Runnable {
 
     private Context context;
 
-    private Handler handler;
+//    private Handler handler;
 
     public StatusHandler(Context context, Handler handler) {
 
         this.context = context;
-        this.handler = handler;
+//        this.handler = handler;
     }
 
 

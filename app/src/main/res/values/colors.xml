@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#0080FF</color>
+    <color name="colorPrimaryDark">#0060FF</color>
+    <color name="colorAccent">#0080FF</color>
 
     <!--TrakHound Colors-->
     <color name="accent_normal_color">#0080FF</color>
@@ -12,7 +12,7 @@
     <color name="accent_hover_color">#200080FF</color>
 
     <!--Foreground Colors-->
-    <color name="foreground_normal_color">#333</color>
+    <color name="foreground_normal_color">#333333</color>
     <color name="foreground_normal_opposite_color">#fff</color>
 
     <!--Status Colors-->

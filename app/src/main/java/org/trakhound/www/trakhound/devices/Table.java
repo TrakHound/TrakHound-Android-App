@@ -56,7 +56,6 @@ public class Table {
 
             return null;
         }
-
     }
 
     private static Table getTable(String s) {
@@ -74,6 +73,5 @@ public class Table {
 
         return result;
     }
-
 
 }

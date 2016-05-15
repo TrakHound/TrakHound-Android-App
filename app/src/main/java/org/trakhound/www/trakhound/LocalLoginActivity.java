@@ -1,11 +1,14 @@
 package org.trakhound.www.trakhound;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,7 +24,7 @@ public class LocalLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_local_login);
 
         // Setup Toolbar/ActionBar
-        SetToolbar();
+        setToolbar();
 
         // Assign EditTexts to local variables
         mobileIdText = (EditText)findViewById(R.id.MobileIdText);
@@ -30,7 +33,7 @@ public class LocalLoginActivity extends AppCompatActivity {
         errorLabel = (TextView)findViewById(R.id.ErrorLabel);
     }
 
-    private void SetToolbar() {
+    private void setToolbar() {
 
         // Set Toolbar
         Toolbar trakhoundToolbar = (Toolbar) findViewById(R.id.TrakhoundToolbar);
@@ -43,7 +46,7 @@ public class LocalLoginActivity extends AppCompatActivity {
         trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
 
         // Set Navigation Button Icon
-        trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
+//        trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
 
         setSupportActionBar(trakhoundToolbar);
     }
@@ -52,12 +55,16 @@ public class LocalLoginActivity extends AppCompatActivity {
 
         String id = mobileIdText.getText().toString();
 
-        ProgressDialog progress = new ProgressDialog(this);
+        CheckBox rememberCHKBX = (CheckBox)findViewById(R.id.RememberCHKBX);
+        Boolean remember = rememberCHKBX.isChecked();
 
-        new Login(this, errorLabel, progress).execute(id, null);
+        UserConfiguration userConfig = UserManagement.localLogin(id, remember);
 
-        progress.setTitle("Logging In");
-        progress.setMessage("Wait while loading...");
-        progress.show();
+        ((MyApplication) this.getApplication()).User = userConfig;
+        ((MyApplication) this.getApplication()).LoggedIn = true;
+
+        // Open the Local Home Screen
+        startActivity(new Intent(getBaseContext(), LocalHome.class));
+
     }
 }

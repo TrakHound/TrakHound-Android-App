@@ -211,36 +211,6 @@
 
             </LinearLayout>
 
-
-            <!--<Button-->
-                <!--android:text="Device List"-->
-                <!--android:id="@+id/TrakHoundLoginButton"-->
-                <!--android:onClick="openDeviceList"-->
-                <!--android:layout_gravity="center_horizontal"-->
-
-                <!--android:textColor="#fff"-->
-                <!--android:textSize="18sp"-->
-
-                <!--android:layout_width="300dp"-->
-                <!--android:layout_height="60dp"-->
-                <!--android:clickable="true"-->
-                <!--android:background="@drawable/button_blue" />-->
-
-            <!--<Button-->
-                <!--android:text="Logout"-->
-                <!--android:id="@+id/LocalLoginButton"-->
-                <!--android:onClick="logout"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginTop="40dp"-->
-
-                <!--android:textColor="#fff"-->
-                <!--android:textSize="18sp"-->
-
-                <!--android:layout_width="300dp"-->
-                <!--android:layout_height="60dp"-->
-                <!--android:background="@drawable/button_blue"-->
-                <!--android:clickable="true" />-->
-
         </LinearLayout>
 
     </RelativeLayout>
