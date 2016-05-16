@@ -7,6 +7,14 @@
     android:fitsSystemWindows="true"
     tools:context="org.trakhound.www.trakhound.DeviceDetailsActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/content_device_details" />
+
+    </ScrollView>
+
     <!--TrakHound Toolbar-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/TrakhoundToolbar"
@@ -17,13 +25,5 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:clickable="false" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/content_device_details" />
-
-    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

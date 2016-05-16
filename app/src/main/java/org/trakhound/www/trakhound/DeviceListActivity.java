@@ -167,6 +167,8 @@ public class DeviceListActivity extends AppCompatActivity {
 
         super.onStop();
 
+        if (statusThread != null) statusThread.interrupt();
+
         Log.d("test","onStop");
     }
 
@@ -177,9 +179,6 @@ public class DeviceListActivity extends AppCompatActivity {
 
         Log.d("test", "onDestroy");
     }
-
-
-
 
 
 

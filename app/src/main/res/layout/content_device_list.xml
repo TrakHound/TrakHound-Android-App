@@ -7,8 +7,7 @@
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="org.trakhound.www.trakhound.DeviceListActivity"
-    tools:showIn="@layout/activity_device_list"
-    android:background="@drawable/device_list_background">
+    tools:showIn="@layout/activity_device_list">
 
 
     <ListView

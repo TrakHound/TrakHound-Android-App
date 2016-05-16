@@ -20,5 +20,9 @@
     <string name="title_devicedetailsactivity_list">Items</string>
     <string name="title_devicedetailsactivity_detail">DeviceDetailsActivity Detail</string>
     <string name="title_activity_device_details">DeviceDetailsActivity</string>
+    <string name="title_activity_home_drawer">HomeDrawer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 </resources>

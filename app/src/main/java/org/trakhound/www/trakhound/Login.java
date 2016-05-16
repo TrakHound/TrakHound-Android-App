@@ -55,25 +55,28 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
     @Override
     protected void onPostExecute(UserConfiguration userConfig){
 
-        ((MyApplication)((Activity)context).getApplication()).User = userConfig;
+        if (context != null) {
 
-        if (userConfig != null) {
+            ((MyApplication)((Activity)context).getApplication()).User = userConfig;
 
-            if (errorText != null) errorText.setVisibility(View.INVISIBLE);
+            if (userConfig != null) {
 
-            ((MyApplication)(((Activity)context).getApplication())).LoggedIn = true;
+                if (errorText != null) errorText.setVisibility(View.INVISIBLE);
 
-            // Open the User Home Screen
-            context.startActivity(new Intent(context, UserHome.class));
+                ((MyApplication)(((Activity)context).getApplication())).LoggedIn = true;
 
-        } else {
+                // Open the User Home Screen
+                context.startActivity(new Intent(context, UserHome.class));
 
-            if (errorText != null) errorText.setVisibility(View.VISIBLE);
+            } else {
 
-            ((MyApplication)(((Activity)context).getApplication())).LoggedIn = false;
+                if (errorText != null) errorText.setVisibility(View.VISIBLE);
+
+                ((MyApplication)(((Activity)context).getApplication())).LoggedIn = false;
+            }
         }
 
-        progressDialog.dismiss();
+        if (progressDialog != null) progressDialog.dismiss();
     }
 
 }

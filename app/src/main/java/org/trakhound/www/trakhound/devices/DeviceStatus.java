@@ -1,5 +1,7 @@
 package org.trakhound.www.trakhound.devices;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +75,6 @@ public class DeviceStatus {
 
         ProductionStatus = "Default";
         ProductionStatusTimer = "0";
-
     }
 
     public static DeviceStatus[] get(UserConfiguration userConfig) {
@@ -156,10 +157,10 @@ public class DeviceStatus {
                     if (name.equals(ADR_SYSTEM_STATUS)) result.SystemStatus = obj.getString(VALUE);
                     if (name.equals(ADR_SYSTEM_MESSAGE)) result.SystemMessage = obj.getString(VALUE);
 
-//                    // Get OEE Status
-//                    if (name.equals(ADR_OEE)) result.Oee = obj.getDouble(VALUE);
-//                    if (name.equals(ADR_OEE_AVAILABILITY)) result.OeeAvailability = obj.getDouble(VALUE);
-//                    if (name.equals(ADR_OEE_PERFORMANCE)) result.OeePerformance = obj.getDouble(VALUE);
+                    // Get OEE Status
+                    if (name.equals(ADR_OEE)) result.Oee = obj.getDouble(VALUE);
+                    if (name.equals(ADR_OEE_AVAILABILITY)) result.OeeAvailability = obj.getDouble(VALUE);
+                    if (name.equals(ADR_OEE_PERFORMANCE)) result.OeePerformance = obj.getDouble(VALUE);
 
                     // Production Status Counters
                     if (name.equals(ADR_SECONDS_TOTAL)) result.SecondsTotal = obj.getInt(VALUE);
@@ -169,8 +170,8 @@ public class DeviceStatus {
 
                 }
             }
-            catch (JSONException ex) { ex.getStackTrace(); }
-            catch (Exception ex) { ex.getStackTrace(); }
+            catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
+            catch (Exception ex) { Log.d("Exception", ex.getMessage()); }
         }
 
         return result;

@@ -45,7 +45,7 @@ public class Requests {
 
             return bitmap;
 
-        } catch (IOException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
             return null;

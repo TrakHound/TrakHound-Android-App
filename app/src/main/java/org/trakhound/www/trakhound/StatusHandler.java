@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.util.Log;
 
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.devices.DeviceStatus;
@@ -28,7 +29,9 @@ public class StatusHandler implements Runnable {
     @Override
     public void run() {
 
-        while (true) {
+        boolean exit = false;
+
+        while (!exit) {
 
             try
             {
@@ -65,8 +68,9 @@ public class StatusHandler implements Runnable {
                 ((DeviceListActivity) context).updateConnectionStatus(connected);
 
                 Thread.sleep(2000);
-
-            } catch (Exception ex) { }
+            }
+            catch (InterruptedException ex) { exit = true; }
+            catch (Exception ex) { Log.d("Exception", ex.getMessage()); }
         }
     }
 

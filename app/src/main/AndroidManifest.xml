@@ -12,6 +12,7 @@
     <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <!-- <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
     <!-- <android:uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
     <!-- <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
@@ -42,7 +43,7 @@
             android:name=".DeviceListActivity"
             android:label="@string/title_activity_device_list"
             android:parentActivityName=".Home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- <activity -->
         <!-- android:name=".Main2Activity" -->
@@ -85,9 +86,13 @@
         <activity
             android:name=".UserHome"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".LocalHome"
+        <activity
+            android:name=".LocalHome"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HomeDrawer"
+            android:label="@string/title_activity_home_drawer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

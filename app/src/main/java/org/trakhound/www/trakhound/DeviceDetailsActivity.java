@@ -3,8 +3,6 @@ package org.trakhound.www.trakhound;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -90,6 +88,7 @@ public class DeviceDetailsActivity extends AppCompatActivity {
 
             updateProductionStatus(device);
             updateOeeStatus(device);
+            updateControllerStatus(device);
         }
     }
 
@@ -108,13 +107,23 @@ public class DeviceDetailsActivity extends AppCompatActivity {
             }
         }
 
+        ImageView img = (ImageView)findViewById(R.id.AlertIndicator);
+        if (img != null) {
+            if (d.Status.Alert) img.setVisibility(View.VISIBLE);
+            else img.setVisibility(View.INVISIBLE);
+        }
+
 
         // Percentages
         if (d.Status.SecondsTotal > 0) {
 
+
+
             double production = ((double)d.Status.SecondsProduction / d.Status.SecondsTotal) * 100;
             double idle = ((double)d.Status.SecondsIdle / d.Status.SecondsTotal) * 100;
             double alert = ((double)d.Status.SecondsAlert / d.Status.SecondsTotal) * 100;
+
+            // Progress Bars
 
             // Production
             ProgressBar pb = (ProgressBar)findViewById(R.id.ProductionProgressBar);
@@ -127,8 +136,23 @@ public class DeviceDetailsActivity extends AppCompatActivity {
             // Alert
             pb = (ProgressBar)findViewById(R.id.AlertProgressBar);
             if (pb != null) pb.setProgress((int)Math.round(alert));
-        }
 
+
+            // Percentage TextViews
+
+            // Production
+            TextView txt = (TextView)findViewById(R.id.ProductionPercentage);
+            if (txt != null) txt.setText(String.format("%.0f%%", production));
+
+            // Idle
+            txt = (TextView)findViewById(R.id.IdlePercentage);
+            if (txt != null) txt.setText(String.format("%.0f%%", idle));
+
+            // Alert
+            txt = (TextView)findViewById(R.id.AlertPercentage);
+            if (txt != null) txt.setText(String.format("%.0f%%", alert));
+
+        }
     }
 
 
@@ -144,7 +168,7 @@ public class DeviceDetailsActivity extends AppCompatActivity {
         }
 
         // Set Availability
-        txt = (TextView) findViewById(R.id.Availability);
+        txt = (TextView) findViewById(R.id.AvailabilityVariable);
         if (txt != null) {
 
             double val = device.Status.OeeAvailability * 100;
@@ -160,7 +184,71 @@ public class DeviceDetailsActivity extends AppCompatActivity {
             String s = String.format("%.0f%%", val);
             txt.setText(s);
         }
+    }
 
+
+    private void updateControllerStatus(Device d) {
+
+        updateControllerStatus_EmergencyStop(d);
+        updateControllerStatus_ControllerMode(d);
+        updateControllerStatus_ExecutionMode(d);
+        updateControllerStatus_Alarm(d);
+    }
+
+    private void updateControllerStatus_EmergencyStop(Device d) {
+
+        TextView txt = (TextView)findViewById(R.id.EmergencyStop);
+        if (txt != null) {
+            txt.setText(d.Status.EmergencyStop);
+
+            if (d.Status.EmergencyStop.equals("ARMED"))
+                txt.setTextColor(getResources().getColor(R.color.statusGreen));
+            else if (d.Status.EmergencyStop.equals("TRIGGERED"))
+                txt.setTextColor(getResources().getColor(R.color.statusRed));
+            else
+                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+        }
+    }
+
+    private void updateControllerStatus_ControllerMode(Device d) {
+
+        TextView txt = (TextView)findViewById(R.id.ControllerMode);
+        if (txt != null) {
+            txt.setText(d.Status.ControllerMode);
+
+            if (d.Status.ControllerMode.equals("AUTOMATIC"))
+                txt.setTextColor(getResources().getColor(R.color.statusGreen));
+            else
+                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+        }
+    }
+
+    private void updateControllerStatus_ExecutionMode(Device d) {
+
+        TextView txt = (TextView)findViewById(R.id.ExecutionMode);
+        if (txt != null) {
+            txt.setText(d.Status.ExecutionMode);
+
+            if (d.Status.ExecutionMode.equals("ACTIVE"))
+                txt.setTextColor(getResources().getColor(R.color.statusGreen));
+            else if (d.Status.ExecutionMode.equals("STOPPED") || d.Status.ExecutionMode.equals("INTERRUPTED"))
+                txt.setTextColor(getResources().getColor(R.color.statusRed));
+            else
+                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+        }
+    }
+
+    private void updateControllerStatus_Alarm(Device d) {
+
+        TextView txt = (TextView)findViewById(R.id.Alarm);
+        if (txt != null) {
+            txt.setText(d.Status.SystemMessage);
+
+            if (d.Status.SystemStatus.equals("FAULT"))
+                txt.setTextColor(getResources().getColor(R.color.statusRed));
+            else
+                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+        }
     }
 
 
@@ -193,10 +281,7 @@ public class DeviceDetailsActivity extends AppCompatActivity {
             // action with ID action_refresh was selected
             case R.id.action_refresh:
 
-//                refreshStatus();
-//
-//                if (connected) loadDevices();
-//                else refreshStatus();
+                refresh();
 
                 break;
 
