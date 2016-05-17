@@ -3,17 +3,17 @@ package org.trakhound.www.trakhound.devices;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import org.trakhound.www.trakhound.DeviceListActivity;
+import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
-import org.trakhound.www.trakhound.UserConfiguration;
+import org.trakhound.www.trakhound.users.UserConfiguration;
 
 
 public class GetDeviceStatus extends AsyncTask<String,Void,String> {
 
-    private DeviceListActivity context;
+    private DeviceList context;
     private ProgressDialog progressDialog;
 
-    public GetDeviceStatus(DeviceListActivity context, ProgressDialog progressDialog) {
+    public GetDeviceStatus(DeviceList context, ProgressDialog progressDialog) {
 
         this.context = context;
         this.progressDialog = progressDialog;

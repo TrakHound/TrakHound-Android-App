@@ -1,4 +1,4 @@
-package org.trakhound.www.trakhound;
+package org.trakhound.www.trakhound.users;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

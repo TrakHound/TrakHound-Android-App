@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.trakhound.www.trakhound.http.Requests;
+import org.trakhound.www.trakhound.users.Logout;
+import org.trakhound.www.trakhound.users.UserConfiguration;
 
 public class UserHome extends AppCompatActivity {
 
@@ -128,7 +130,7 @@ public class UserHome extends AppCompatActivity {
     public void openDeviceList(View view){
 
         // Open the Device List
-        startActivity(new Intent(getBaseContext(), DeviceListActivity.class));
+        startActivity(new Intent(getBaseContext(), DeviceListActivity2.class));
     }
 
     public void logout(View view){

@@ -1,10 +1,14 @@
-package org.trakhound.www.trakhound;
+package org.trakhound.www.trakhound.users;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+
+import org.trakhound.www.trakhound.MainActivity;
+import org.trakhound.www.trakhound.MyApplication;
+import org.trakhound.www.trakhound.UserHome;
 
 
 public class Logout extends AsyncTask<String,Void,String> {

@@ -40,7 +40,7 @@
         <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
 
         <activity
-            android:name=".DeviceListActivity"
+            android:name=".DeviceListActivity2"
             android:label="@string/title_activity_device_list"
             android:parentActivityName=".Home"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -92,7 +92,15 @@
         <activity
             android:name=".HomeDrawer"
             android:label="@string/title_activity_home_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DeviceList"
+            android:label="@string/title_activity_device_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".About"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

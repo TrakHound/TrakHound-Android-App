@@ -16,8 +16,6 @@ public class DeviceListItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list_item);
 
-
-
     }
 
     @Override

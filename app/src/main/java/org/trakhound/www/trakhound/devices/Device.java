@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.trakhound.www.trakhound.UserConfiguration;
+import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.http.PostData;
 import org.trakhound.www.trakhound.http.Requests;
 
@@ -89,7 +89,7 @@ public class Device {
                     setLogoImage(device);
 
                     // Get Device Image
-                    setDeviceImage(device);
+                    //setDeviceImage(device);
 
                     // Get any Status data that is available
                     DeviceStatus status = DeviceStatus.parse(tables[i].Data);

@@ -1,7 +1,5 @@
 package org.trakhound.www.trakhound;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +9,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.trakhound.www.trakhound.users.UserConfiguration;
+import org.trakhound.www.trakhound.users.UserManagement;
 
 public class LocalLoginActivity extends AppCompatActivity {
 

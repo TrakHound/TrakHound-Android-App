@@ -1,4 +1,4 @@
-package org.trakhound.www.trakhound;
+package org.trakhound.www.trakhound.users;
 
 import android.content.Context;
 import android.content.SharedPreferences;

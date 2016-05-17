@@ -21,17 +21,14 @@ import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.devices.GetDeviceStatus;
 import org.trakhound.www.trakhound.devices.GetDevices;
 
-public class DeviceListActivity extends AppCompatActivity {
+public class DeviceListActivity2 extends AppCompatActivity {
 
     public ListView deviceListView;
     public DeviceListAdapter listAdapter;
 
     Handler statusH = new Handler();
-
     Thread statusThread;
-
     Context context;
-
     Toolbar toolbar;
 
 
@@ -65,24 +62,24 @@ public class DeviceListActivity extends AppCompatActivity {
 
     private void loadDevices() {
 
-        ProgressDialog progress = new ProgressDialog(this);
-
-        new GetDevices(this, progress).execute();
-
-        progress.setTitle("Loading Devices");
-        progress.setMessage("Please Wait...");
-        progress.show();
+//        ProgressDialog progress = new ProgressDialog(this);
+//
+//        new GetDevices(this, progress).execute();
+//
+//        progress.setTitle("Loading Devices");
+//        progress.setMessage("Please Wait...");
+//        progress.show();
     }
 
     private void refreshStatus() {
 
-        ProgressDialog progress = new ProgressDialog(this);
-
-        new GetDeviceStatus(this, progress).execute();
-
-        progress.setTitle("Refreshing");
-        progress.setMessage("Please Wait...");
-        progress.show();
+//        ProgressDialog progress = new ProgressDialog(this);
+//
+//        new GetDeviceStatus(this, progress).execute();
+//
+//        progress.setTitle("Refreshing");
+//        progress.setMessage("Please Wait...");
+//        progress.show();
     }
 
     public void updateStatus(String msg) {
@@ -107,25 +104,6 @@ public class DeviceListActivity extends AppCompatActivity {
     public void updateConnectionStatus(boolean connected) {
 
         this.connected = connected;
-
-//        final boolean c = connected;
-//
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            try {
-//
-//                // Hide Refresh button if connected to Wifi or Ethernet
-////                View refreshBT = toolbar.findViewById(R.id.action_refresh);
-////                if (refreshBT != null) {
-////                    if (c) refreshBT.setVisibility(View.INVISIBLE);
-////                    else refreshBT.setVisibility(View.VISIBLE);
-////                }
-//
-//            } catch (Exception ex) { }
-//            }
-//        });
     }
 
 
@@ -226,7 +204,7 @@ public class DeviceListActivity extends AppCompatActivity {
     private void startStatusThread() {
 
         // Start Status Updates on separate thread
-        StatusHandler statusHandler = new StatusHandler(this, statusH);
+        StatusHandler statusHandler = new StatusHandler(this);
         statusThread = new Thread(statusHandler);
         statusThread.start();
     }

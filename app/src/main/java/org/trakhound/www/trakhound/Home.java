@@ -16,13 +16,13 @@ public class Home extends AppCompatActivity {
     public void userLogin(View view){
 
         // Open the Device List
-        getApplicationContext().startActivity(new Intent(getApplicationContext(), DeviceListActivity.class));
+        getApplicationContext().startActivity(new Intent(getApplicationContext(), DeviceListActivity2.class));
     }
 
     public void localLogin(View view){
 
         // Open the Device List
-        getApplicationContext().startActivity(new Intent(getApplicationContext(), DeviceListActivity.class));
+        getApplicationContext().startActivity(new Intent(getApplicationContext(), DeviceListActivity2.class));
     }
 
 }

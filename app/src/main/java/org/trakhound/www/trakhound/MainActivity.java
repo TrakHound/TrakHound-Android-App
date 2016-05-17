@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.content.Intent;
+import android.widget.CheckBox;
+import android.widget.TextView;
+
+import org.trakhound.www.trakhound.users.Login;
+import org.trakhound.www.trakhound.users.UserConfiguration;
+import org.trakhound.www.trakhound.users.UserManagement;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
         UserManagement.context = getApplicationContext();
 
         // Attempt to login using saved credentials
-        login();
+        tokenLogin();
     }
 
-    private void login() {
+    public void tokenLogin() {
 
         String token = UserManagement.getRememberToken();
         if (token != null) {
@@ -35,7 +41,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void userLogin(String token) {
+    public void login(View view) {
+
+        String username = ((TextView)findViewById(R.id.UsernameText)).getText().toString();
+        String password = ((TextView)findViewById(R.id.PasswordText)).getText().toString();
+
+        Boolean r = ((CheckBox)findViewById(R.id.RememberCHKBX)).isChecked();
+
+        TextView errorLabel = (TextView)findViewById(R.id.ErrorLabel);
+
+        ProgressDialog progress = new ProgressDialog(this);
+
+        if (r) {
+
+            String senderId = UserManagement.getSenderId();
+
+            // Create Token Login
+            new Login(this, errorLabel, progress).execute(username, password, senderId);
+        } else {
+
+            // Basic Login
+            new Login(this, errorLabel, progress).execute(username, password);
+        }
+
+        progress.setTitle("Logging In " + username);
+        progress.setMessage("Please Wait...");
+        progress.show();
+    }
+
+    public void userLogin(String token) {
 
         ProgressDialog progress = new ProgressDialog(this);
 
@@ -54,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         ((MyApplication) this.getApplication()).LoggedIn = true;
 
         // Open the Local Home Screen
-        startActivity(new Intent(getBaseContext(), LocalHome.class));
+        startActivity(new Intent(getBaseContext(), DeviceList.class));
     }
 
 
@@ -68,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Open the Device List
         startActivity(new Intent(getBaseContext(), LocalLoginActivity.class));
+    }
+
+    public void openAbout(View view) {
+
+        // Open the About Page
+        startActivity(new Intent(getBaseContext(), About.class));
     }
 
 }

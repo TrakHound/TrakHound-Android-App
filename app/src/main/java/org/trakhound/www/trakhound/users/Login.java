@@ -1,4 +1,4 @@
-package org.trakhound.www.trakhound;
+package org.trakhound.www.trakhound.users;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,6 +7,9 @@ import android.widget.TextView;
 import android.content.Intent;
 import android.content.Context;
 import android.os.AsyncTask;
+
+import org.trakhound.www.trakhound.DeviceList;
+import org.trakhound.www.trakhound.MyApplication;
 
 
 public class Login extends AsyncTask<String,Void,UserConfiguration> {
@@ -65,8 +68,8 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
 
                 ((MyApplication)(((Activity)context).getApplication())).LoggedIn = true;
 
-                // Open the User Home Screen
-                context.startActivity(new Intent(context, UserHome.class));
+                // Open the Device List Page
+                context.startActivity(new Intent(context, DeviceList.class));
 
             } else {
 

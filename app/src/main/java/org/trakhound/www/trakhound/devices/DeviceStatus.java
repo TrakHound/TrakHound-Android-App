@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
-import org.trakhound.www.trakhound.UserConfiguration;
+import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.http.PostData;
 import org.trakhound.www.trakhound.http.Requests;
 

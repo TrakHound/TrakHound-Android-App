@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import org.trakhound.www.trakhound.users.UserManagement;
+
 public class LocalHome extends AppCompatActivity {
 
     @Override
@@ -46,7 +48,7 @@ public class LocalHome extends AppCompatActivity {
     public void openDeviceList(View view){
 
         // Open the Device List
-        startActivity(new Intent(getBaseContext(), DeviceListActivity.class));
+        startActivity(new Intent(getBaseContext(), DeviceListActivity2.class));
     }
 
     public void logout(View view){

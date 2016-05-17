@@ -3,17 +3,17 @@ package org.trakhound.www.trakhound.devices;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import org.trakhound.www.trakhound.DeviceListActivity;
+import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
-import org.trakhound.www.trakhound.UserConfiguration;
+import org.trakhound.www.trakhound.users.UserConfiguration;
 
 
 public class GetDevices extends AsyncTask<String,Void,Device[]> {
 
-    private DeviceListActivity context;
+    private DeviceList context;
     private ProgressDialog progressDialog;
 
-    public GetDevices(DeviceListActivity context, ProgressDialog progressDialog) {
+    public GetDevices(DeviceList context, ProgressDialog progressDialog) {
 
         this.context = context;
         this.progressDialog = progressDialog;
@@ -44,7 +44,7 @@ public class GetDevices extends AsyncTask<String,Void,Device[]> {
 
         context.addDevices();
 
-        progressDialog.dismiss();
+        if (progressDialog != null) progressDialog.dismiss();
     }
 
 }

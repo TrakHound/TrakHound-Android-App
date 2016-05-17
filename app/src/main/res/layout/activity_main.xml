@@ -7,78 +7,195 @@
     tools:context="org.trakhound.www.trakhound.MainActivity"
     android:background="@drawable/activity_background_gradient">
 
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        >
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="100dp"
-                android:id="@+id/imageView"
-                android:src="@drawable/trakhound_logo_dark"
-                android:layout_marginBottom="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp" />
-
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login to TrakHound to view your devices"
-                android:id="@+id/textView"
-                android:layout_below="@+id/imageView"
-                android:textSize="16sp"
-                android:layout_marginBottom="40dp"
-                android:layout_centerHorizontal="true" />
+                android:layout_gravity="center_horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="300dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/th_logo_dark"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:paddingRight="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TrakHound"
+                    android:id="@+id/textView"
+                    android:layout_below="@+id/imageView"
+                    android:textSize="32sp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#333"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Mobile"
+                    android:id="@+id/textView23"
+                    android:layout_below="@+id/textView"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#333"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="5dp" />
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|top"
+                    android:weightSum="1"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayout"
+                    android:layout_below="@+id/textView23"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Username"
+                        android:id="@+id/UsernameLabel"
+                        android:textColor="#333" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:id="@+id/UsernameText"
+                        android:layout_marginBottom="20dp"
+                        android:singleLine="true"
+                        android:background="@drawable/edit_text_style"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="0dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="0dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Password"
+                        android:id="@+id/PasswordLabel"
+                        android:textColor="#333" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:inputType="textPassword"
+                        android:ems="10"
+                        android:id="@+id/PasswordText"
+                        android:singleLine="true"
+                        android:password="true"
+                        android:background="@drawable/edit_text_style"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="0dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="0dp" />
+
+                    <CheckBox
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:text="Remember Login"
+                        android:id="@+id/RememberCHKBX"
+                        android:checked="true"
+                        android:textColor="#333" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:text="Login"
+                            android:id="@+id/LoginButton"
+                            android:onClick="login"
+
+                            android:textColor="#fff"
+                            android:textSize="18sp"
+
+                            android:layout_width="150dp"
+                            android:layout_height="60dp"
+                            android:background="@drawable/button_blue"
+                            android:clickable="true"
+                            android:layout_gravity="right"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Login Failed"
+                            android:id="@+id/ErrorLabel"
+                            android:visibility="invisible"
+                            android:textColor="#ff0000"
+                            android:textAlignment="center"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_toLeftOf="@+id/LoginButton"
+                            android:layout_marginRight="10dp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_below="@+id/textView"
-                android:layout_marginBottom="40dp">
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp">
 
                 <Button
-                    android:text="User Login"
-                    android:id="@+id/TrakHoundLoginButton"
-                    android:onClick="openUserLogin"
-                    android:layout_gravity="center_horizontal"
-
-                    android:textColor="#fff"
-                    android:textSize="18sp"
-
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/button_blue"
-                    android:clickable="true" />
-
-                <Button
-                    android:text="Local Login"
-                    android:id="@+id/LocalLoginButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Local ID Login"
+                    android:id="@+id/button"
+                    android:background="@null"
+                    android:textSize="14dp"
+                    android:textColor="@color/accent_normal_color"
+                    android:backgroundTint="@null"
                     android:onClick="openLocalLogin"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="40dp"
+                    style="@null" />
 
-                    android:textColor="#fff"
-                    android:textSize="18sp"
-
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/button_blue"
-                    android:clickable="true" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="About"
+                    android:id="@+id/button2"
+                    android:background="@null"
+                    android:textSize="14dp"
+                    android:textColor="@color/accent_normal_color"
+                    android:layout_marginLeft="20dp"
+                    android:onClick="openAbout"/>
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </ScrollView>
 

@@ -3,11 +3,11 @@ package org.trakhound.www.trakhound;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
 import android.util.Log;
 
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.devices.DeviceStatus;
+import org.trakhound.www.trakhound.users.UserConfiguration;
 
 
 /**
@@ -17,12 +17,9 @@ public class StatusHandler implements Runnable {
 
     private Context context;
 
-//    private Handler handler;
-
-    public StatusHandler(Context context, Handler handler) {
+    public StatusHandler(Context context) {
 
         this.context = context;
-//        this.handler = handler;
     }
 
 
@@ -40,8 +37,8 @@ public class StatusHandler implements Runnable {
                 // Only run if connected to Wifi or Ethernet
                 if (connected) {
 
-                    UserConfiguration user = ((MyApplication) (((DeviceListActivity) context).getApplication())).User;
-                    Device[] devices = ((MyApplication) (((DeviceListActivity) context).getApplication())).Devices;
+                    UserConfiguration user = ((MyApplication) (((DeviceList) context).getApplication())).User;
+                    Device[] devices = ((MyApplication) (((DeviceList) context).getApplication())).Devices;
                     if (user != null && devices != null) {
 
                         DeviceStatus[] statuses = DeviceStatus.get(user);
@@ -62,10 +59,10 @@ public class StatusHandler implements Runnable {
                         }
                     }
 
-                    ((DeviceListActivity) context).updateStatus("test");
+                    ((DeviceList) context).updateStatus("test");
                 }
 
-                ((DeviceListActivity) context).updateConnectionStatus(connected);
+                ((DeviceList) context).updateConnectionStatus(connected);
 
                 Thread.sleep(2000);
             }
