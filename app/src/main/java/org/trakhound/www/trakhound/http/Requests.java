@@ -1,10 +1,14 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound.http;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +16,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 
 /**
  * Created by Patrick on 4/26/2016.

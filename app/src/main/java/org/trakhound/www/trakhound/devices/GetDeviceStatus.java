@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound.devices;
 
 import android.app.ProgressDialog;
@@ -12,10 +17,12 @@ public class GetDeviceStatus extends AsyncTask<String,Void,String> {
 
     private DeviceList context;
     private ProgressDialog progressDialog;
+    private DeviceStatusRequest statusRequest;
 
-    public GetDeviceStatus(DeviceList context, ProgressDialog progressDialog) {
+    public GetDeviceStatus(DeviceList context, DeviceStatusRequest statusRequest, ProgressDialog progressDialog) {
 
         this.context = context;
+        this.statusRequest = statusRequest;
         this.progressDialog = progressDialog;
     }
 
@@ -28,9 +35,10 @@ public class GetDeviceStatus extends AsyncTask<String,Void,String> {
 
         UserConfiguration user = ((MyApplication)(context.getApplication())).User;
         Device[] devices = ((MyApplication) (context.getApplication())).Devices;
+
         if (user != null && devices != null) {
 
-            DeviceStatus[] statuses = DeviceStatus.get(user);
+            DeviceStatus[] statuses = DeviceStatus.get(statusRequest);
             if (statuses != null) {
 
                 for (int i = 0; i < statuses.length; i++) {

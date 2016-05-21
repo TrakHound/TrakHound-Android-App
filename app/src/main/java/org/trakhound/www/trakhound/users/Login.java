@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound.users;
 
 import android.app.Activity;
@@ -46,9 +51,8 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
 
             String id = arg0[0];
             String password = arg0[1];
-            String senderId = arg0[2];
 
-            return UserManagement.createTokenLogin(id, password, senderId);
+            return UserManagement.createTokenLogin(id, password);
 
         } else {
             return null;

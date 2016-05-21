@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound;
 
 import android.app.ProgressDialog;
@@ -107,20 +112,6 @@ public class UserHome extends AppCompatActivity {
         userImage = null;
 
         userConfig = null;
-
-//        TextView txt;
-//
-//        txt = ((TextView)findViewById(R.id.Username));
-//        if (txt != null) txt.setText(username);
-//
-//        txt = ((TextView)findViewById(R.id.PlanType));
-//        if (txt != null) txt.setText(planType);
-//
-//        txt = ((TextView)findViewById(R.id.LastLogin));
-//        if (txt != null) txt.setText(lastLogin);
-//
-//        ImageView img = (ImageView)findViewById(R.id.UserImage);
-//        if (img != null) img.setImageBitmap(null);
     }
 
     private String capitalize(final String line) {

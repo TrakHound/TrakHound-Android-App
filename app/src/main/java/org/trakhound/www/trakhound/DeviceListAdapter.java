@@ -1,7 +1,11 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +32,6 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         this.context = context;
     }
 
-
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 
@@ -37,8 +40,7 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (view == null) {
-//            view = LayoutInflater.from(getContext()).inflate(R.layout.device_item, parent, false);
-            view = LayoutInflater.from(getContext()).inflate(R.layout.activity_device_list_item, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.device_item, parent, false);
         }
 
         // Set the Status Indicator Color
@@ -71,19 +73,60 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
     }
 
 
+//    @Override
+//    public View getView(int position, View view, ViewGroup parent) {
+//
+//        // Get the data item for this position
+//        Device device = getItem(position);
+//
+//        // Check if an existing view is being reused, otherwise inflate the view
+//        if (view == null) {
+//            view = LayoutInflater.from(getContext()).inflate(R.layout.activity_device_list_item, parent, false);
+//        }
+//
+//        // Set the Status Indicator Color
+//        setStatusIndicator(view, device);
+//
+//        // Set Production Status Info
+//        setProductionStatus(view, device);
+//
+//        // Set OEE Status Info
+//        setOEEStatus(view, device);
+//
+//        // Lookup view for data population
+//        TextView description = (TextView) view.findViewById(R.id.Description);
+//        TextView deviceId = (TextView) view.findViewById(R.id.DeviceId);
+//        TextView manufacturer = (TextView) view.findViewById(R.id.Manufacturer);
+//
+//        // Images
+//        ImageView logo = (ImageView) view.findViewById(R.id.ManufacturerLogo);
+//        ImageView image = (ImageView) view.findViewById(R.id.DeviceImage);
+//
+//        // Populate the data into the template view using the data object
+//        description.setText(device.Description);
+//        deviceId.setText(device.Device_Id);
+//        manufacturer.setText(device.Manufacturer);
+//        logo.setImageBitmap(device.Logo);
+//        image.setImageBitmap(device.Image);
+//
+//        // Return the completed view to render on screen
+//        return view;
+//    }
+
+
     private void setStatusIndicator(View view, Device device) {
 
         View statusIndicator = view.findViewById(R.id.StatusIndicator);
         ImageView alertIcon = (ImageView) view.findViewById(R.id.AlertIcon);
 
-        if (device.Status.Alert) {
+        if (device.Status.Status.Alert) {
             statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusRed));
             alertIcon.setVisibility(View.VISIBLE);
         } else {
             alertIcon.setVisibility(View.INVISIBLE);
 
-            if (device.Status.Idle) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusYellow));
-            else if (device.Status.Production) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusGreen));
+            if (device.Status.Status.Idle) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusYellow));
+            else if (device.Status.Status.Production) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusGreen));
         }
     }
 
@@ -91,12 +134,12 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
 
         // Set Production Status
         TextView productionStatus = (TextView) view.findViewById(R.id.ProductionStatus);
-        String status = device.Status.ProductionStatus;
+        String status = device.Status.Status.ProductionStatus;
         productionStatus.setText(status);
 
         // Set Production Status Duration
         TextView productionStatusTimer = (TextView) view.findViewById(R.id.ProductionStatusTimer);
-        String statusTimer = device.Status.ProductionStatusTimer;
+        String statusTimer = device.Status.Status.ProductionStatusTimer;
         if (statusTimer != null && statusTimer.length() > 0) {
 
             int seconds = Integer.parseInt(statusTimer);
@@ -114,17 +157,16 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         TextView txt = (TextView) view.findViewById(R.id.OEE);
         if (txt != null) {
 
-            double d = device.Status.Oee * 100;
+            double d = device.Status.Oee.Oee * 100;
             String s = String.format("%.0f%%",d);
             txt.setText(s);
 
-            if (device.Status.Oee > 0.6)
+            if (device.Status.Oee.Oee > 0.6)
                 txt.setTextColor(view.getResources().getColor(R.color.statusGreen));
-            else if (device.Status.Oee > 0.3)
+            else if (device.Status.Oee.Oee > 0.3)
                 txt.setTextColor(view.getResources().getColor(R.color.foreground_normal_color));
             else
                 txt.setTextColor(view.getResources().getColor(R.color.statusRed));
         }
     }
-
 }

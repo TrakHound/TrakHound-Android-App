@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound.users;
 
 import org.joda.time.DateTime;
@@ -13,6 +18,8 @@ public class UserConfiguration {
 
     public UserType Type;
 
+    public String Id;
+
     public String Username;
     public String FirstName;
     public String LastName;
@@ -27,9 +34,11 @@ public class UserConfiguration {
     public String ZipCode;
     public String Image_Url;
     public DateTime LastLogin;
+
     public String PlanType;
 
     public String RememberToken;
+    public String SessionToken;
 
     public enum UserType { LOCAL, REMOTE }
 
@@ -42,6 +51,8 @@ public class UserConfiguration {
             JSONObject root = new JSONObject(json);
 
             result = new UserConfiguration();
+
+            result.Id = root.getString("id");
 
             result.Username = root.getString("username");
 
@@ -71,6 +82,7 @@ public class UserConfiguration {
 
 
             result.RememberToken = root.optString("token");
+            result.SessionToken = root.optString("sessionToken");
 
         } catch (JSONException e) { e.printStackTrace(); }
 

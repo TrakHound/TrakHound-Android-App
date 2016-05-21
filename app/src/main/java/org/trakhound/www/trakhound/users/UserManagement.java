@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound.users;
 
 import android.content.Context;
@@ -46,11 +51,13 @@ public class UserManagement {
 
             try{
 
+                String senderId = getSenderId();
                 String url = "https://www.feenux.com/trakhound/api/login/";
 
                 PostData[] postDatas = new PostData[2];
                 postDatas[0] = new PostData("id", id);
                 postDatas[1] = new PostData("password", password);
+                postDatas[2] = new PostData("sender_id", senderId);
 
                 String response = Requests.post(url, postDatas);
                 if (response != null) {
@@ -66,7 +73,7 @@ public class UserManagement {
     }
 
     // Create Token Login
-    public static UserConfiguration createTokenLogin(String id, String password, String senderId) {
+    public static UserConfiguration createTokenLogin(String id, String password) {
 
         UserConfiguration result = null;
 
@@ -74,6 +81,7 @@ public class UserManagement {
 
             try{
 
+                String senderId = getSenderId();
                 String url = "https://www.feenux.com/trakhound/api/login/";
 
                 PostData[] postDatas = new PostData[5];
@@ -122,7 +130,9 @@ public class UserManagement {
 
             try{
 
-                String url = "https://www.feenux.com/trakhound/api/login?token=" + token;
+                String senderId = getSenderId();
+
+                String url = "https://www.feenux.com/trakhound/api/login?token=" + token + "&sender_id=" + senderId;
 
                 String response = Requests.get(url);
                 if (response != null) {

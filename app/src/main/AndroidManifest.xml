@@ -4,7 +4,7 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -74,33 +74,44 @@
             android:name=".DeviceDetailsActivity"
             android:label="@string/title_activity_device_details"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".Home" />
+
         <activity
             android:name=".LocalLoginActivity"
             android:parentActivityName=".Home"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".UserLoginActivity"
             android:parentActivityName=".Home"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".UserHome"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".LocalHome"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".HomeDrawer"
             android:label="@string/title_activity_home_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".DeviceList"
             android:label="@string/title_activity_device_list"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".About"
+        <activity
+            android:name=".About"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings" />
     </application>
 
 </manifest>

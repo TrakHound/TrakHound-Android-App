@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound;
 
 import android.app.ProgressDialog;
@@ -50,9 +55,6 @@ public class UserLoginActivity extends AppCompatActivity {
 
         // Set Icon
         trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
-
-        // Set Navigation Button Icon
-//        trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
 
         setSupportActionBar(trakhoundToolbar);
     }

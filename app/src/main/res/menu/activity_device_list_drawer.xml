@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
+
+        <!--<item-->
+            <!--android:id="@+id/nav_viewDevices"-->
+            <!--android:icon="@drawable/list_02"-->
+            <!--android:title="View Devices" />-->
+
+
         <item
-            android:id="@+id/nav_viewDevices"
-            android:icon="@drawable/list_02"
-            android:title="View Devices" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/logout_01"
-            android:title="Logout" />
+            android:id="@+id/nav_about"
+            android:icon="@drawable/about_02"
+            android:title="About" />
+
+        <!--<item-->
+            <!--android:id="@+id/nav_settings"-->
+            <!--android:icon="@drawable/options_02"-->
+            <!--android:title="Settings" />-->
+
+
+        <group android:id="@+id/userOptions">
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout_01"
+                android:title="Logout" />
+
+        </group>
+
+
     </group>
 
     <!--<item android:title="Communicate">-->

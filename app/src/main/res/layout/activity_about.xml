@@ -4,77 +4,97 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.trakhound.www.trakhound.About"
-    android:background="@drawable/window_background_accent_gradient">
+    android:background="@drawable/activity_background_gradient">
 
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/relativeLayout3"
-        android:layout_centerHorizontal="true">
+        android:id="@+id/relativeLayout5"
+        android:paddingBottom="10dp"
+        android:background="@drawable/window_background_accent_gradient">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:id="@+id/imageView"
-            android:src="@drawable/th_logo_simple_white"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:paddingRight="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="TrakHound"
-            android:id="@+id/textView"
-            android:textSize="32sp"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:layout_alignTop="@+id/imageView"
-            android:layout_toRightOf="@+id/imageView"
-            android:layout_toEndOf="@+id/imageView"
-            android:layout_marginTop="8dp" />
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/relativeLayout3"
+            android:layout_centerHorizontal="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Mobile"
-            android:id="@+id/textView23"
-            android:textColor="#aaffffff"
-            android:textSize="20sp"
-            android:layout_below="@+id/textView"
-            android:layout_toRightOf="@+id/imageView"
-            android:layout_toEndOf="@+id/imageView" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="75dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/th_logo_simple_white"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:paddingRight="20dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TrakHound"
+                android:id="@+id/textView"
+                android:textSize="32sp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_toRightOf="@+id/imageView"
+                android:layout_toEndOf="@+id/imageView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Mobile"
+                android:id="@+id/textView23"
+                android:textColor="#aaffffff"
+                android:textSize="20sp"
+                android:layout_below="@+id/textView"
+                android:layout_toRightOf="@+id/imageView"
+                android:layout_toEndOf="@+id/imageView" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#33ffffff"
-        android:layout_below="@+id/relativeLayout3"
+        android:background="#33000000"
+        android:layout_below="@+id/relativeLayout5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:id="@+id/view4" />
+        android:id="@+id/view4"
+        android:layout_marginBottom="10dp" />
 
     <ScrollView
-        android:layout_width="300dp"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
         android:layout_below="@+id/view4"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false"
-        android:layout_centerHorizontal="true"
-        >
+        android:layout_centerHorizontal="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:id="@+id/relativeLayout4"
-            >
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="© 2016 Feenux LLC, All Rights Reserved"
+                android:id="@+id/textView27"
+                android:textSize="12sp"
+                android:textColor="#333"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,10 +102,11 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Version"
                 android:id="@+id/textView24"
-                android:layout_marginRight="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginBottom="38dp"
-                android:textColor="#aaffffff" />
+                android:textColor="#333"
+                android:layout_below="@+id/textView27"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -93,11 +114,10 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="[Version]"
                 android:id="@+id/Version"
-                android:layout_alignParentTop="true"
+                android:textColor="#333"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="23dp"
-                android:textColor="#fff" />
+                android:layout_below="@+id/textView24" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -105,14 +125,14 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="About"
                 android:id="@+id/textView25"
-                android:layout_below="@+id/textView24"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="20dp"
-                android:textColor="#fff"
+                android:textColor="#333"
                 android:textStyle="bold"
                 android:textIsSelectable="false"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:layout_below="@+id/Version" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -123,7 +143,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="10dp"
-                android:textColor="#fff"
+                android:textColor="#333"
                 android:text="TrakHound is an Open Source MDC software package designed to retrieve and store data from CNC and other PLC driven industrial equipment. Data is retrieved using MTConnect®, processed, and then stored in a database.  Machine Data Collection (MDC) software is used to evaluate shop productivity and identify problem areas. TrakHound provides free dashboards to view current machine status and basic production data so shop supervisors can quickly see which machines are operating normally and which ones are in need of attention. This transparency allows for a smoother workflow through your shop with reduced downtime. "
                 android:textSize="16dp" />
 

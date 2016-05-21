@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound.devices;
 
 import android.graphics.Bitmap;
@@ -8,6 +13,7 @@ import org.json.JSONObject;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.http.PostData;
 import org.trakhound.www.trakhound.http.Requests;
+import org.trakhound.www.trakhound.users.UserManagement;
 
 import java.util.ArrayList;
 
@@ -68,74 +74,69 @@ public class Device {
 
         Device[] result = null;
 
-        String url = "https://www.feenux.com/trakhound/api/mobile/get/";
+        String url = "https://www.feenux.com/trakhound/api/mobile/get/?" +
+                "token=" + userConfig.SessionToken +
+                "&sender_id=" + UserManagement.getSenderId() +
+                "&command=" + "1";
 
-        PostData[] postDatas = new PostData[1];
-        postDatas[0] = new PostData("user_id", userConfig.Username);
-
-        String response = Requests.post(url, postDatas);
+        String response = Requests.get(url);
         if (response != null) {
 
-            Table[] tables = Table.get(response);
+            try {
 
-            ArrayList<Device> devices = new ArrayList<>();
+                JSONArray a = new JSONArray(response);
 
-            for (int i = 0; i < tables.length; i++) {
+                // Device Description objects are in the first array
+                a = a.getJSONArray(0);
 
-                Device device = parse(tables[i]);
-                if (device != null) {
+                ArrayList<Device> devices = new ArrayList<>();
 
-                    // Get Manufacturer Logo
-                    setLogoImage(device);
+                for (int i = 0; i < a.length(); i++) {
 
-                    // Get Device Image
-                    //setDeviceImage(device);
+                    JSONObject obj = a.getJSONObject(i);
 
-                    // Get any Status data that is available
-                    DeviceStatus status = DeviceStatus.parse(tables[i].Data);
-                    if (status != null) device.Status = status;
+                    Device device = parse(obj);
+                    if (device != null) {
 
-                    devices.add(device);
+                        // Get Manufacturer Logo
+                        setLogoImage(device);
+
+                        // Get Device Image
+                        //setDeviceImage(device);
+
+                        devices.add(device);
+                    }
                 }
-            }
 
-            Device[] devArray = new Device[devices.size()];
-            result = devices.toArray(devArray);
+                Device[] devArray = new Device[devices.size()];
+                result = devices.toArray(devArray);
 
+            } catch (JSONException ex) { ex.getStackTrace(); }
         }
 
         return result;
     }
 
-    private static Device parse(Table table) {
+    private static Device parse(JSONObject json) {
 
         Device result = null;
 
-        if (table != null) {
+        if (json != null) {
 
             result = new Device();
 
             try {
 
-                JSONArray a = new JSONArray(table.Data);
-                for (int i = 0; i < a.length(); i++) {
+                result.UniqueId = json.getString("unique_id");
+                result.Description = json.getString("description");
+                result.Device_Id = json.getString("device_id");
+                result.Manufacturer = json.getString("manufacturer");
+                result.Model = json.getString("model");
+                result.Serial = json.getString("serial");
+                result.Controller = json.getString("controller");
 
-                    JSONObject obj = a.getJSONObject(i);
-
-                    String address = obj.getString("NAME");
-                    if (address.equals(ADR_UNIQUE_ID)) result.UniqueId = obj.getString("VALUE");
-                    else if (address.equals(ADR_ENABLED)) result.Enabled = Boolean.parseBoolean(obj.getString("VALUE"));
-
-                    else if (address.equals(ADR_DESCRIPTION)) result.Description = obj.getString("VALUE");
-                    else if (address.equals(ADR_DEVICE_ID)) result.Device_Id = obj.getString("VALUE");
-                    else if (address.equals(ADR_MANUFACTURER)) result.Manufacturer = obj.getString("VALUE");
-                    else if (address.equals(ADR_MODEL)) result.Model = obj.getString("VALUE");
-                    else if (address.equals(ADR_SERIAL)) result.Serial = obj.getString("VALUE");
-                    else if (address.equals(ADR_CONTROLLER)) result.Controller = obj.getString("VALUE");
-
-                    else if (address.equals(ADR_LOGO_URL)) result.LogoUrl = obj.getString("VALUE");
-                    else if (address.equals(ADR_IMAGE_URL)) result.ImageUrl = obj.getString("VALUE");
-                }
+                result.ImageUrl = json.getString("image_url");
+                result.LogoUrl = json.getString("logo_url");
             }
             catch (JSONException ex) { ex.getStackTrace(); }
             catch (Exception ex) { ex.getStackTrace(); }
@@ -143,6 +144,86 @@ public class Device {
 
         return result;
     }
+
+//    public static Device[] readAll(UserConfiguration userConfig) {
+//
+//        Device[] result = null;
+//
+//        String url = "https://www.feenux.com/trakhound/api/mobile/get/";
+//
+//        PostData[] postDatas = new PostData[1];
+//        postDatas[0] = new PostData("user_id", userConfig.Username);
+//
+//        String response = Requests.post(url, postDatas);
+//        if (response != null) {
+//
+//            Table[] tables = Table.get(response);
+//
+//            ArrayList<Device> devices = new ArrayList<>();
+//
+//            for (int i = 0; i < tables.length; i++) {
+//
+//                Device device = parse(tables[i]);
+//                if (device != null) {
+//
+//                    // Get Manufacturer Logo
+//                    setLogoImage(device);
+//
+//                    // Get Device Image
+//                    //setDeviceImage(device);
+//
+//                    // Get any Status data that is available
+//                    DeviceStatus status = DeviceStatus.parse(tables[i].Data);
+//                    if (status != null) device.Status = status;
+//
+//                    devices.add(device);
+//                }
+//            }
+//
+//            Device[] devArray = new Device[devices.size()];
+//            result = devices.toArray(devArray);
+//
+//        }
+//
+//        return result;
+//    }
+
+//    private static Device parse(Table table) {
+//
+//        Device result = null;
+//
+//        if (table != null) {
+//
+//            result = new Device();
+//
+//            try {
+//
+//                JSONArray a = new JSONArray(table.Data);
+//                for (int i = 0; i < a.length(); i++) {
+//
+//                    JSONObject obj = a.getJSONObject(i);
+//
+//                    String address = obj.getString("NAME");
+//                    if (address.equals(ADR_UNIQUE_ID)) result.UniqueId = obj.getString("VALUE");
+//                    else if (address.equals(ADR_ENABLED)) result.Enabled = Boolean.parseBoolean(obj.getString("VALUE"));
+//
+//                    else if (address.equals(ADR_DESCRIPTION)) result.Description = obj.getString("VALUE");
+//                    else if (address.equals(ADR_DEVICE_ID)) result.Device_Id = obj.getString("VALUE");
+//                    else if (address.equals(ADR_MANUFACTURER)) result.Manufacturer = obj.getString("VALUE");
+//                    else if (address.equals(ADR_MODEL)) result.Model = obj.getString("VALUE");
+//                    else if (address.equals(ADR_SERIAL)) result.Serial = obj.getString("VALUE");
+//                    else if (address.equals(ADR_CONTROLLER)) result.Controller = obj.getString("VALUE");
+//
+//                    else if (address.equals(ADR_LOGO_URL)) result.LogoUrl = obj.getString("VALUE");
+//                    else if (address.equals(ADR_IMAGE_URL)) result.ImageUrl = obj.getString("VALUE");
+//                }
+//            }
+//            catch (JSONException ex) { ex.getStackTrace(); }
+//            catch (Exception ex) { ex.getStackTrace(); }
+//        }
+//
+//        return result;
+//    }
 
     private static void setLogoImage(Device device) {
 

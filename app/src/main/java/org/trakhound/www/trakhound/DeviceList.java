@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound;
 
 import android.app.Activity;
@@ -21,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.trakhound.www.trakhound.devices.Device;
+import org.trakhound.www.trakhound.devices.DeviceStatusRequest;
 import org.trakhound.www.trakhound.devices.GetDeviceStatus;
 import org.trakhound.www.trakhound.devices.GetDevices;
 import org.trakhound.www.trakhound.tools.SwipeDetector;
@@ -44,6 +50,7 @@ public class DeviceList extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list2);
 
@@ -101,7 +108,11 @@ public class DeviceList extends AppCompatActivity
 
         ProgressDialog progress = new ProgressDialog(this);
 
-        new GetDeviceStatus(this, progress).execute();
+        DeviceStatusRequest statusRequest = new DeviceStatusRequest();
+        statusRequest.User = ((MyApplication) this.getApplication()).User;
+        statusRequest.GetStatus = true;
+
+        new GetDeviceStatus(this, statusRequest, progress).execute();
 
         progress.setTitle("Refreshing");
         progress.setMessage("Please Wait...");
@@ -344,7 +355,17 @@ public class DeviceList extends AppCompatActivity
         if (id == R.id.nav_logout) {
 
             logout();
+        } else if (id == R.id.nav_about) {
+
+            // Open the About Page
+            startActivity(new Intent(getBaseContext(), About.class));
         }
+//        else if (id == R.id.nav_settings) {
+//
+//            // Open the Settings Page
+//            startActivity(new Intent(getBaseContext(), Settings.class));
+//        }
+
 
 //        if (id == R.id.nav_camera) {
 //            // Handle the camera action

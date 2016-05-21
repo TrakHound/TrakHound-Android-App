@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound;
 
 import android.content.Context;
@@ -7,6 +12,7 @@ import android.util.Log;
 
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.devices.DeviceStatus;
+import org.trakhound.www.trakhound.devices.DeviceStatusRequest;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 
 
@@ -39,9 +45,14 @@ public class StatusHandler implements Runnable {
 
                     UserConfiguration user = ((MyApplication) (((DeviceList) context).getApplication())).User;
                     Device[] devices = ((MyApplication) (((DeviceList) context).getApplication())).Devices;
+
                     if (user != null && devices != null) {
 
-                        DeviceStatus[] statuses = DeviceStatus.get(user);
+                        DeviceStatusRequest statusRequest = new DeviceStatusRequest();
+                        statusRequest.User = user;
+                        statusRequest.GetStatus = true;
+
+                        DeviceStatus[] statuses = DeviceStatus.get(statusRequest);
                         if (statuses != null) {
 
                             for (int i = 0; i < statuses.length; i++) {
@@ -49,8 +60,8 @@ public class StatusHandler implements Runnable {
                                 for (int x = 0; x < devices.length; x++) {
 
                                     if (statuses[i].UniqueId != null &&
-                                            devices[x].UniqueId != null &&
-                                            statuses[i].UniqueId.equals(devices[x].UniqueId)) {
+                                        devices[x].UniqueId != null &&
+                                        statuses[i].UniqueId.equals(devices[x].UniqueId)) {
 
                                         devices[x].Status = statuses[i];
                                     }

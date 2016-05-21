@@ -1,3 +1,8 @@
+// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
+
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE.txt', which is part of this source code package.
+
 package org.trakhound.www.trakhound;
 
 import android.app.ProgressDialog;
@@ -54,10 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (r) {
 
-            String senderId = UserManagement.getSenderId();
-
             // Create Token Login
-            new Login(this, errorLabel, progress).execute(username, password, senderId);
+            new Login(this, errorLabel, progress).execute(username, password, "");
         } else {
 
             // Basic Login
