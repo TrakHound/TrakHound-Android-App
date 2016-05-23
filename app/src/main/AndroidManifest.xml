@@ -71,7 +71,7 @@
         <!-- </activity> -->
 
         <activity
-            android:name=".DeviceDetailsActivity"
+            android:name=".DeviceDetails"
             android:label="@string/title_activity_device_details"
             android:theme="@style/AppTheme.NoActionBar" />
 

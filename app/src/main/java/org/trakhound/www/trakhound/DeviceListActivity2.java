@@ -1,6 +1,5 @@
 package org.trakhound.www.trakhound;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,8 +17,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.devices.GetDeviceStatus;
-import org.trakhound.www.trakhound.devices.GetDevices;
 
 public class DeviceListActivity2 extends AppCompatActivity {
 
@@ -171,10 +168,10 @@ public class DeviceListActivity2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                Intent intent = new Intent(context, DeviceDetailsActivity.class);
+                Intent intent = new Intent(context, DeviceDetails.class);
 
                 // Pass the index of the device in the MyApplication.Devices array
-                intent.putExtra(DeviceDetailsActivity.DEVICE_INDEX, position);
+                intent.putExtra(DeviceDetails.DEVICE_INDEX, position);
 
                 context.startActivity(intent);
             }

@@ -25,10 +25,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.trakhound.www.trakhound.device_list.*;
+import org.trakhound.www.trakhound.device_list.StatusHandler;
 import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.devices.DeviceStatusRequest;
-import org.trakhound.www.trakhound.devices.GetDeviceStatus;
-import org.trakhound.www.trakhound.devices.GetDevices;
+
 import org.trakhound.www.trakhound.tools.SwipeDetector;
 import org.trakhound.www.trakhound.users.GetUserImage;
 import org.trakhound.www.trakhound.users.Logout;
@@ -40,7 +40,7 @@ public class DeviceList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public ListView deviceListView;
-    public DeviceListAdapter listAdapter;
+    public ListAdapter listAdapter;
 
     Thread statusThread;
     Context context;
@@ -108,18 +108,21 @@ public class DeviceList extends AppCompatActivity
 
         ProgressDialog progress = new ProgressDialog(this);
 
-        DeviceStatusRequest statusRequest = new DeviceStatusRequest();
-        statusRequest.User = ((MyApplication) this.getApplication()).User;
-        statusRequest.GetStatus = true;
+//        DeviceStatusRequest statusRequest = new DeviceStatusRequest();
+//        statusRequest.User = ((MyApplication) this.getApplication()).User;
+//        statusRequest.GetStatus = true;
 
-        new GetDeviceStatus(this, statusRequest, progress).execute();
+        new GetDeviceStatus(this, progress).execute();
 
         progress.setTitle("Refreshing");
         progress.setMessage("Please Wait...");
         progress.show();
     }
 
-    public void updateStatus(String msg) {
+    public void updateStatus(DeviceStatus deviceStatus) {
+
+        final DeviceStatus status = deviceStatus;
+        final String uniqueId = status.UniqueId;
 
         runOnUiThread(new Runnable() {
             @Override
@@ -127,12 +130,32 @@ public class DeviceList extends AppCompatActivity
 
                 try {
 
-                    listAdapter.notifyDataSetChanged();
+                    int listIndex = getListIndex(uniqueId);
+                    if (listIndex >= 0) {
 
-                } catch (Exception ex) {
-                }
+                        ListItem listItem = listAdapter.getItem(listIndex);
+                        listItem.Status = status;
+
+                        listAdapter.notifyDataSetChanged();
+                    }
+
+                } catch (Exception ex) { }
             }
         });
+    }
+
+    private int getListIndex(String uniqueId) {
+
+        Device[] devices = ((MyApplication) this.getApplication()).Devices;
+        if (devices != null) {
+
+            for (int i = 0; i < devices.length; i++) {
+
+                if (devices[i].UniqueId.equals(uniqueId)) return i;
+            }
+        }
+
+        return -1;
     }
 
     public void addDevices() {
@@ -142,34 +165,39 @@ public class DeviceList extends AppCompatActivity
         if (deviceListView != null) {
 
             // Set onClick listener
-            deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position,
-                                        long id) {
-
-                    Intent intent = new Intent(context, DeviceDetailsActivity.class);
-
-                    // Pass the index of the device in the MyApplication.Devices array
-                    intent.putExtra(DeviceDetailsActivity.DEVICE_INDEX, position);
-
-                    context.startActivity(intent);
-                }
-            });
+//            deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position,
+//                                        long id) {
+//
+//                    Intent intent = new Intent(context, DeviceDetails.class);
+//
+//                    // Pass the index of the device in the MyApplication.Devices array
+//                    intent.putExtra(DeviceDetails.DEVICE_INDEX, position);
+//
+//                    context.startActivity(intent);
+//                }
+//            });
 
             //deviceListView.setOnTouchListener(swipeDetector);
 
             // Add each device found in static Devices array
             Device[] devices = ((MyApplication) this.getApplication()).Devices;
             if (devices != null && devices.length > 0) {
-                ArrayList<Device> deviceList = new ArrayList<Device>();
+
+                ArrayList<ListItem> itemList = new ArrayList<ListItem>();
 
                 // Initialize ArrayAdapter
-                listAdapter = new DeviceListAdapter(this, deviceList);
+                listAdapter = new ListAdapter(this, itemList);
 
                 for (int i = 0; i < devices.length; i++) {
 
                     Device device = devices[i];
-                    listAdapter.add(device);
+
+                    ListItem listItem = new ListItem();
+                    listItem.Device = device;
+
+                    listAdapter.add(listItem);
                 }
             }
 
@@ -183,6 +211,7 @@ public class DeviceList extends AppCompatActivity
     private void startStatusThread() {
 
         // Start Status Updates on separate thread
+//        StatusHandler statusHandler = new StatusHandler(this);
         StatusHandler statusHandler = new StatusHandler(this);
         statusThread = new Thread(statusHandler);
         statusThread.start();
@@ -209,13 +238,7 @@ public class DeviceList extends AppCompatActivity
     }
 
 
-
-
-
-
-
-
-
+    //region Toolbar
 
     private void setToolbar() {
 
@@ -229,44 +252,11 @@ public class DeviceList extends AppCompatActivity
         // Set Icon
         trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
 
-
-        // Set Navigation Button Icon
-        //trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
-
         toolbar = trakhoundToolbar;
 
         setSupportActionBar(trakhoundToolbar);
     }
 
-    private void setNavigationDrawer() {
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-        // Load Username
-        UserConfiguration userConfig = ((MyApplication)((Activity)context).getApplication()).User;
-        if (userConfig != null) {
-
-            String username = TH_Tools.capitalizeFirst(userConfig.Username);
-
-            View headerView = navigationView.getHeaderView(0);
-            if (headerView != null) {
-
-                TextView txt = (TextView) headerView.findViewById(R.id.Username);
-                if (txt != null) txt.setText(username);
-
-                new GetUserImage(headerView, userConfig).execute();
-            }
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -307,44 +297,39 @@ public class DeviceList extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    //endregion
+
+    //region Navigation Drawer
+
+    private void setNavigationDrawer() {
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
 
+        // Load Username
+        UserConfiguration userConfig = ((MyApplication)((Activity)context).getApplication()).User;
+        if (userConfig != null) {
 
+            String username = TH_Tools.capitalizeFirst(userConfig.Username);
 
+            View headerView = navigationView.getHeaderView(0);
+            if (headerView != null) {
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_main, menu);
-//
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            // action with ID action_refresh was selected
-//            case R.id.action_refresh:
-//
-//                refreshStatus();
-//
-//                if (connected) loadDevices();
-//                else refreshStatus();
-//
-//                break;
-//
-//            default:
-//                break;
-//        }
-//
-//        return true;
-//    }
+                TextView txt = (TextView) headerView.findViewById(R.id.Username);
+                if (txt != null) txt.setText(username);
 
-
-
-
-
-
+                new GetUserImage(headerView, userConfig).execute();
+            }
+        }
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -360,29 +345,11 @@ public class DeviceList extends AppCompatActivity
             // Open the About Page
             startActivity(new Intent(getBaseContext(), About.class));
         }
-//        else if (id == R.id.nav_settings) {
-//
-//            // Open the Settings Page
-//            startActivity(new Intent(getBaseContext(), Settings.class));
-//        }
-
-
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //endregion
 }

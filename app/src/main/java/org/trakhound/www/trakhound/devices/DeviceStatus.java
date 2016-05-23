@@ -11,13 +11,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 import org.trakhound.www.trakhound.device_list.OeeInfo;
-import org.trakhound.www.trakhound.device_list.StatusInfo;
-import org.trakhound.www.trakhound.users.UserConfiguration;
-import org.trakhound.www.trakhound.http.PostData;
+import org.trakhound.www.trakhound.device_list.ProductionInfo;
 import org.trakhound.www.trakhound.http.Requests;
 import org.trakhound.www.trakhound.users.UserManagement;
 
@@ -52,7 +49,7 @@ public class DeviceStatus {
 
     public String UniqueId;
 
-    public StatusInfo Status;
+    public ProductionInfo Status;
     public OeeInfo Oee;
 
 
@@ -88,7 +85,7 @@ public class DeviceStatus {
 
         UniqueId = null;
 
-        Status = new StatusInfo();
+        Status = new ProductionInfo();
         Oee = new OeeInfo();
 
     }
@@ -107,7 +104,7 @@ public class DeviceStatus {
 
                 ArrayList<DeviceStatus> statuses = new ArrayList<>();
 
-                ArrayList<StatusInfo> statusInfos = new ArrayList<>();
+                ArrayList<ProductionInfo> productionInfos = new ArrayList<>();
                 ArrayList<OeeInfo> oeeInfos = new ArrayList<>();
 
                 try {
@@ -115,7 +112,7 @@ public class DeviceStatus {
                     JSONArray a = new JSONArray(response);
 
                     // Status is first array
-                    statusInfos = processStatusArray(a.getJSONArray(0));
+                    productionInfos = processStatusArray(a.getJSONArray(0));
 
                     // Oee is second array
                     oeeInfos = processOeeArray(a.getJSONArray(1));
@@ -125,24 +122,24 @@ public class DeviceStatus {
 
 
                 // Add StatusInfos
-                for (int i = 0; i < statusInfos.size(); i++) {
+                for (int i = 0; i < productionInfos.size(); i++) {
 
                     DeviceStatus status = null;
 
                     for (int x = 0; x < statuses.size(); x++) {
 
-                        if (statuses.get(x).UniqueId.equals(statusInfos.get(i).UniqueId)) {
+                        if (statuses.get(x).UniqueId.equals(productionInfos.get(i).UniqueId)) {
 
                             status = statuses.get(x);
-                            status.Status = statusInfos.get(i);
+                            status.Status = productionInfos.get(i);
                         }
                     }
 
                     if (status == null) {
 
                         status = new DeviceStatus();
-                        status.UniqueId = statusInfos.get(i).UniqueId;
-                        status.Status = statusInfos.get(i);
+                        status.UniqueId = productionInfos.get(i).UniqueId;
+                        status.Status = productionInfos.get(i);
                         statuses.add(status);
                     }
                 }
@@ -179,9 +176,9 @@ public class DeviceStatus {
         return null;
     }
 
-    private static ArrayList<StatusInfo> processStatusArray(JSONArray a) {
+    private static ArrayList<ProductionInfo> processStatusArray(JSONArray a) {
 
-        ArrayList<StatusInfo> result = new ArrayList<>();
+        ArrayList<ProductionInfo> result = new ArrayList<>();
 
         for (int i = 0; i < a.length(); i++) {
 
@@ -189,7 +186,7 @@ public class DeviceStatus {
 
                 JSONObject obj = a.getJSONObject(i);
 
-                StatusInfo status = StatusInfo.parse(obj);
+                ProductionInfo status = ProductionInfo.parse(obj);
 
                 if (status != null) result.add(status);
             }

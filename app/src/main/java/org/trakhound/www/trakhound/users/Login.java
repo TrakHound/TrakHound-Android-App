@@ -6,7 +6,10 @@
 package org.trakhound.www.trakhound.users;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
 import android.widget.TextView;
 import android.content.Intent;
@@ -72,8 +75,14 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
 
                 ((MyApplication)(((Activity)context).getApplication())).LoggedIn = true;
 
+                Intent deviceListIntent = new Intent(context, DeviceList.class);
+//                deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
+
                 // Open the Device List Page
-                context.startActivity(new Intent(context, DeviceList.class));
+                context.startActivity(deviceListIntent);
 
             } else {
 

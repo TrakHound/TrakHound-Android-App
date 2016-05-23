@@ -34,52 +34,52 @@ public class StatusHandler implements Runnable {
 
         boolean exit = false;
 
-        while (!exit) {
-
-            try
-            {
-                boolean connected = isNetworkConnected();
-
-                // Only run if connected to Wifi or Ethernet
-                if (connected) {
-
-                    UserConfiguration user = ((MyApplication) (((DeviceList) context).getApplication())).User;
-                    Device[] devices = ((MyApplication) (((DeviceList) context).getApplication())).Devices;
-
-                    if (user != null && devices != null) {
-
-                        DeviceStatusRequest statusRequest = new DeviceStatusRequest();
-                        statusRequest.User = user;
-                        statusRequest.GetStatus = true;
-
-                        DeviceStatus[] statuses = DeviceStatus.get(statusRequest);
-                        if (statuses != null) {
-
-                            for (int i = 0; i < statuses.length; i++) {
-
-                                for (int x = 0; x < devices.length; x++) {
-
-                                    if (statuses[i].UniqueId != null &&
-                                        devices[x].UniqueId != null &&
-                                        statuses[i].UniqueId.equals(devices[x].UniqueId)) {
-
-                                        devices[x].Status = statuses[i];
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    ((DeviceList) context).updateStatus("test");
-                }
-
-                ((DeviceList) context).updateConnectionStatus(connected);
-
-                Thread.sleep(2000);
-            }
-            catch (InterruptedException ex) { exit = true; }
-            catch (Exception ex) { Log.d("Exception", ex.getMessage()); }
-        }
+//        while (!exit) {
+//
+//            try
+//            {
+//                boolean connected = isNetworkConnected();
+//
+//                // Only run if connected to Wifi or Ethernet
+//                if (connected) {
+//
+//                    UserConfiguration user = ((MyApplication) (((DeviceList) context).getApplication())).User;
+//                    Device[] devices = ((MyApplication) (((DeviceList) context).getApplication())).Devices;
+//
+//                    if (user != null && devices != null) {
+//
+//                        DeviceStatusRequest statusRequest = new DeviceStatusRequest();
+//                        statusRequest.User = user;
+//                        statusRequest.GetStatus = true;
+//
+//                        DeviceStatus[] statuses = DeviceStatus.get(statusRequest);
+//                        if (statuses != null) {
+//
+//                            for (int i = 0; i < statuses.length; i++) {
+//
+//                                for (int x = 0; x < devices.length; x++) {
+//
+//                                    if (statuses[i].UniqueId != null &&
+//                                        devices[x].UniqueId != null &&
+//                                        statuses[i].UniqueId.equals(devices[x].UniqueId)) {
+//
+//                                        devices[x].Status = statuses[i];
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    ((DeviceList) context).updateStatus("test");
+//                }
+//
+//                ((DeviceList) context).updateConnectionStatus(connected);
+//
+//                Thread.sleep(2000);
+//            }
+//            catch (InterruptedException ex) { exit = true; }
+//            catch (Exception ex) { Log.d("Exception", ex.getMessage()); }
+//        }
     }
 
     private boolean isNetworkConnected() {

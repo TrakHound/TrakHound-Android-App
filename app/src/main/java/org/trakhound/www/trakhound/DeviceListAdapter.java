@@ -43,14 +43,14 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.device_item, parent, false);
         }
 
-        // Set the Status Indicator Color
-        setStatusIndicator(view, device);
-
-        // Set Production Status Info
-        setProductionStatus(view, device);
-
-        // Set OEE Status Info
-        setOEEStatus(view, device);
+//        // Set the Status Indicator Color
+//        setStatusIndicator(view, device);
+//
+//        // Set Production Status Info
+//        setProductionStatus(view, device);
+//
+//        // Set OEE Status Info
+//        setOEEStatus(view, device);
 
         // Lookup view for data population
         TextView description = (TextView) view.findViewById(R.id.Description);
@@ -114,59 +114,59 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
 //    }
 
 
-    private void setStatusIndicator(View view, Device device) {
-
-        View statusIndicator = view.findViewById(R.id.StatusIndicator);
-        ImageView alertIcon = (ImageView) view.findViewById(R.id.AlertIcon);
-
-        if (device.Status.Status.Alert) {
-            statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusRed));
-            alertIcon.setVisibility(View.VISIBLE);
-        } else {
-            alertIcon.setVisibility(View.INVISIBLE);
-
-            if (device.Status.Status.Idle) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusYellow));
-            else if (device.Status.Status.Production) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusGreen));
-        }
-    }
-
-    private void setProductionStatus(View view, Device device) {
-
-        // Set Production Status
-        TextView productionStatus = (TextView) view.findViewById(R.id.ProductionStatus);
-        String status = device.Status.Status.ProductionStatus;
-        productionStatus.setText(status);
-
-        // Set Production Status Duration
-        TextView productionStatusTimer = (TextView) view.findViewById(R.id.ProductionStatusTimer);
-        String statusTimer = device.Status.Status.ProductionStatusTimer;
-        if (statusTimer != null && statusTimer.length() > 0) {
-
-            int seconds = Integer.parseInt(statusTimer);
-
-            Period period = new Period(seconds * 1000);
-            String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
-
-            productionStatusTimer.setText(statusPeriod);
-        }
-    }
-
-    private void setOEEStatus(View view, Device device) {
-
-        // Set OEE
-        TextView txt = (TextView) view.findViewById(R.id.OEE);
-        if (txt != null) {
-
-            double d = device.Status.Oee.Oee * 100;
-            String s = String.format("%.0f%%",d);
-            txt.setText(s);
-
-            if (device.Status.Oee.Oee > 0.6)
-                txt.setTextColor(view.getResources().getColor(R.color.statusGreen));
-            else if (device.Status.Oee.Oee > 0.3)
-                txt.setTextColor(view.getResources().getColor(R.color.foreground_normal_color));
-            else
-                txt.setTextColor(view.getResources().getColor(R.color.statusRed));
-        }
-    }
+//    private void setStatusIndicator(View view, Device device) {
+//
+//        View statusIndicator = view.findViewById(R.id.StatusIndicator);
+//        ImageView alertIcon = (ImageView) view.findViewById(R.id.AlertIcon);
+//
+//        if (device.Status.Status.Alert) {
+//            statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusRed));
+//            alertIcon.setVisibility(View.VISIBLE);
+//        } else {
+//            alertIcon.setVisibility(View.INVISIBLE);
+//
+//            if (device.Status.Status.Idle) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusYellow));
+//            else if (device.Status.Status.Production) statusIndicator.setBackgroundColor(view.getResources().getColor(R.color.statusGreen));
+//        }
+//    }
+//
+//    private void setProductionStatus(View view, Device device) {
+//
+//        // Set Production Status
+//        TextView productionStatus = (TextView) view.findViewById(R.id.ProductionStatus);
+//        String status = device.Status.Status.ProductionStatus;
+//        productionStatus.setText(status);
+//
+//        // Set Production Status Duration
+//        TextView productionStatusTimer = (TextView) view.findViewById(R.id.ProductionStatusTimer);
+//        String statusTimer = device.Status.Status.ProductionStatusTimer;
+//        if (statusTimer != null && statusTimer.length() > 0) {
+//
+//            int seconds = Integer.parseInt(statusTimer);
+//
+//            Period period = new Period(seconds * 1000);
+//            String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
+//
+//            productionStatusTimer.setText(statusPeriod);
+//        }
+//    }
+//
+//    private void setOEEStatus(View view, Device device) {
+//
+//        // Set OEE
+//        TextView txt = (TextView) view.findViewById(R.id.OEE);
+//        if (txt != null) {
+//
+//            double d = device.Status.Oee.Oee * 100;
+//            String s = String.format("%.0f%%",d);
+//            txt.setText(s);
+//
+//            if (device.Status.Oee.Oee > 0.6)
+//                txt.setTextColor(view.getResources().getColor(R.color.statusGreen));
+//            else if (device.Status.Oee.Oee > 0.3)
+//                txt.setTextColor(view.getResources().getColor(R.color.foreground_normal_color));
+//            else
+//                txt.setTextColor(view.getResources().getColor(R.color.statusRed));
+//        }
+//    }
 }

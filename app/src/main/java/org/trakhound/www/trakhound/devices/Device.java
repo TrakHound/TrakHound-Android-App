@@ -43,7 +43,7 @@ public class Device {
     // ----------------------------------------------------------------------------------
 
 
-    public DeviceStatus Status;
+//    public DeviceStatus Status;
 
     public String UniqueId;
     public Boolean Enabled;
@@ -66,7 +66,7 @@ public class Device {
 
     public Device() {
 
-        Status = new DeviceStatus();
+//        Status = new DeviceStatus();
 
     }
 

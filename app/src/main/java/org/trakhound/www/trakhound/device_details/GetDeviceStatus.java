@@ -1,18 +1,18 @@
-// Copyright (c) 2016 Feenux LLC, All Rights Reserved.
-
-// This file is subject to the terms and conditions defined in
-// file 'LICENSE.txt', which is part of this source code package.
-
-package org.trakhound.www.trakhound.devices;
+package org.trakhound.www.trakhound.device_details;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
+import org.trakhound.www.trakhound.devices.Device;
+import org.trakhound.www.trakhound.devices.DeviceStatus;
+import org.trakhound.www.trakhound.devices.DeviceStatusRequest;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 
-
+/**
+ * Created by Patrick on 5/22/2016.
+ */
 public class GetDeviceStatus extends AsyncTask<String,Void,String> {
 
     private DeviceList context;
@@ -26,16 +26,16 @@ public class GetDeviceStatus extends AsyncTask<String,Void,String> {
         this.progressDialog = progressDialog;
     }
 
-    protected void onPreExecute(){
+    protected void onPreExecute() {
 
     }
 
     @Override
     protected String doInBackground(String... arg0) {
 
-//        UserConfiguration user = ((MyApplication)(context.getApplication())).User;
-//        Device[] devices = ((MyApplication) (context.getApplication())).Devices;
-//
+        UserConfiguration user = ((MyApplication) (context.getApplication())).User;
+        Device[] devices = ((MyApplication) (context.getApplication())).Devices;
+
 //        if (user != null && devices != null) {
 //
 //            DeviceStatus[] statuses = DeviceStatus.get(statusRequest);
@@ -60,7 +60,7 @@ public class GetDeviceStatus extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPostExecute(String dummy){
+    protected void onPostExecute(String dummy) {
 
 //        context.updateStatus("test");
 
