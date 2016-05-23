@@ -76,7 +76,6 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
                 ((MyApplication)(((Activity)context).getApplication())).LoggedIn = true;
 
                 Intent deviceListIntent = new Intent(context, DeviceList.class);
-//                deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                         Intent.FLAG_ACTIVITY_CLEAR_TASK |
                         Intent.FLAG_ACTIVITY_NEW_TASK);

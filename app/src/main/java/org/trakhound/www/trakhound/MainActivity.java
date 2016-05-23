@@ -95,12 +95,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void openUserLogin(View view){
-
-        // Open the Device List
-        startActivity(new Intent(getBaseContext(), UserLoginActivity.class));
-    }
-
     public void openLocalLogin(View view){
 
         // Open the Device List

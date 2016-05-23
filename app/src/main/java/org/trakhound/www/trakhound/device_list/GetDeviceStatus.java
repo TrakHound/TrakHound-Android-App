@@ -12,7 +12,6 @@ import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.device_list.DeviceStatus;
-import org.trakhound.www.trakhound.devices.DeviceStatusRequest;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 
 

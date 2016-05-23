@@ -1,5 +1,6 @@
 package org.trakhound.www.trakhound;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -47,8 +48,15 @@ public class LocalHome extends AppCompatActivity {
 
     public void openDeviceList(View view){
 
-        // Open the Device List
-        startActivity(new Intent(getBaseContext(), DeviceListActivity2.class));
+        Context context = getBaseContext();
+
+        Intent deviceListIntent = new Intent(context, DeviceList.class);
+        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Open the Device List Page
+        context.startActivity(deviceListIntent);
     }
 
     public void logout(View view){

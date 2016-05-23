@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 
 import org.trakhound.www.trakhound.MainActivity;
 import org.trakhound.www.trakhound.MyApplication;
-import org.trakhound.www.trakhound.UserHome;
 
 
 public class Logout extends AsyncTask<String,Void,String> {
@@ -44,7 +43,6 @@ public class Logout extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String dummy){
 
-        UserHome.clearData();
 
         // Clear MyApplication variables
         ((MyApplication)((Activity)context).getApplication()).User = null;
