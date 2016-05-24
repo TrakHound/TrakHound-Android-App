@@ -35,7 +35,8 @@ public class DeviceDetails extends AppCompatActivity {
 
         int deviceIndex = intent.getIntExtra(DEVICE_INDEX, 0);
 
-        Device[] devices = ((MyApplication) this.getApplication()).Devices;
+//        Device[] devices = ((MyApplication) this.getApplication()).Devices;
+        Device[] devices = MyApplication.Devices;
 
         device = devices[deviceIndex];
 

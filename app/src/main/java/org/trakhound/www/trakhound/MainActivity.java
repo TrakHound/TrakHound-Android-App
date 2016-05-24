@@ -87,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
 
         UserConfiguration userConfig = UserManagement.localLogin(token, false);
 
-        ((MyApplication) this.getApplication()).User = userConfig;
-        ((MyApplication) this.getApplication()).LoggedIn = true;
+        MyApplication.User = userConfig;
+        MyApplication.LoggedIn = true;
+//        ((MyApplication) this.getApplication()).User = userConfig;
+//        ((MyApplication) this.getApplication()).LoggedIn = true;
 
         // Open the Local Home Screen
         startActivity(new Intent(getBaseContext(), DeviceList.class));

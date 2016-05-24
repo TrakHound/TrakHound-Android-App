@@ -5,7 +5,6 @@
 
 package org.trakhound.www.trakhound;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,14 +20,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.trakhound.www.trakhound.device_list.*;
 import org.trakhound.www.trakhound.device_list.StatusHandler;
 import org.trakhound.www.trakhound.devices.Device;
-
 import org.trakhound.www.trakhound.tools.SwipeDetector;
 import org.trakhound.www.trakhound.users.GetUserImage;
 import org.trakhound.www.trakhound.users.Logout;
@@ -67,7 +64,8 @@ public class DeviceList extends AppCompatActivity
         setNavigationDrawer();
 
         // Load Devices
-        Device[] devices = ((MyApplication) this.getApplication()).Devices;
+//        Device[] devices = ((MyApplication) this.getApplication()).Devices;
+        Device[] devices = MyApplication.Devices;
         if (devices == null) {
 
             Log.d("test", "devices == null");
@@ -92,7 +90,6 @@ public class DeviceList extends AppCompatActivity
     }
 
 
-
     private void loadDevices() {
 
         ProgressDialog progress = new ProgressDialog(this);
@@ -107,10 +104,6 @@ public class DeviceList extends AppCompatActivity
     private void refreshStatus() {
 
         ProgressDialog progress = new ProgressDialog(this);
-
-//        DeviceStatusRequest statusRequest = new DeviceStatusRequest();
-//        statusRequest.User = ((MyApplication) this.getApplication()).User;
-//        statusRequest.GetStatus = true;
 
         new GetDeviceStatus(this, progress).execute();
 
@@ -146,7 +139,8 @@ public class DeviceList extends AppCompatActivity
 
     private int getListIndex(String uniqueId) {
 
-        Device[] devices = ((MyApplication) this.getApplication()).Devices;
+//        Device[] devices = ((MyApplication) this.getApplication()).Devices;
+        Device[] devices = MyApplication.Devices;
         if (devices != null) {
 
             for (int i = 0; i < devices.length; i++) {
@@ -182,7 +176,8 @@ public class DeviceList extends AppCompatActivity
             //deviceListView.setOnTouchListener(swipeDetector);
 
             // Add each device found in static Devices array
-            Device[] devices = ((MyApplication) this.getApplication()).Devices;
+//            Device[] devices = ((MyApplication) this.getApplication()).Devices;
+            Device[] devices = MyApplication.Devices;
             if (devices != null && devices.length > 0) {
 
                 ArrayList<ListItem> itemList = new ArrayList<ListItem>();
@@ -211,7 +206,6 @@ public class DeviceList extends AppCompatActivity
     private void startStatusThread() {
 
         // Start Status Updates on separate thread
-//        StatusHandler statusHandler = new StatusHandler(this);
         StatusHandler statusHandler = new StatusHandler(this);
         statusThread = new Thread(statusHandler);
         statusThread.start();
@@ -315,7 +309,8 @@ public class DeviceList extends AppCompatActivity
 
 
         // Load Username
-        UserConfiguration userConfig = ((MyApplication)((Activity)context).getApplication()).User;
+//        UserConfiguration userConfig = ((MyApplication)((Activity)context).getApplication()).User;
+        UserConfiguration userConfig = MyApplication.User;
         if (userConfig != null) {
 
             String username = TH_Tools.capitalizeFirst(userConfig.Username);

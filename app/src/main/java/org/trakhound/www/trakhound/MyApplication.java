@@ -15,12 +15,12 @@ import org.trakhound.www.trakhound.users.UserConfiguration;
  */
 public class MyApplication extends android.app.Application {
 
-    public Boolean LoggedIn;
+    public static Boolean LoggedIn;
 
-    public UserConfiguration User;
+    public static UserConfiguration User;
 
-    public Bitmap UserImage;
+    public static Bitmap UserImage;
 
-    public Device[] Devices;
+    public static Device[] Devices;
 
 }
