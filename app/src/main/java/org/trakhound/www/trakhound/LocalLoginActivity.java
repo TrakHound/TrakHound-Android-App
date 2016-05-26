@@ -5,6 +5,7 @@
 
 package org.trakhound.www.trakhound;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -66,11 +67,24 @@ public class LocalLoginActivity extends AppCompatActivity {
 
         UserConfiguration userConfig = UserManagement.localLogin(id, remember);
 
-        ((MyApplication) this.getApplication()).User = userConfig;
-        ((MyApplication) this.getApplication()).LoggedIn = true;
+        MyApplication.User = userConfig;
+        MyApplication.LoggedIn = true;
+//        ((MyApplication) this.getApplication()).User = userConfig;
+//        ((MyApplication) this.getApplication()).LoggedIn = true;
+
+
+        Context context = getBaseContext();
 
         // Open the Local Home Screen
-        startActivity(new Intent(getBaseContext(), LocalHome.class));
+        Intent deviceListIntent = new Intent(context, DeviceList.class);
+        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Open the Device List Page
+        context.startActivity(deviceListIntent);
+
+//        startActivity(new Intent(getBaseContext(), LocalHome.class));
 
     }
 }

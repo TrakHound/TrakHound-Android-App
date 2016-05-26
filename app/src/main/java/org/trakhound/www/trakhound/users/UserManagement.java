@@ -151,39 +151,50 @@ public class UserManagement {
 
     public static String getSenderId() {
 
-        SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
+        if (context != null) {
 
-        String senderId = prefs.getString("sender_id", null);
-        if (senderId == null) {
+            SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
+            if (prefs != null) {
+                String senderId = prefs.getString("sender_id", null);
+                if (senderId == null) {
 
-            // Generate New Sender Id
-            senderId = UUID.randomUUID().toString();
+                    // Generate New Sender Id
+                    senderId = UUID.randomUUID().toString();
 
-            prefs.edit().putString("sender_id", senderId).commit();
+                    prefs.edit().putString("sender_id", senderId).apply();
+                }
+
+                return senderId;
+            }
         }
 
-        return senderId;
+        return null;
     }
 
     public static void setRememberToken(String token) {
 
-        SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
-
-        prefs.edit().putString("login_token", token).commit();
+        if (context != null) {
+            SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
+            if (prefs != null) prefs.edit().putString("login_token", token).apply();
+        }
     }
 
     public static String getRememberToken() {
 
-        SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
+        if (context != null) {
+            SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
+            if (prefs != null) return prefs.getString("login_token", null);
+        }
 
-        return prefs.getString("login_token", null);
+        return null;
     }
 
     public static void clearRememberToken() {
 
-        SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
-
-        prefs.edit().remove("login_token").commit();
+        if (context != null) {
+            SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
+            if (prefs != null) prefs.edit().remove("login_token").apply();
+        }
     }
 
 }

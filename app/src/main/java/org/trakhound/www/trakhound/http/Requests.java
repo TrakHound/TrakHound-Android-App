@@ -118,7 +118,7 @@ public class Requests {
                 conn.disconnect();
             }
         }
-        catch(Exception e) { e.printStackTrace(); }
+        catch (Exception e) { e.printStackTrace(); }
 
         return result;
     }
@@ -143,7 +143,7 @@ public class Requests {
             return conn;
 
         }
-        catch(Exception e) { e.printStackTrace(); }
+        catch (Exception e) { e.printStackTrace(); }
 
         return null;
     }

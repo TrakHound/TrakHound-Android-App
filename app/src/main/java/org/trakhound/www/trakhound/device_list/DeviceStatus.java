@@ -120,7 +120,7 @@ public class DeviceStatus {
         return null;
     }
 
-    private static ArrayList<ProductionInfo> processStatusArray(JSONArray a) {
+    public static ArrayList<ProductionInfo> processStatusArray(JSONArray a) {
 
         ArrayList<ProductionInfo> result = new ArrayList<>();
 
@@ -140,7 +140,7 @@ public class DeviceStatus {
         return result;
     }
 
-    private static ArrayList<OeeInfo> processOeeArray(JSONArray a) {
+    public static ArrayList<OeeInfo> processOeeArray(JSONArray a) {
 
         ArrayList<OeeInfo> result = new ArrayList<>();
 

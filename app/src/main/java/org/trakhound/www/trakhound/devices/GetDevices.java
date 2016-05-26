@@ -33,7 +33,8 @@ public class GetDevices extends AsyncTask<String,Void,Device[]> {
 
         Device[] result = null;
 
-        UserConfiguration userConfig = ((MyApplication)(context.getApplication())).User;
+//        UserConfiguration userConfig = ((MyApplication)(context.getApplication())).User;
+        UserConfiguration userConfig = MyApplication.User;
         if (userConfig != null) {
 
             result = Device.readAll(userConfig);
@@ -45,7 +46,8 @@ public class GetDevices extends AsyncTask<String,Void,Device[]> {
     @Override
     protected void onPostExecute(Device[] devices){
 
-        ((MyApplication)(context.getApplication())).Devices = devices;
+//        ((MyApplication)(context.getApplication())).Devices = devices;
+        MyApplication.Devices = devices;
 
         context.addDevices();
 

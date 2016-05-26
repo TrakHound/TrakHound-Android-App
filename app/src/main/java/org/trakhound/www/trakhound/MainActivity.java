@@ -6,6 +6,7 @@
 package org.trakhound.www.trakhound;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         UserManagement.context = getApplicationContext();
 
         // Attempt to login using saved credentials
-        tokenLogin();
+        if (MyApplication.User == null) tokenLogin();
     }
 
     public void tokenLogin() {
@@ -92,8 +93,19 @@ public class MainActivity extends AppCompatActivity {
 //        ((MyApplication) this.getApplication()).User = userConfig;
 //        ((MyApplication) this.getApplication()).LoggedIn = true;
 
+        // Open the Device List Screen
+//        startActivity(new Intent(getBaseContext(), DeviceList.class));
+
+        Context context = getBaseContext();
+
         // Open the Local Home Screen
-        startActivity(new Intent(getBaseContext(), DeviceList.class));
+        Intent deviceListIntent = new Intent(context, DeviceList.class);
+        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Open the Device List Page
+        context.startActivity(deviceListIntent);
     }
 
 

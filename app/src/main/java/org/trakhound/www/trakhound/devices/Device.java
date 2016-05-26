@@ -117,7 +117,7 @@ public class Device {
         return result;
     }
 
-    private static Device parse(JSONObject json) {
+    public static Device parse(JSONObject json) {
 
         Device result = null;
 
@@ -225,7 +225,7 @@ public class Device {
 //        return result;
 //    }
 
-    private static void setLogoImage(Device device) {
+    public static void setLogoImage(Device device) {
 
         if (device.LogoUrl != null) {
 

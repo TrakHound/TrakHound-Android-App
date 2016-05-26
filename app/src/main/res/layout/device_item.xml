@@ -4,36 +4,33 @@
     android:layout_height="110dp"
     >
 
-    <View
+    <!--<View-->
+        <!--android:id="@+id/StatusIndicator"-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:background="#EEEEEE"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
+
+    <FrameLayout
         android:id="@+id/StatusIndicator"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
         android:background="#EEEEEE"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:paddingLeft="2.5dp"
+        android:paddingRight="2.5dp">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="fill_parent"
-        android:id="@+id/DeviceImage"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:alpha="0.6"
-        android:adjustViewBounds="false" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="fill_parent"
-        android:id="@+id/AlertIcon"
-        android:src="@drawable/warning_01"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false"
-        android:layout_marginLeft="15dp"
-        android:alpha="0.8" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/AlertIcon"
+            android:src="@drawable/warning_01"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:alpha="0.8" />
+    </FrameLayout>
 
     <View
         android:layout_width="1dp"
@@ -41,183 +38,178 @@
         android:background="#CCCCCC"
         android:layout_alignParentTop="true"
         android:id="@+id/StatusIndicatorBorder"
-        android:layout_marginLeft="15dp" />
+        android:layout_toRightOf="@+id/StatusIndicator" />
 
-    <View
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/device_list_slide"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="-10dp"
-        android:id="@+id/Slide"/>
+        android:layout_toRightOf="@+id/StatusIndicatorBorder"
+        android:layout_toEndOf="@+id/StatusIndicatorBorder"
+        android:paddingLeft="10dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DescriptionLayout"
+            android:layout_marginTop="5dp">
+
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="20dp"
+                android:id="@+id/DeviceLogoLayout">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/ManufacturerLogo"
+                    android:layout_gravity="start|left"
+                    android:layout_alignParentTop="true"
+                    android:visibility="visible"
+                    android:scaleType="fitStart" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333"
+                android:ellipsize="marquee"
+                android:singleLine="false"
+                android:text="[Description]"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_alignParentTop="false"
+                android:layout_centerVertical="true"
+                android:layout_below="@+id/DeviceLogoLayout"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="ID"
+                android:id="@+id/DeviceId"
+                android:textSize="16dp"
+                android:textColor="#666666"
+                android:layout_alignTop="@+id/Description"
+                android:layout_toRightOf="@+id/Description"
+                android:layout_toEndOf="@+id/Description"
+                android:layout_marginLeft="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/DescriptionLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/StatusLayout"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Production Status"
+                android:id="@+id/ProductionStatus"
+                android:textSize="18dp"
+                android:textColor="#333"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentEnd="false"
+                android:layout_centerVertical="true"
+                android:layout_alignParentTop="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="00:00"
+                android:id="@+id/ProductionStatusTimer"
+                android:textSize="16dp"
+                android:textColor="#333"
+
+                android:layout_toRightOf="@+id/ProductionStatus"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/OeeLayout"
+            android:layout_below="@+id/StatusLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="OEE"
+                android:id="@+id/textView9"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="[OEE]"
+                android:id="@+id/OEE"
+                android:textColor="@color/foreground_normal_color"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/textView9"
+                android:layout_toEndOf="@+id/textView9"
+                android:layout_marginLeft="10dp"
+                android:textSize="16dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <!--Manufacturer Logo-->
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="30dp"
-        android:id="@+id/ManufacturerLogo"
-        android:layout_gravity="start"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/Slide"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ID"
-        android:id="@+id/DeviceId"
-        android:textSize="16dp"
-        android:textColor="#888"
-        android:layout_below="@+id/Manufacturer"
-        android:layout_alignLeft="@+id/Manufacturer"
-        android:layout_alignStart="@+id/Manufacturer" />
-
-    <TextView
-        android:id="@+id/Description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#333"
-        android:ellipsize="marquee"
-        android:singleLine="false"
-        android:text="Device_Name"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="150dp"
-        android:layout_marginTop="35dp"
-        android:layout_alignLeft="@+id/Slide" />
-
-    <TextView
-        android:id="@+id/Manufacturer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#888"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:text="Manufacturer"
-        android:textSize="12dp"
-        android:layout_alignLeft="@+id/Description"
-        android:layout_alignStart="@+id/Description"
-        android:layout_below="@+id/Description" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Production Status"
-        android:id="@+id/ProductionStatus"
-        android:textSize="18dp"
-        android:textColor="#333"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/ProductionStatusTimer" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="00:00"
-        android:id="@+id/ProductionStatusTimer"
-        android:textSize="20dp"
-        android:textColor="#333"
-
-        android:layout_alignRight="@+id/ProductionStatus"
-        android:layout_alignEnd="@+id/ProductionStatus"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="OEE"
-        android:id="@+id/textView9"
-        android:layout_alignBottom="@+id/OEE"
-        android:layout_toLeftOf="@+id/OEE"
-        android:layout_toStartOf="@+id/OEE"
-        android:layout_marginRight="5dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="[OEE]"
-        android:id="@+id/OEE"
-        android:textColor="@color/foreground_normal_color"
-        android:textStyle="bold"
-        android:layout_alignRight="@+id/ProductionStatus"
-        android:layout_alignEnd="@+id/ProductionStatus"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp" />
-
-
-    <!--Gloss Overlay-->
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:background="#10000000"-->
-    <!--android:id="@+id/view" />-->
-
-    <!--Top Border-->
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:background="#888888" />-->
 
     <!--Bottom Border-->
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:background="#CCCCCC" />
+        android:background="#CCCCCC"
+        android:id="@+id/BottomBorder" />
 
-
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="fill_parent"
+        android:id="@+id/Arrow"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/carrot_right_01"
+        android:alpha="0.25"
+        android:layout_marginRight="5dp" />
 
 
     <!--<View-->
         <!--android:id="@+id/StatusIndicator"-->
-        <!--android:layout_width="match_parent"-->
+        <!--android:layout_width="fill_parent"-->
         <!--android:layout_height="fill_parent"-->
-        <!--android:background="@color/statusRed"-->
-        <!--android:layout_marginTop="1dp"-->
-        <!--android:layout_marginBottom="1dp" />-->
+        <!--android:background="#EEEEEE"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
 
     <!--<ImageView-->
         <!--android:layout_width="100dp"-->
         <!--android:layout_height="fill_parent"-->
         <!--android:id="@+id/DeviceImage"-->
-        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginLeft="15dp"-->
         <!--android:layout_marginRight="0dp"-->
         <!--android:layout_marginTop="5dp"-->
         <!--android:layout_marginBottom="5dp"-->
         <!--android:alpha="0.6"-->
         <!--android:adjustViewBounds="false" />-->
-
-    <!--<View-->
-        <!--android:layout_width="1dp"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:background="#33000000"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_toRightOf="@+id/StatusIndicator"-->
-        <!--android:layout_toEndOf="@+id/StatusIndicator"-->
-        <!--android:id="@+id/StatusIndicatorBorder" />-->
-
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="#00ffff"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginLeft="70dp"-->
-        <!--android:layout_marginRight="-10dp"-->
-        <!--android:id="@+id/Slide"/>-->
 
     <!--<ImageView-->
         <!--android:layout_width="60dp"-->
@@ -227,8 +219,25 @@
         <!--android:layout_centerVertical="true"-->
         <!--android:layout_alignParentLeft="false"-->
         <!--android:layout_alignParentStart="false"-->
-        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginLeft="15dp"-->
         <!--android:alpha="0.8" />-->
+
+    <!--<View-->
+        <!--android:layout_width="1dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#CCCCCC"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:id="@+id/StatusIndicatorBorder"-->
+        <!--android:layout_marginLeft="15dp" />-->
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@drawable/device_list_slide"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginRight="-10dp"-->
+        <!--android:id="@+id/Slide"/>-->
 
     <!--&lt;!&ndash;Manufacturer Logo&ndash;&gt;-->
     <!--<ImageView-->
@@ -238,12 +247,9 @@
         <!--android:layout_gravity="start"-->
         <!--android:layout_alignParentTop="true"-->
         <!--android:layout_alignLeft="@+id/Slide"-->
-        <!--android:layout_alignStart="@+id/Slide"-->
         <!--android:layout_marginTop="5dp"-->
         <!--android:layout_marginLeft="5dp"-->
-        <!--android:layout_marginStart="5dp"-->
-        <!--android:layout_alignParentLeft="false"-->
-        <!--android:scaleType="fitCenter" />-->
+        <!--android:visibility="visible" />-->
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
@@ -268,10 +274,9 @@
         <!--android:textSize="16dp"-->
         <!--android:textStyle="bold"-->
         <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_alignLeft="@+id/Slide"-->
-        <!--android:layout_below="@+id/ManufacturerLogo"-->
-        <!--android:layout_marginRight="200dp" />-->
+        <!--android:layout_marginRight="150dp"-->
+        <!--android:layout_marginTop="35dp"-->
+        <!--android:layout_alignLeft="@+id/Slide" />-->
 
     <!--<TextView-->
         <!--android:id="@+id/Manufacturer"-->
@@ -295,12 +300,11 @@
         <!--android:id="@+id/ProductionStatus"-->
         <!--android:textSize="18dp"-->
         <!--android:textColor="#333"-->
-        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginEnd="10dp"-->
         <!--android:layout_alignParentRight="true"-->
         <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginTop="30dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_marginLeft="150dp" />-->
+        <!--android:layout_above="@+id/ProductionStatusTimer" />-->
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
@@ -311,9 +315,10 @@
         <!--android:textSize="20dp"-->
         <!--android:textColor="#333"-->
 
-        <!--android:layout_below="@+id/ProductionStatus"-->
         <!--android:layout_alignRight="@+id/ProductionStatus"-->
-        <!--android:layout_alignEnd="@+id/ProductionStatus" />-->
+        <!--android:layout_alignEnd="@+id/ProductionStatus"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="5dp" />-->
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
@@ -332,34 +337,18 @@
         <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
         <!--android:text="[OEE]"-->
         <!--android:id="@+id/OEE"-->
-        <!--android:textColor="#ff0000"-->
+        <!--android:textColor="@color/foreground_normal_color"-->
         <!--android:textStyle="bold"-->
-        <!--android:layout_alignBottom="@+id/ManufacturerLogo"-->
         <!--android:layout_alignRight="@+id/ProductionStatus"-->
         <!--android:layout_alignEnd="@+id/ProductionStatus"-->
-        <!--android:layout_marginBottom="5dp" />-->
-
-
-    <!--&lt;!&ndash;Gloss Overlay&ndash;&gt;-->
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="#10000000"-->
-        <!--android:id="@+id/view" />-->
-
-    <!--&lt;!&ndash;Top Border&ndash;&gt;-->
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:background="#888888" />-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_marginTop="5dp" />-->
 
     <!--&lt;!&ndash;Bottom Border&ndash;&gt;-->
     <!--<View-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="1dp"-->
         <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="#888888" />-->
+        <!--android:background="#CCCCCC" />-->
 
 </RelativeLayout>

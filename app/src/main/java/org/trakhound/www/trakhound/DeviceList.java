@@ -64,13 +64,13 @@ public class DeviceList extends AppCompatActivity
         setNavigationDrawer();
 
         // Load Devices
-//        Device[] devices = ((MyApplication) this.getApplication()).Devices;
-        Device[] devices = MyApplication.Devices;
-        if (devices == null) {
+        ListItem[] listItems = MyApplication.ListItems;
+        if (listItems == null) {
 
             Log.d("test", "devices == null");
 
             loadDevices();
+
         } else {
 
             Log.d("test", "devices != null");
@@ -101,21 +101,20 @@ public class DeviceList extends AppCompatActivity
         progress.show();
     }
 
-    private void refreshStatus() {
+    private void refresh() {
 
         ProgressDialog progress = new ProgressDialog(this);
 
-        new GetDeviceStatus(this, progress).execute();
+        new GetDevices(this, progress).execute();
 
         progress.setTitle("Refreshing");
         progress.setMessage("Please Wait...");
         progress.show();
     }
 
-    public void updateStatus(DeviceStatus deviceStatus) {
+    public void updateStatus(DeviceStatus[] deviceStatus) {
 
-        final DeviceStatus status = deviceStatus;
-        final String uniqueId = status.UniqueId;
+        final DeviceStatus[] statuses = deviceStatus;
 
         runOnUiThread(new Runnable() {
             @Override
@@ -123,14 +122,20 @@ public class DeviceList extends AppCompatActivity
 
                 try {
 
-                    int listIndex = getListIndex(uniqueId);
-                    if (listIndex >= 0) {
+                    for (int i = 0; i < statuses.length; i++) {
 
-                        ListItem listItem = listAdapter.getItem(listIndex);
-                        listItem.Status = status;
+                        DeviceStatus status = statuses[i];
+                        String uniqueId = status.UniqueId;
 
-                        listAdapter.notifyDataSetChanged();
+                        int listIndex = getListIndex(uniqueId);
+                        if (listIndex >= 0) {
+
+                            ListItem listItem = listAdapter.getItem(listIndex);
+                            listItem.Status = status;
+                        }
                     }
+
+                    listAdapter.notifyDataSetChanged();
 
                 } catch (Exception ex) { }
             }
@@ -139,7 +144,6 @@ public class DeviceList extends AppCompatActivity
 
     private int getListIndex(String uniqueId) {
 
-//        Device[] devices = ((MyApplication) this.getApplication()).Devices;
         Device[] devices = MyApplication.Devices;
         if (devices != null) {
 
@@ -175,29 +179,19 @@ public class DeviceList extends AppCompatActivity
 
             //deviceListView.setOnTouchListener(swipeDetector);
 
-            // Add each device found in static Devices array
-//            Device[] devices = ((MyApplication) this.getApplication()).Devices;
-            Device[] devices = MyApplication.Devices;
-            if (devices != null && devices.length > 0) {
+            ListItem[] listItems = MyApplication.ListItems;
+            if (listItems != null && listItems.length > 0) {
 
-                ArrayList<ListItem> itemList = new ArrayList<ListItem>();
+                ArrayList<ListItem> itemList = new ArrayList<>();
 
                 // Initialize ArrayAdapter
                 listAdapter = new ListAdapter(this, itemList);
 
-                for (int i = 0; i < devices.length; i++) {
+                listAdapter.addAll(listItems);
 
-                    Device device = devices[i];
-
-                    ListItem listItem = new ListItem();
-                    listItem.Device = device;
-
-                    listAdapter.add(listItem);
-                }
+                // Set the ArrayAdapter as the ListView's adapter.
+                deviceListView.setAdapter(listAdapter);
             }
-
-            // Set the ArrayAdapter as the ListView's adapter.
-            deviceListView.setAdapter(listAdapter);
 
             if (statusThread == null) startStatusThread();
         }
@@ -271,6 +265,7 @@ public class DeviceList extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -278,14 +273,18 @@ public class DeviceList extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
         }
 
         if (id == R.id.action_refresh) {
-            refreshStatus();
 
-            if (connected) loadDevices();
-            else refreshStatus();
+            refresh();
+
+//            loadDevices();
+
+//            if (connected) loadDevices();
+//            else refreshStatus();
         }
 
         return super.onOptionsItemSelected(item);
@@ -309,7 +308,6 @@ public class DeviceList extends AppCompatActivity
 
 
         // Load Username
-//        UserConfiguration userConfig = ((MyApplication)((Activity)context).getApplication()).User;
         UserConfiguration userConfig = MyApplication.User;
         if (userConfig != null) {
 
@@ -329,12 +327,14 @@ public class DeviceList extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
 
             logout();
+
         } else if (id == R.id.nav_about) {
 
             // Open the About Page

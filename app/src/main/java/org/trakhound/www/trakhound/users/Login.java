@@ -67,13 +67,13 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
 
         if (context != null) {
 
-            ((MyApplication)((Activity)context).getApplication()).User = userConfig;
+            MyApplication.User = userConfig;
 
             if (userConfig != null) {
 
                 if (errorText != null) errorText.setVisibility(View.INVISIBLE);
 
-                ((MyApplication)(((Activity)context).getApplication())).LoggedIn = true;
+                MyApplication.LoggedIn = true;
 
                 Intent deviceListIntent = new Intent(context, DeviceList.class);
                 deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
@@ -87,7 +87,7 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
 
                 if (errorText != null) errorText.setVisibility(View.VISIBLE);
 
-                ((MyApplication)(((Activity)context).getApplication())).LoggedIn = false;
+                MyApplication.LoggedIn = false;
             }
         }
 

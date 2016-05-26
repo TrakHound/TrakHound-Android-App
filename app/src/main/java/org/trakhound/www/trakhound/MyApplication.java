@@ -7,6 +7,7 @@ package org.trakhound.www.trakhound;
 
 import android.graphics.Bitmap;
 
+import org.trakhound.www.trakhound.device_list.ListItem;
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 
@@ -22,5 +23,7 @@ public class MyApplication extends android.app.Application {
     public static Bitmap UserImage;
 
     public static Device[] Devices;
+
+    public static ListItem[] ListItems;
 
 }
