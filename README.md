@@ -7,8 +7,16 @@
 ![TrakHound Logo] (http://feenux.com/github/v2/images/headers/header_01.png)
 
 <p align="center">
+
   <a href="http://www.trakhound.org/">www.TrakHound.org</a>
+  
+  <br>
+  
+  <a href='https://play.google.com/store/apps/details?id=org.trakhound.www.trakhound&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width='200' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+  
 </p>
+
+
 
 ##About
 TrakHound is an Open Source MDC software package designed to retrieve and store data from CNC and other PLC driven industrial equipment. Data is retrieved using <a href="http://mtconnect.org">MTConnect®</a>, processed, and then stored in a database. 
