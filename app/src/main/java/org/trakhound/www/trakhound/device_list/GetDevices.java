@@ -16,6 +16,8 @@ import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.http.Requests;
+import org.trakhound.www.trakhound.status_info.OeeInfo;
+import org.trakhound.www.trakhound.status_info.ProductionInfo;
 import org.trakhound.www.trakhound.tools.Json;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.users.UserManagement;

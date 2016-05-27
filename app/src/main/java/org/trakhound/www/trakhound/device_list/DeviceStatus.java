@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.trakhound.www.trakhound.http.Requests;
+import org.trakhound.www.trakhound.status_info.OeeInfo;
+import org.trakhound.www.trakhound.status_info.ProductionInfo;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.users.UserManagement;
 

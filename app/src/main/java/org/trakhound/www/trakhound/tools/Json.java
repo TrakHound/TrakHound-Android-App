@@ -5,7 +5,6 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.trakhound.www.trakhound.device_list.ProductionInfo;
 
 import java.util.ArrayList;
 

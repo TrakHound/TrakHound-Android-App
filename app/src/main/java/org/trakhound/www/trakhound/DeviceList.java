@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -163,19 +164,20 @@ public class DeviceList extends AppCompatActivity
         if (deviceListView != null) {
 
             // Set onClick listener
-//            deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position,
-//                                        long id) {
-//
-//                    Intent intent = new Intent(context, DeviceDetails.class);
-//
-//                    // Pass the index of the device in the MyApplication.Devices array
+            deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+
+                    Intent intent = new Intent(context, DeviceDetails.class);
+
+                    // Pass the index of the device in the MyApplication.Devices array
 //                    intent.putExtra(DeviceDetails.DEVICE_INDEX, position);
-//
-//                    context.startActivity(intent);
-//                }
-//            });
+                    intent.putExtra(DeviceDetails.DEVICE_INDEX, position);
+
+                    context.startActivity(intent);
+                }
+            });
 
             //deviceListView.setOnTouchListener(swipeDetector);
 

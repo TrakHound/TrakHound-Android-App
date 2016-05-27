@@ -8,23 +8,34 @@ package org.trakhound.www.trakhound;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.trakhound.www.trakhound.device_details.DeviceStatus;
+import org.trakhound.www.trakhound.device_details.GetDeviceStatus;
+import org.trakhound.www.trakhound.device_list.ListItem;
+import org.trakhound.www.trakhound.device_details.StatusHandler;
 import org.trakhound.www.trakhound.devices.Device;
+import org.trakhound.www.trakhound.status_info.OeeInfo;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DeviceDetails extends AppCompatActivity {
 
     public static String DEVICE_INDEX = "device_index";
 
-    private Device device;
+    public Device Device;
+    public DeviceStatus Status;
+
+    private Thread statusThread;
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +46,21 @@ public class DeviceDetails extends AppCompatActivity {
 
         int deviceIndex = intent.getIntExtra(DEVICE_INDEX, 0);
 
-//        Device[] devices = ((MyApplication) this.getApplication()).Devices;
-        Device[] devices = MyApplication.Devices;
+        ListItem[] listItems = MyApplication.ListItems;
+        if (listItems != null) {
 
-        device = devices[deviceIndex];
+            ListItem listItem = listItems[deviceIndex];
 
-        loadDevice(device);
+            Device = listItem.Device;
+
+            if (listItem.Status != null) {
+
+                Status = new DeviceStatus();
+                Status.Oee = listItem.Status.Oee;
+            }
+
+            loadDevice(Device);
+        }
 
         setToolbar();
     }
@@ -52,6 +72,44 @@ public class DeviceDetails extends AppCompatActivity {
         loadDescription(d);
 
         refresh();
+
+//        startStatusTimer();
+
+        if (statusThread == null) startStatusThread();
+    }
+
+//    private void startStatusTimer() {
+//
+//        if (Device != null) {
+//
+//            final String uniqueId = Device.UniqueId;
+//
+////            Timer timer = new Timer();
+////            timer.scheduleAtFixedRate(new TimerTask() {
+////                @Override
+////                public void run() {
+////
+////                    new GetDeviceStatus(this, uniqueId).execute();
+////
+////                }
+////            }, 10000, 10000);
+////            timer.scheduleAtFixedRate(new TimerTask() {
+////                @Override
+////                public void run() {
+////
+////                    new GetDeviceStatus(this, uniqueId).execute();
+////
+////                }
+////            }, 10000, 10000);
+//        }
+//    }
+
+    private void startStatusThread() {
+
+        // Start Status Updates on separate thread
+        StatusHandler statusHandler = new StatusHandler(this, handler, Device);
+        statusThread = new Thread(statusHandler);
+        statusThread.start();
     }
 
     private void loadImages(Device d) {
@@ -63,7 +121,6 @@ public class DeviceDetails extends AppCompatActivity {
 
         img = (ImageView) findViewById(R.id.DeviceLogo);
         if (img != null) img.setImageBitmap(d.Logo);
-
     }
 
     private void loadDescription(Device d) {
@@ -84,17 +141,16 @@ public class DeviceDetails extends AppCompatActivity {
 
         txt = (TextView) findViewById(R.id.Controller);
         if (txt != null) txt.setText(d.Controller);
-
     }
 
 
-    private void refresh() {
+    public void refresh() {
 
-        if (device != null) {
+        if (Status != null) {
 
 //            updateProductionStatus(device);
-//            updateOeeStatus(device);
-//            updateControllerStatus(device);
+            updateOeeStatus(Status);
+            updateControllerStatus(Status);
         }
     }
 
@@ -162,99 +218,104 @@ public class DeviceDetails extends AppCompatActivity {
 //    }
 
 
-//    private void updateOeeStatus(Device d) {
-//
-//        // Set OEE
-//        TextView txt = (TextView) findViewById(R.id.OEE);
-//        if (txt != null) {
-//
-//            double val = device.Status.Oee.Oee * 100;
-//            String s = String.format("%.0f%%", val);
-//            txt.setText(s);
-//        }
-//
-//        // Set Availability
-//        txt = (TextView) findViewById(R.id.AvailabilityVariable);
-//        if (txt != null) {
-//
-//            double val = device.Status.Oee.Availability * 100;
-//            String s = String.format("%.0f%%", val);
-//            txt.setText(s);
-//        }
-//
-//        // Set Performance
-//        txt = (TextView) findViewById(R.id.Performance);
-//        if (txt != null) {
-//
-//            double val = device.Status.Oee.Performance * 100;
-//            String s = String.format("%.0f%%", val);
-//            txt.setText(s);
-//        }
-//    }
+    private void updateOeeStatus(DeviceStatus status) {
 
+        if (status.Oee == null) status.Oee = new OeeInfo();
 
-    private void updateControllerStatus(Device d) {
+        // Set OEE
+        TextView txt = (TextView) findViewById(R.id.OEE);
+        if (txt != null) {
 
-        updateControllerStatus_EmergencyStop(d);
-        updateControllerStatus_ControllerMode(d);
-        updateControllerStatus_ExecutionMode(d);
-        updateControllerStatus_Alarm(d);
+            double val = status.Oee.Oee * 100;
+            String s = String.format("%.0f%%", val);
+            txt.setText(s);
+        }
+
+        // Set Availability
+        txt = (TextView) findViewById(R.id.AvailabilityVariable);
+        if (txt != null) {
+
+            double val = status.Oee.Availability * 100;
+            String s = String.format("%.0f%%", val);
+            txt.setText(s);
+        }
+
+        // Set Performance
+        txt = (TextView) findViewById(R.id.Performance);
+        if (txt != null) {
+
+            double val = status.Oee.Performance * 100;
+            String s = String.format("%.0f%%", val);
+            txt.setText(s);
+        }
     }
 
-    private void updateControllerStatus_EmergencyStop(Device d) {
 
-//        TextView txt = (TextView)findViewById(R.id.EmergencyStop);
-//        if (txt != null) {
-//            txt.setText(d.Status.EmergencyStop);
-//
-//            if (d.Status.EmergencyStop.equals("ARMED"))
-//                txt.setTextColor(getResources().getColor(R.color.statusGreen));
-//            else if (d.Status.EmergencyStop.equals("TRIGGERED"))
-//                txt.setTextColor(getResources().getColor(R.color.statusRed));
-//            else
-//                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
-//        }
+    private void updateControllerStatus(DeviceStatus status) {
+
+        if (status != null && status.Controller != null) {
+
+            updateControllerStatus_EmergencyStop(status);
+            updateControllerStatus_ControllerMode(status);
+            updateControllerStatus_ExecutionMode(status);
+            updateControllerStatus_Alarm(status);
+        }
     }
 
-    private void updateControllerStatus_ControllerMode(Device d) {
+    private void updateControllerStatus_EmergencyStop(DeviceStatus status) {
 
-//        TextView txt = (TextView)findViewById(R.id.ControllerMode);
-//        if (txt != null) {
-//            txt.setText(d.Status.ControllerMode);
-//
-//            if (d.Status.ControllerMode.equals("AUTOMATIC"))
-//                txt.setTextColor(getResources().getColor(R.color.statusGreen));
-//            else
-//                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
-//        }
+        TextView txt = (TextView)findViewById(R.id.EmergencyStop);
+        if (txt != null) {
+            txt.setText(status.Controller.EmergencyStop);
+
+            if (status.Controller.EmergencyStop.equals("ARMED"))
+                txt.setTextColor(getResources().getColor(R.color.statusGreen));
+            else if (status.Controller.EmergencyStop.equals("TRIGGERED"))
+                txt.setTextColor(getResources().getColor(R.color.statusRed));
+            else
+                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+        }
     }
 
-    private void updateControllerStatus_ExecutionMode(Device d) {
+    private void updateControllerStatus_ControllerMode(DeviceStatus status) {
 
-//        TextView txt = (TextView)findViewById(R.id.ExecutionMode);
-//        if (txt != null) {
-//            txt.setText(d.Status.ExecutionMode);
-//
-//            if (d.Status.ExecutionMode.equals("ACTIVE"))
-//                txt.setTextColor(getResources().getColor(R.color.statusGreen));
-//            else if (d.Status.ExecutionMode.equals("STOPPED") || d.Status.ExecutionMode.equals("INTERRUPTED"))
-//                txt.setTextColor(getResources().getColor(R.color.statusRed));
-//            else
-//                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
-//        }
+        TextView txt = (TextView)findViewById(R.id.ControllerMode);
+        if (txt != null) {
+            txt.setText(status.Controller.ControllerMode);
+
+            if (status.Controller.ControllerMode.equals("AUTOMATIC"))
+                txt.setTextColor(getResources().getColor(R.color.statusGreen));
+            else
+                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+        }
     }
 
-    private void updateControllerStatus_Alarm(Device d) {
+    private void updateControllerStatus_ExecutionMode(DeviceStatus status) {
 
-//        TextView txt = (TextView)findViewById(R.id.Alarm);
-//        if (txt != null) {
-//            txt.setText(d.Status.SystemMessage);
-//
-//            if (d.Status.SystemStatus.equals("FAULT"))
-//                txt.setTextColor(getResources().getColor(R.color.statusRed));
-//            else
-//                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
-//        }
+        TextView txt = (TextView)findViewById(R.id.ExecutionMode);
+        if (txt != null) {
+            txt.setText(status.Controller.ExecutionMode);
+
+            if (status.Controller.ExecutionMode.equals("ACTIVE"))
+                txt.setTextColor(getResources().getColor(R.color.statusGreen));
+            else if (status.Controller.ExecutionMode.equals("STOPPED") || status.Controller.ExecutionMode.equals("INTERRUPTED"))
+                txt.setTextColor(getResources().getColor(R.color.statusRed));
+            else
+                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+        }
+    }
+
+    private void updateControllerStatus_Alarm(DeviceStatus status) {
+
+        TextView txt = (TextView)findViewById(R.id.Alarm);
+        if (txt != null) {
+            txt.setText(status.Controller.SystemMessage);
+
+            if (status.Controller.SystemStatus.equals("FAULT"))
+                txt.setTextColor(getResources().getColor(R.color.statusRed));
+            else
+                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+        }
     }
 
 

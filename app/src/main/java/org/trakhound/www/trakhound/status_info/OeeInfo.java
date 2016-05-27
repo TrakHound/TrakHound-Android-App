@@ -1,4 +1,4 @@
-package org.trakhound.www.trakhound.device_list;
+package org.trakhound.www.trakhound.status_info;
 
 import android.util.Log;
 
