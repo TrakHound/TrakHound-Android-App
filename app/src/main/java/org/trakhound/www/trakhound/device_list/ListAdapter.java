@@ -154,7 +154,7 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
     private void initializeStatusIndicator(View view, ViewHolder holder) {
 
-        View v = null;
+        View v;
 
         // Status Indicator
         v = view.findViewById(R.id.StatusIndicator);
@@ -167,7 +167,7 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
     private void setStatusIndicator(ViewHolder holder, DeviceStatus status) {
 
-        if (holder.StatusIndicator != null && holder.AlertIcon != null) {
+        if (holder.StatusIndicator != null && holder.AlertIcon != null && status.Production != null) {
 
             if (status.Production.Alert) {
 
@@ -187,7 +187,7 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
     private void initializeProductionStatus(View view, ViewHolder holder) {
 
-        View v = null;
+        View v;
 
         // Production Status
         v = view.findViewById(R.id.ProductionStatus);
@@ -200,18 +200,21 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
     private void setProductionStatus(ViewHolder holder, DeviceStatus status) {
 
-        if (holder.ProductionStatus != null) holder.ProductionStatus.setText(status.Production.ProductionStatus);
+        if (status.Production != null) {
 
-        if (holder.ProductionStatusTimer != null &&
-            status.Production.ProductionStatusTimer != null &&
-            status.Production.ProductionStatusTimer.length() > 0) {
+            if (holder.ProductionStatus != null) holder.ProductionStatus.setText(status.Production.ProductionStatus);
 
-            int seconds = Integer.parseInt(status.Production.ProductionStatusTimer);
+            if (holder.ProductionStatusTimer != null &&
+                    status.Production.ProductionStatusTimer != null &&
+                    status.Production.ProductionStatusTimer.length() > 0) {
 
-            Period period = new Period(seconds * 1000);
-            String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
+                int seconds = Integer.parseInt(status.Production.ProductionStatusTimer);
 
-            holder.ProductionStatusTimer.setText(statusPeriod);
+                Period period = new Period(seconds * 1000);
+                String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
+
+                holder.ProductionStatusTimer.setText(statusPeriod);
+            }
         }
     }
 
@@ -227,7 +230,7 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
     private void setOEEStatus(ViewHolder holder, DeviceStatus status) {
 
         // Set OEE
-        if (holder.OEE != null) {
+        if (holder.OEE != null && status.Oee != null) {
 
             double d = status.Oee.Oee * 100;
             String s = String.format("%.0f%%",d);

@@ -18,6 +18,8 @@ public class About extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
+        MyApplication.setCurrentActivity(this);
+
         try
         {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);

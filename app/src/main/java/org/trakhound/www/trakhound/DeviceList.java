@@ -5,7 +5,6 @@
 
 package org.trakhound.www.trakhound;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import org.trakhound.www.trakhound.device_list.*;
 import org.trakhound.www.trakhound.device_list.StatusHandler;
 import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.tools.SwipeDetector;
 import org.trakhound.www.trakhound.users.GetUserImage;
 import org.trakhound.www.trakhound.users.Logout;
 import org.trakhound.www.trakhound.users.UserConfiguration;
@@ -44,17 +42,17 @@ public class DeviceList extends AppCompatActivity
     Context context;
     Toolbar toolbar;
 
-    SwipeDetector swipeDetector;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list2);
 
+        MyApplication.setCurrentActivity(this);
+
         context = this;
 
-        swipeDetector = new SwipeDetector();
+        //swipeDetector = new SwipeDetector();
 
         Log.d("test", "onCreate");
 
@@ -93,24 +91,32 @@ public class DeviceList extends AppCompatActivity
 
     private void loadDevices() {
 
-        ProgressDialog progress = new ProgressDialog(this);
+        //ProgressDialog progress = new ProgressDialog(this);
 
-        new GetDevices(this, progress).execute();
+        new GetDevices(this).execute();
 
-        progress.setTitle("Loading Devices");
-        progress.setMessage("Please Wait...");
-        progress.show();
+        // Show Loading Activity
+        Loading.Open(this, "Loading Devices..");
+//        Intent loading = new Intent(this, Loading.class);
+//        loading.putExtra(Loading.LOADING_TEXT,"Loading Devices..");
+//        startActivity(loading);
+
+//        progress.setTitle("Loading Devices");
+//        progress.setMessage("Please Wait...");
+//        progress.show();
     }
 
     private void refresh() {
 
-        ProgressDialog progress = new ProgressDialog(this);
+//        ProgressDialog progress = new ProgressDialog(this);
 
-        new GetDevices(this, progress).execute();
+        new GetDevices(this).execute();
 
-        progress.setTitle("Refreshing");
-        progress.setMessage("Please Wait...");
-        progress.show();
+//        // Show Loading Activity
+//        Intent loading = new Intent(this, Loading.class);
+//        loading.putExtra(Loading.LOADING_TEXT,"Refreshing..");
+//        startActivity(loading);
+
     }
 
     public void updateStatus(DeviceStatus[] deviceStatus) {
@@ -172,7 +178,6 @@ public class DeviceList extends AppCompatActivity
                     Intent intent = new Intent(context, DeviceDetails.class);
 
                     // Pass the index of the device in the MyApplication.Devices array
-//                    intent.putExtra(DeviceDetails.DEVICE_INDEX, position);
                     intent.putExtra(DeviceDetails.DEVICE_INDEX, position);
 
                     context.startActivity(intent);
@@ -218,13 +223,9 @@ public class DeviceList extends AppCompatActivity
 
     public void logout(){
 
-        ProgressDialog progress = new ProgressDialog(this);
+        Loading.Open(this, "Logging Out..");
 
-        new Logout(this, progress).execute();
-
-        progress.setTitle("Logging Out");
-        progress.setMessage("Please Wait...");
-        progress.show();
+        new Logout(this).execute();
     }
 
 
@@ -282,11 +283,6 @@ public class DeviceList extends AppCompatActivity
         if (id == R.id.action_refresh) {
 
             refresh();
-
-//            loadDevices();
-
-//            if (connected) loadDevices();
-//            else refreshStatus();
         }
 
         return super.onOptionsItemSelected(item);

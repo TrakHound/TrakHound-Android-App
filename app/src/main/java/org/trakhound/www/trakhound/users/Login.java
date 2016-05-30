@@ -5,11 +5,6 @@
 
 package org.trakhound.www.trakhound.users;
 
-import android.app.Activity;
-import android.app.PendingIntent;
-import android.app.ProgressDialog;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
 import android.widget.TextView;
 import android.content.Intent;
@@ -24,13 +19,11 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
 
     private Context context;
     private TextView errorText;
-    private ProgressDialog progressDialog;
 
-    public Login(Context context, TextView errorText, ProgressDialog progressDialog) {
+    public Login(Context context, TextView errorText) {
 
         this.context = context;
         this.errorText = errorText;
-        this.progressDialog = progressDialog;
     }
 
 
@@ -90,8 +83,6 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
                 MyApplication.LoggedIn = false;
             }
         }
-
-        if (progressDialog != null) progressDialog.dismiss();
     }
 
 }

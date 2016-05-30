@@ -5,6 +5,7 @@
 
 package org.trakhound.www.trakhound;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 
 import org.trakhound.www.trakhound.device_list.ListItem;
@@ -25,5 +26,18 @@ public class MyApplication extends android.app.Application {
     public static Device[] Devices;
 
     public static ListItem[] ListItems;
+
+
+    private static Activity CurrentActivity = null;
+
+    public static Activity getCurrentActivity(){
+
+        return CurrentActivity;
+    }
+
+    public static void setCurrentActivity(Activity currentActivity){
+
+        CurrentActivity = currentActivity;
+    }
 
 }

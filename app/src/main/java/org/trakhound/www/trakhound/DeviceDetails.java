@@ -14,9 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.joda.time.Period;
 import org.trakhound.www.trakhound.device_details.DeviceStatus;
 import org.trakhound.www.trakhound.device_details.GetDeviceStatus;
 import org.trakhound.www.trakhound.device_list.ListItem;
@@ -39,8 +42,11 @@ public class DeviceDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_details);
+
+        MyApplication.setCurrentActivity(this);
 
         Intent intent = this.getIntent();
 
@@ -130,17 +136,17 @@ public class DeviceDetails extends AppCompatActivity {
         txt = (TextView) findViewById(R.id.Description);
         if (txt != null) txt.setText(d.Description);
 
-        txt = (TextView) findViewById(R.id.Manufacturer);
-        if (txt != null) txt.setText(d.Manufacturer);
-
-        txt = (TextView) findViewById(R.id.Model);
-        if (txt != null) txt.setText(d.Model);
-
-        txt = (TextView) findViewById(R.id.Serial);
-        if (txt != null) txt.setText(d.Serial);
-
-        txt = (TextView) findViewById(R.id.Controller);
-        if (txt != null) txt.setText(d.Controller);
+//        txt = (TextView) findViewById(R.id.Manufacturer);
+//        if (txt != null) txt.setText(d.Manufacturer);
+//
+//        txt = (TextView) findViewById(R.id.Model);
+//        if (txt != null) txt.setText(d.Model);
+//
+//        txt = (TextView) findViewById(R.id.Serial);
+//        if (txt != null) txt.setText(d.Serial);
+//
+//        txt = (TextView) findViewById(R.id.Controller);
+//        if (txt != null) txt.setText(d.Controller);
     }
 
 
@@ -148,74 +154,95 @@ public class DeviceDetails extends AppCompatActivity {
 
         if (Status != null) {
 
-//            updateProductionStatus(device);
+            updateProductionStatus(Status);
             updateOeeStatus(Status);
             updateControllerStatus(Status);
         }
     }
 
-//    private void updateProductionStatus(Device d) {
-//
-//        // Banner
+    private void updateProductionStatus(DeviceStatus status) {
+
+        // Banner
 //        View banner = findViewById(R.id.StatusBanner);
 //        if (banner != null) {
 //
-//            if (d.Status.Status.Alert) {
+//            if (status.Production.Alert) {
 //                banner.setBackgroundColor(getResources().getColor(R.color.statusRed));
-//            } else if (d.Status.Status.Idle) {
+//            } else if (status.Production.Idle) {
 //                banner.setBackgroundColor(getResources().getColor(R.color.statusYellow));
 //            } else {
 //                banner.setBackgroundColor(getResources().getColor(R.color.statusGreen));
 //            }
 //        }
-//
+
 //        ImageView img = (ImageView)findViewById(R.id.AlertIndicator);
 //        if (img != null) {
 //            if (d.Status.Status.Alert) img.setVisibility(View.VISIBLE);
 //            else img.setVisibility(View.INVISIBLE);
 //        }
-//
-//
-//        // Percentages
-////        if (d.Status.SecondsTotal > 0) {
-////
-////
-////
-////            double production = ((double)d.Status.SecondsProduction / d.Status.SecondsTotal) * 100;
-////            double idle = ((double)d.Status.SecondsIdle / d.Status.SecondsTotal) * 100;
-////            double alert = ((double)d.Status.SecondsAlert / d.Status.SecondsTotal) * 100;
-////
-////            // Progress Bars
-////
-////            // Production
-////            ProgressBar pb = (ProgressBar)findViewById(R.id.ProductionProgressBar);
-////            if (pb != null) pb.setProgress((int)Math.round(production));
-////
-////            // Idle
-////            pb = (ProgressBar)findViewById(R.id.IdleProgressBar);
-////            if (pb != null) pb.setProgress((int)Math.round(idle));
-////
-////            // Alert
-////            pb = (ProgressBar)findViewById(R.id.AlertProgressBar);
-////            if (pb != null) pb.setProgress((int)Math.round(alert));
-////
-////
-////            // Percentage TextViews
-////
-////            // Production
-////            TextView txt = (TextView)findViewById(R.id.ProductionPercentage);
-////            if (txt != null) txt.setText(String.format("%.0f%%", production));
-////
-////            // Idle
-////            txt = (TextView)findViewById(R.id.IdlePercentage);
-////            if (txt != null) txt.setText(String.format("%.0f%%", idle));
-////
-////            // Alert
-////            txt = (TextView)findViewById(R.id.AlertPercentage);
-////            if (txt != null) txt.setText(String.format("%.0f%%", alert));
-////
-////        }
-//    }
+
+
+        // Percentages
+        if (status.Timers != null && status.Timers.Total > 0) {
+
+            double production = (status.Timers.Production / status.Timers.Total) * 100;
+            double idle = (status.Timers.Idle / status.Timers.Total) * 100;
+            double alert = (status.Timers.Alert / status.Timers.Total) * 100;
+
+            // Progress Bars
+
+            // Production
+            ProgressBar pb = (ProgressBar)findViewById(R.id.ProductionProgressBar);
+            if (pb != null) pb.setProgress((int)Math.round(production));
+
+            // Idle
+            pb = (ProgressBar)findViewById(R.id.IdleProgressBar);
+            if (pb != null) pb.setProgress((int)Math.round(idle));
+
+            // Alert
+            pb = (ProgressBar)findViewById(R.id.AlertProgressBar);
+            if (pb != null) pb.setProgress((int)Math.round(alert));
+
+
+            // Percentage TextViews
+
+            // Production
+            TextView txt = (TextView)findViewById(R.id.ProductionPercentage);
+            if (txt != null) txt.setText(String.format("%.0f%%", production));
+
+            // Idle
+            txt = (TextView)findViewById(R.id.IdlePercentage);
+            if (txt != null) txt.setText(String.format("%.0f%%", idle));
+
+            // Alert
+            txt = (TextView)findViewById(R.id.AlertPercentage);
+            if (txt != null) txt.setText(String.format("%.0f%%", alert));
+
+            // Time Elapsed TextViews
+
+            // Production
+            Integer seconds = Integer.valueOf((int) Math.round(status.Timers.Production));
+            Period period = new Period(seconds * 1000);
+            String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
+            txt = (TextView)findViewById(R.id.ProductionTime);
+            txt.setText(statusPeriod);
+
+            // Idle
+            seconds = Integer.valueOf((int) Math.round(status.Timers.Idle));
+            period = new Period(seconds * 1000);
+            statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
+            txt = (TextView)findViewById(R.id.IdleTime);
+            txt.setText(statusPeriod);
+
+            // Alert
+            seconds = Integer.valueOf((int) Math.round(status.Timers.Alert));
+            period = new Period(seconds * 1000);
+            statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
+            txt = (TextView)findViewById(R.id.AlertTime);
+            txt.setText(statusPeriod);
+
+        }
+    }
 
 
     private void updateOeeStatus(DeviceStatus status) {

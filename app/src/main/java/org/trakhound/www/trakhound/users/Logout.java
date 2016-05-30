@@ -5,8 +5,6 @@
 
 package org.trakhound.www.trakhound.users;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -18,24 +16,26 @@ import org.trakhound.www.trakhound.MyApplication;
 public class Logout extends AsyncTask<String,Void,String> {
 
     private Context context;
-    private ProgressDialog progressDialog;
 
-    public Logout(Context context, ProgressDialog progressDialog) {
+    public Logout(Context context) {
 
         this.context = context;
-        this.progressDialog = progressDialog;
     }
 
 
     @Override
     protected String doInBackground(String... arg0) {
 
-        if (arg0.length == 1) {
+//        if (arg0.length == 1) {
+//
+//            String senderId = arg0[0];
+//
+//
+//
+////            UserManagement.deleteToken(senderId);
+//        }
 
-            String senderId = arg0[0];
-
-            UserManagement.deleteToken(senderId);
-        }
+        UserManagement.logout();
 
         return null;
     }
@@ -45,9 +45,6 @@ public class Logout extends AsyncTask<String,Void,String> {
 
 
         // Clear MyApplication variables
-//        ((MyApplication)((Activity)context).getApplication()).User = null;
-//        ((MyApplication)((Activity)context).getApplication()).Devices = null;
-//        ((MyApplication)((Activity)context).getApplication()).LoggedIn = false;
         MyApplication.User = null;
         MyApplication.Devices = null;
         MyApplication.LoggedIn = false;
@@ -57,8 +54,6 @@ public class Logout extends AsyncTask<String,Void,String> {
 
         // Open the Main Login Screen
         context.startActivity(new Intent(context, MainActivity.class));
-
-        progressDialog.dismiss();
     }
 
 }

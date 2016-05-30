@@ -14,6 +14,7 @@ import org.trakhound.www.trakhound.status_info.ControllerInfo;
 import org.trakhound.www.trakhound.status_info.OeeInfo;
 import org.trakhound.www.trakhound.status_info.ProductionInfo;
 import org.trakhound.www.trakhound.http.Requests;
+import org.trakhound.www.trakhound.status_info.TimersInfo;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.users.UserManagement;
 
@@ -29,6 +30,7 @@ public class DeviceStatus {
     public ProductionInfo Production;
     public OeeInfo Oee;
     public ControllerInfo Controller;
+    public TimersInfo Timers;
 
     public DeviceStatus() {
 
@@ -46,7 +48,7 @@ public class DeviceStatus {
                 "token=" + userConfig.SessionToken +
                 "&sender_id=" + UserManagement.getSenderId() +
                 "&unique_id=" + uniqueId +
-                "&command=" + "0111"; // Get Status, Controller, and Oee tables
+                "&command=" + "01111"; // Get Status, Controller, Oee, and Timers tables
 
             String response = Requests.get(url);
             if (response != null && response.length() > 0) {
@@ -65,6 +67,9 @@ public class DeviceStatus {
 
                     // Oee is Third array
                     result.Oee = processOeeArray(a.getJSONArray(2));
+
+                    // Timers is Fourth array
+                    result.Timers = processTimersArray(a.getJSONArray(3));
 
                     return result;
                 }
@@ -116,6 +121,22 @@ public class DeviceStatus {
             JSONObject obj = a.getJSONObject(0);
 
             OeeInfo status = OeeInfo.parse(obj);
+            if (status != null) result = status;
+        }
+        catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
+
+        return result;
+    }
+
+    public static TimersInfo processTimersArray(JSONArray a) {
+
+        TimersInfo result = null;
+
+        try {
+
+            JSONObject obj = a.getJSONObject(0);
+
+            TimersInfo status = TimersInfo.parse(obj);
             if (status != null) result = status;
         }
         catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }

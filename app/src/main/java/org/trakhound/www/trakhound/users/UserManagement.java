@@ -36,7 +36,10 @@ public class UserManagement {
             result.Username = userId;
             result.Type = UserConfiguration.UserType.LOCAL;
 
-            if (remember) setRememberToken(userId);
+            if (remember) {
+                setRememberToken(userId);
+                setRememberUsername(userId);
+            }
         }
 
         return result;
@@ -98,6 +101,7 @@ public class UserManagement {
                     if (result != null) {
 
                         setRememberToken(result.RememberToken);
+                        setRememberUsername(result.Username);
                     }
 
                     result.Type = UserConfiguration.UserType.REMOTE;
@@ -147,6 +151,26 @@ public class UserManagement {
         return result;
     }
 
+    // Logout
+    public static boolean logout() {
+
+        try{
+
+            String senderId = getSenderId();
+
+            String url = "https://www.feenux.com/trakhound/api/logout?sender_id=" + senderId;
+
+            String response = Requests.get(url);
+            if (response != null) {
+
+                return true;
+            }
+        }
+        catch(Exception e){ e.printStackTrace(); }
+
+        return false;
+    }
+
 
 
     public static String getSenderId() {
@@ -194,6 +218,33 @@ public class UserManagement {
         if (context != null) {
             SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
             if (prefs != null) prefs.edit().remove("login_token").apply();
+        }
+    }
+
+
+    public static void setRememberUsername(String username) {
+
+        if (context != null) {
+            SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
+            if (prefs != null) prefs.edit().putString("login_username", username).apply();
+        }
+    }
+
+    public static String getRememberUsername() {
+
+        if (context != null) {
+            SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
+            if (prefs != null) return prefs.getString("login_username", null);
+        }
+
+        return null;
+    }
+
+    public static void clearRememberUsername() {
+
+        if (context != null) {
+            SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
+            if (prefs != null) prefs.edit().remove("login_username").apply();
         }
     }
 
