@@ -136,7 +136,9 @@ public class Requests {
             conn.setRequestMethod(method);
 
             conn.setDoInput(true);
-            conn.setDoOutput(true);
+            conn.setDoOutput(method.equals(POST));
+
+            //conn.setRequestMethod(method);
 
             conn.connect();
 

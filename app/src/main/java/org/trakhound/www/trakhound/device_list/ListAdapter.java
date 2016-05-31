@@ -122,7 +122,7 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
     private void initializeDescription(View view, ViewHolder holder) {
 
-        View v = null;
+        View v;
 
         // Description
         v = view.findViewById(R.id.Description);
@@ -220,7 +220,7 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
     private void initializeOEEStatus(View view, ViewHolder holder) {
 
-        View v = null;
+        View v;
 
         // OEE
         v = view.findViewById(R.id.OEE);

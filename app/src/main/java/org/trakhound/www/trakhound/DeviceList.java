@@ -50,9 +50,28 @@ public class DeviceList extends AppCompatActivity
 
         MyApplication.setCurrentActivity(this);
 
-        context = this;
+        showLoading();
 
-        //swipeDetector = new SwipeDetector();
+        context = this;
+        deviceListView = (ListView) findViewById(R.id.device_list);
+        listAdapter = new ListAdapter(this, new ArrayList<ListItem>());
+        deviceListView.setAdapter(listAdapter);
+
+        // Set onClick listener
+        deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                Intent intent = new Intent(context, DeviceDetails.class);
+
+                // Pass the index of the device in the MyApplication.Devices array
+                intent.putExtra(DeviceDetails.DEVICE_INDEX, position);
+
+                context.startActivity(intent);
+            }
+        });
+
 
         Log.d("test", "onCreate");
 
@@ -66,16 +85,14 @@ public class DeviceList extends AppCompatActivity
         ListItem[] listItems = MyApplication.ListItems;
         if (listItems == null) {
 
-            Log.d("test", "devices == null");
-
             loadDevices();
 
         } else {
 
-            Log.d("test", "devices != null");
-
             addDevices();
         }
+
+        hideLoading();
     }
 
     @Override
@@ -91,32 +108,18 @@ public class DeviceList extends AppCompatActivity
 
     private void loadDevices() {
 
-        //ProgressDialog progress = new ProgressDialog(this);
-
-        new GetDevices(this).execute();
-
         // Show Loading Activity
         Loading.Open(this, "Loading Devices..");
-//        Intent loading = new Intent(this, Loading.class);
-//        loading.putExtra(Loading.LOADING_TEXT,"Loading Devices..");
-//        startActivity(loading);
 
-//        progress.setTitle("Loading Devices");
-//        progress.setMessage("Please Wait...");
-//        progress.show();
+        new GetDevices(this).execute();
     }
 
     private void refresh() {
 
-//        ProgressDialog progress = new ProgressDialog(this);
+        // Show Loading Overlay
+        showLoading();
 
         new GetDevices(this).execute();
-
-//        // Show Loading Activity
-//        Intent loading = new Intent(this, Loading.class);
-//        loading.putExtra(Loading.LOADING_TEXT,"Refreshing..");
-//        startActivity(loading);
-
     }
 
     public void updateStatus(DeviceStatus[] deviceStatus) {
@@ -165,43 +168,15 @@ public class DeviceList extends AppCompatActivity
 
     public void addDevices() {
 
-        // Set local variable to Id of ListView in layout
-        deviceListView = (ListView) findViewById(R.id.device_list);
-        if (deviceListView != null) {
+        listAdapter.clear();
 
-            // Set onClick listener
-            deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position,
-                                        long id) {
+        ListItem[] listItems = MyApplication.ListItems;
+        if (listItems != null && listItems.length > 0) {
 
-                    Intent intent = new Intent(context, DeviceDetails.class);
-
-                    // Pass the index of the device in the MyApplication.Devices array
-                    intent.putExtra(DeviceDetails.DEVICE_INDEX, position);
-
-                    context.startActivity(intent);
-                }
-            });
-
-            //deviceListView.setOnTouchListener(swipeDetector);
-
-            ListItem[] listItems = MyApplication.ListItems;
-            if (listItems != null && listItems.length > 0) {
-
-                ArrayList<ListItem> itemList = new ArrayList<>();
-
-                // Initialize ArrayAdapter
-                listAdapter = new ListAdapter(this, itemList);
-
-                listAdapter.addAll(listItems);
-
-                // Set the ArrayAdapter as the ListView's adapter.
-                deviceListView.setAdapter(listAdapter);
-            }
-
-            if (statusThread == null) startStatusThread();
+            listAdapter.addAll(listItems);
         }
+
+        if (statusThread == null) startStatusThread();
     }
 
     private void startStatusThread() {
@@ -228,6 +203,27 @@ public class DeviceList extends AppCompatActivity
         new Logout(this).execute();
     }
 
+    //region Loading Overlay
+
+    public void showLoading() {
+
+        View v = findViewById(R.id.loadingOverlay);
+        if (v != null) {
+
+            v.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideLoading() {
+
+        View v = findViewById(R.id.loadingOverlay);
+        if (v != null) {
+
+            v.setVisibility(View.GONE);
+        }
+    }
+
+    //endregion
 
     //region Toolbar
 

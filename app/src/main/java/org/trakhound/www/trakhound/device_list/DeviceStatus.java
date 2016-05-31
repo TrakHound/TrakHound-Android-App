@@ -16,6 +16,8 @@ import org.trakhound.www.trakhound.status_info.ProductionInfo;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.users.UserManagement;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -40,83 +42,87 @@ public class DeviceStatus {
 
         if (userConfig != null) {
 
-            String url = "https://www.feenux.com/trakhound/api/mobile/get/?" +
-                "token=" + userConfig.SessionToken +
-                "&sender_id=" + UserManagement.getSenderId() +
-                "&command=" + "0101"; // Get Status and Oee tables
+            try {
 
-            String response = Requests.get(url);
-            if (response != null && response.length() > 0) {
+                String url = "https://www.feenux.com/trakhound/api/mobile/get/?" +
+                        "token=" + URLEncoder.encode(userConfig.SessionToken, "UTF-8") +
+                        "&sender_id=" + URLEncoder.encode(UserManagement.getSenderId(), "UTF-8") +
+                        "&command=0101"; // Get Description, Status, and Oee tables
 
-                ArrayList<DeviceStatus> statuses = new ArrayList<>();
+                String response = Requests.get(url);
+                if (response != null && response.length() > 0) {
 
-                ArrayList<ProductionInfo> productionInfos = new ArrayList<>();
-                ArrayList<OeeInfo> oeeInfos = new ArrayList<>();
+                    ArrayList<DeviceStatus> statuses = new ArrayList<>();
 
-                try {
+                    ArrayList<ProductionInfo> productionInfos = new ArrayList<>();
+                    ArrayList<OeeInfo> oeeInfos = new ArrayList<>();
 
-                    JSONArray a = new JSONArray(response);
+                    try {
 
-                    // Status is first array
-                    productionInfos = processStatusArray(a.getJSONArray(0));
+                        JSONArray a = new JSONArray(response);
 
-                    // Oee is second array
-                    oeeInfos = processOeeArray(a.getJSONArray(1));
+                        // Status is first array
+                        productionInfos = processStatusArray(a.getJSONArray(0));
 
-                }
-                catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
+                        // Oee is second array
+                        oeeInfos = processOeeArray(a.getJSONArray(1));
+
+                    }
+                    catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
 
 
-                // Add StatusInfos
-                for (int i = 0; i < productionInfos.size(); i++) {
+                    // Add StatusInfos
+                    for (int i = 0; i < productionInfos.size(); i++) {
 
-                    DeviceStatus status = null;
+                        DeviceStatus status = null;
 
-                    for (int x = 0; x < statuses.size(); x++) {
+                        for (int x = 0; x < statuses.size(); x++) {
 
-                        if (statuses.get(x).UniqueId.equals(productionInfos.get(i).UniqueId)) {
+                            if (statuses.get(x).UniqueId.equals(productionInfos.get(i).UniqueId)) {
 
-                            status = statuses.get(x);
+                                status = statuses.get(x);
+                                status.Production = productionInfos.get(i);
+                            }
+                        }
+
+                        if (status == null) {
+
+                            status = new DeviceStatus();
+                            status.UniqueId = productionInfos.get(i).UniqueId;
                             status.Production = productionInfos.get(i);
+                            statuses.add(status);
                         }
                     }
 
-                    if (status == null) {
+                    // Add OeeInfos
+                    for (int i = 0; i < oeeInfos.size(); i++) {
 
-                        status = new DeviceStatus();
-                        status.UniqueId = productionInfos.get(i).UniqueId;
-                        status.Production = productionInfos.get(i);
-                        statuses.add(status);
-                    }
-                }
+                        DeviceStatus status = null;
 
-                // Add OeeInfos
-                for (int i = 0; i < oeeInfos.size(); i++) {
+                        for (int x = 0; x < statuses.size(); x++) {
 
-                    DeviceStatus status = null;
+                            if (statuses.get(x).UniqueId.equals(oeeInfos.get(i).UniqueId)) {
 
-                    for (int x = 0; x < statuses.size(); x++) {
+                                status = statuses.get(x);
+                                status.Oee = oeeInfos.get(i);
+                            }
+                        }
 
-                        if (statuses.get(x).UniqueId.equals(oeeInfos.get(i).UniqueId)) {
+                        if (status == null) {
 
-                            status = statuses.get(x);
+                            status = new DeviceStatus();
+                            status.UniqueId = oeeInfos.get(i).UniqueId;
                             status.Oee = oeeInfos.get(i);
+                            statuses.add(status);
                         }
                     }
 
-                    if (status == null) {
 
-                        status = new DeviceStatus();
-                        status.UniqueId = oeeInfos.get(i).UniqueId;
-                        status.Oee = oeeInfos.get(i);
-                        statuses.add(status);
-                    }
+                    DeviceStatus[] statusArray = new DeviceStatus[statuses.size()];
+                    return statuses.toArray(statusArray);
                 }
 
-
-                DeviceStatus[] statusArray = new DeviceStatus[statuses.size()];
-                return statuses.toArray(statusArray);
-            }
+            } catch (UnsupportedEncodingException ex) { Log.d("Exception", ex.getMessage()); }
         }
 
         return null;

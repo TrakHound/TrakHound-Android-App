@@ -25,6 +25,8 @@ import org.trakhound.www.trakhound.tools.Json;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.users.UserManagement;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
@@ -36,6 +38,7 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
     public GetDevices(DeviceList deviceList) {
 
         this.deviceList = deviceList;
+        this.context = deviceList;
     }
 
     public GetDevices(Context context) {
@@ -105,11 +108,20 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
             deviceList.addDevices();
 
-            //new GetLogos(deviceList).execute();
+            deviceList.hideLoading();
+
+            new GetLogos(deviceList).execute();
 
         } else {
 
-            if (listItems != null) {
+            if (listItems == null) {
+
+                UserManagement.clearRememberToken();
+                UserManagement.clearRememberUsername();
+
+                if (context != null) context.startActivity(new Intent(context, MainActivity.class));
+
+            } else {
 
                 Intent deviceListIntent = new Intent(context, DeviceList.class);
                 deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
@@ -118,12 +130,6 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
                 // Open the Device List Page
                 context.startActivity(deviceListIntent);
-            } else {
-
-                UserManagement.clearRememberToken();
-                UserManagement.clearRememberUsername();
-
-                context.startActivity(new Intent(context, MainActivity.class));
             }
         }
     }
@@ -160,6 +166,8 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
                     UserConfiguration userConfig = UserConfiguration.get(userLogin);
                     if (userConfig != null) {
+
+                        MyApplication.User = userConfig;
 
                         UserManagement.setRememberToken(userConfig.RememberToken);
                         UserManagement.setRememberUsername(userConfig.Username);
@@ -223,7 +231,7 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
         if (token != null) {
 
-            String url = "https://www.feenux.com/trakhound/api/mobile/get/?";
+            String url = "https://www.feenux.com/trakhound/api/mobile/get/";
 
             PostData[] postDatas = new PostData[3];
             postDatas[0] = new PostData("token", token);
@@ -263,13 +271,17 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
         if (userConfig != null) {
 
-            String url = "https://www.feenux.com/trakhound/api/mobile/get/?" +
-                    "token=" + userConfig.SessionToken +
-                    "&sender_id=" + UserManagement.getSenderId() +
-                    "&command=" + "1101"; // Get Description, Status, and Oee tables
+            try {
 
-            String response = Requests.get(url);
-            return processResponse(response);
+                String url = "https://www.feenux.com/trakhound/api/mobile/get/?" +
+                        "token=" + URLEncoder.encode(userConfig.SessionToken, "UTF-8") +
+                        "&sender_id=" + URLEncoder.encode(UserManagement.getSenderId(), "UTF-8") +
+                        "&command=1101"; // Get Description, Status, and Oee tables
+
+                String response = Requests.get(url);
+                return processResponse(response);
+
+            } catch (UnsupportedEncodingException ex) { Log.d("Exception", ex.getMessage()); }
         }
 
         return null;

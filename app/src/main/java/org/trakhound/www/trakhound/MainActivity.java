@@ -14,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.trakhound.www.trakhound.device_list.GetDevices;
-import org.trakhound.www.trakhound.users.Login;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.users.UserManagement;
 
@@ -65,18 +64,13 @@ public class MainActivity extends AppCompatActivity {
         if (r) {
 
             // Create Token Login
-//            new Login(this, errorLabel).execute(username, password, "");
             new GetDevices(this).execute(username, password, "");
 
         } else {
 
             // Basic Login
             new GetDevices(this).execute(username, password);
-//            new Login(this, errorLabel).execute(username, password);
         }
-
-//        startActivity(new Intent(getBaseContext(), Loading.class));
-
     }
 
     public void userLogin(String token, String username) {
@@ -84,14 +78,7 @@ public class MainActivity extends AppCompatActivity {
         // Show Loading Activity
         Loading.Open(this, "Logging in " + TH_Tools.capitalizeFirst(username) + "..");
 
-        //new Login(this, null).execute(token);
         new GetDevices(this).execute(token);
-
-
-//        Intent loading = new Intent(this, Loading.class);
-//        loading.putExtra(Loading.LOADING_TEXT,"Logging in " + TH_Tools.capitalizeFirst(username) + "..");
-//        startActivity(loading);
-
     }
 
     private void localLogin(String token) {
