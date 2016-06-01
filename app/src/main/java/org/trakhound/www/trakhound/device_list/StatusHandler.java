@@ -61,7 +61,6 @@ public class StatusHandler implements Runnable {
                 Thread.sleep(10000);
             }
             catch (InterruptedException ex) { exit = true; }
-            catch (Exception ex) { Log.d("Exception", ex.getMessage()); }
         }
     }
 

@@ -37,6 +37,7 @@
                 wheel:matProg_fillRadius="true"
                 wheel:matProg_barWidth="10dp"
                 android:layout_centerHorizontal="true" />
+
         </RelativeLayout>
 
         <TextView

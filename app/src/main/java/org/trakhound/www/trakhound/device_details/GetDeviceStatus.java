@@ -25,6 +25,10 @@ public class GetDeviceStatus extends AsyncTask<String,Void,DeviceStatus> {
 
     protected void onPreExecute(){
 
+        if (context != null) {
+
+            context.showLoading();
+        }
     }
 
     @Override
@@ -44,7 +48,12 @@ public class GetDeviceStatus extends AsyncTask<String,Void,DeviceStatus> {
     protected void onPostExecute(DeviceStatus status){
 
         context.Status = status;
-        context.refresh();
+        context.loadData();
+
+        if (context != null) {
+
+            context.hideLoading();
+        }
 
     }
 

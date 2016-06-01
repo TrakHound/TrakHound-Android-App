@@ -131,8 +131,8 @@ public class Requests {
             URL u = new URL(url);
 
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(10000);
+            conn.setReadTimeout(30000);
+            conn.setConnectTimeout(30000);
             conn.setRequestMethod(method);
 
             conn.setDoInput(true);

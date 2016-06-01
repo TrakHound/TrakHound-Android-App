@@ -69,22 +69,18 @@ public class LocalLogin extends AppCompatActivity {
 
         MyApplication.User = userConfig;
         MyApplication.LoggedIn = true;
-//        ((MyApplication) this.getApplication()).User = userConfig;
-//        ((MyApplication) this.getApplication()).LoggedIn = true;
-
 
         Context context = getBaseContext();
 
-        // Open the Local Home Screen
-        Intent deviceListIntent = new Intent(context, DeviceList.class);
-        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        // Open the Device List Page
-        context.startActivity(deviceListIntent);
 
-//        startActivity(new Intent(getBaseContext(), LocalHome.class));
-
+//        // Open the Local Home Screen
+//        Intent deviceListIntent = new Intent(context, DeviceList.class);
+//        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+//                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+//                Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//        // Open the Device List Page
+//        context.startActivity(deviceListIntent);
     }
 }

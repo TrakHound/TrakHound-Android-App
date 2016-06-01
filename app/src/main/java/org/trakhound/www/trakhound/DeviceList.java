@@ -49,7 +49,7 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
         MyApplication.setCurrentActivity(this);
 
-        showLoading();
+        hideLoading();
 
         context = this;
         deviceListView = (ListView) findViewById(R.id.device_list);
@@ -90,10 +90,6 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
             addDevices();
         }
-
-        hideLoading();
-
-
     }
 
     @Override

@@ -48,7 +48,7 @@
 
     </android.support.v4.widget.DrawerLayout>
 
-    <!--<include layout="@layout/loading_overlay"-->
-        <!--android:id="@+id/loadingOverlay"/>-->
+    <include layout="@layout/loading_overlay"
+        android:id="@+id/loadingOverlay"/>
 
 </RelativeLayout>

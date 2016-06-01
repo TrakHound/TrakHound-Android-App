@@ -41,11 +41,10 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
     public static String DEVICE_INDEX = "device_index";
 
-    Toolbar toolbar;
-
     public Device Device;
     public DeviceStatus Status;
 
+    private Toolbar toolbar;
     private Thread statusThread;
     private final Handler handler = new Handler();
 
@@ -56,6 +55,8 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_device_details);
 
         MyApplication.setCurrentActivity(this);
+
+        hideLoading();
 
         Intent intent = this.getIntent();
 
@@ -90,7 +91,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
         loadDescription(d);
 
-        refresh();
+        loadData();
 
         if (statusThread == null) startStatusThread();
     }
@@ -123,7 +124,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
     }
 
 
-    public void refresh() {
+    public void loadData() {
 
         if (Status != null) {
 
@@ -131,6 +132,11 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
             updateOeeStatus(Status);
             updateControllerStatus(Status);
         }
+    }
+
+    public void refresh() {
+
+        if (Device != null) new GetDeviceStatus(this, Device.UniqueId).execute();
     }
 
     private void updateProductionStatus(DeviceStatus status) {
@@ -163,17 +169,6 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
             txt.setText(statusPeriod);
 
         }
-
-
-
-
-
-//        ImageView img = (ImageView)findViewById(R.id.AlertIndicator);
-//        if (img != null) {
-//            if (d.Status.Status.Alert) img.setVisibility(View.VISIBLE);
-//            else img.setVisibility(View.INVISIBLE);
-//        }
-
 
         // Percentages
         if (status.Timers != null && status.Timers.Total > 0) {
@@ -280,6 +275,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
             updateControllerStatus_ControllerMode(status);
             updateControllerStatus_ExecutionMode(status);
             updateControllerStatus_SystemStatus(status);
+            updateControllerStatus_CurrentProgram(status);
         }
     }
 
@@ -473,6 +469,17 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         }
     }
 
+    private void updateControllerStatus_CurrentProgram(DeviceStatus status) {
+
+        // Set System Status
+        TextView txt = (TextView)findViewById(R.id.CurrentProgramText);
+        if (txt != null) {
+
+            String s1 = status.Controller.ProgramName;
+            txt.setText(s1);
+        }
+    }
+
 
     public void logout(){
 
@@ -481,6 +488,27 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         new Logout(this).execute();
     }
 
+    //region Loading Overlay
+
+    public void showLoading() {
+
+        View v = findViewById(R.id.loadingOverlay);
+        if (v != null) {
+
+            v.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideLoading() {
+
+        View v = findViewById(R.id.loadingOverlay);
+        if (v != null) {
+
+            v.setVisibility(View.GONE);
+        }
+    }
+
+    //endregion
 
     //region Toolbar
 

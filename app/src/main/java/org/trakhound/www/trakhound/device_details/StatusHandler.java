@@ -60,7 +60,7 @@ public class StatusHandler implements Runnable {
                                 public void run() {
 
                                     context.Status = status;
-                                    context.refresh();
+                                    context.loadData();
                                 }
                             };
 

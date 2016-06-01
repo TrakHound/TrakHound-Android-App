@@ -18,6 +18,7 @@ public class ControllerInfo {
     public String ExecutionMode;
     public String SystemStatus;
     public String SystemMessage;
+    public String ProgramName;
 
     public static ControllerInfo parse(JSONObject json) {
 
@@ -33,6 +34,7 @@ public class ControllerInfo {
             result.ExecutionMode = json.getString("execution_mode");
             result.SystemStatus = json.getString("system_status");
             result.SystemMessage = json.getString("system_message");
+            result.ProgramName = json.getString("program_name");
 
             return result;
         }
