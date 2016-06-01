@@ -103,14 +103,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void openLocalLogin(View view){
 
+        Context context = getBaseContext();
+
+        // Open the Local Home Screen
+        Intent deviceListIntent = new Intent(context, LocalLogin.class);
+        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Open the Device List Page
+        context.startActivity(deviceListIntent);
+
+
+
         // Open the Device List
-        startActivity(new Intent(getBaseContext(), LocalLoginActivity.class));
+//        context.startActivity(new Intent(context, LocalLogin.class));
     }
 
     public void openAbout(View view) {
 
+        Context context = getBaseContext();
+
         // Open the About Page
-        startActivity(new Intent(getBaseContext(), About.class));
+        context.startActivity(new Intent(context, About.class));
     }
 
 }

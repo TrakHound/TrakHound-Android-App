@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="org.trakhound.www.trakhound.DeviceList">
 
-    <!--<include layout="@layout/content_device_list2" />-->
+    <!--<include layout="@layout/content_device_list" />-->
 
     <include layout="@layout/content_device_list" />
 

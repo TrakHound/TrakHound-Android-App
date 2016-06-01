@@ -32,8 +32,7 @@ import org.trakhound.www.trakhound.users.UserConfiguration;
 
 import java.util.ArrayList;
 
-public class DeviceList extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class DeviceList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public ListView deviceListView;
     public ListAdapter listAdapter;
@@ -46,7 +45,7 @@ public class DeviceList extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_list2);
+        setContentView(R.layout.activity_device_list);
 
         MyApplication.setCurrentActivity(this);
 
@@ -93,6 +92,8 @@ public class DeviceList extends AppCompatActivity
         }
 
         hideLoading();
+
+
     }
 
     @Override
@@ -177,6 +178,8 @@ public class DeviceList extends AppCompatActivity
         }
 
         if (statusThread == null) startStatusThread();
+
+        new GetLogos(this).execute();
     }
 
     private void startStatusThread() {
@@ -270,12 +273,6 @@ public class DeviceList extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-
-            return true;
-        }
-
         if (id == R.id.action_refresh) {
 
             refresh();
@@ -341,4 +338,5 @@ public class DeviceList extends AppCompatActivity
     }
 
     //endregion
+
 }

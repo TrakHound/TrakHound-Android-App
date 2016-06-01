@@ -110,7 +110,7 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
             deviceList.hideLoading();
 
-            new GetLogos(deviceList).execute();
+//            new GetLogos(deviceList).execute();
 
         } else {
 

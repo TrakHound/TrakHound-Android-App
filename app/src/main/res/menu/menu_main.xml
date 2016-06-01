@@ -10,9 +10,4 @@
         android:foreground="#fff"
         />
 
-    <!--<item-->
-        <!--android:id="@+id/action_settings"-->
-        <!--android:title="Settings">-->
-    <!--</item>-->
-
 </menu>

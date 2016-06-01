@@ -12,6 +12,7 @@ public class ControllerInfo {
 
     public String UniqueId;
 
+    public String Availability;
     public String EmergencyStop;
     public String ControllerMode;
     public String ExecutionMode;
@@ -26,6 +27,7 @@ public class ControllerInfo {
 
             result.UniqueId = json.getString("unique_id");
 
+            result.Availability = json.getString("availability");
             result.EmergencyStop = json.getString("emergency_stop");
             result.ControllerMode = json.getString("controller_mode");
             result.ExecutionMode = json.getString("execution_mode");

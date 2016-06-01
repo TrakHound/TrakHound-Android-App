@@ -8,69 +8,36 @@
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:wheel="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/window_background_accent_gradient">
+        android:layout_width="wrap_content"
+        android:layout_height="500sp"
+        android:background="@drawable/window_background_accent_gradient"
+        android:layout_gravity="center">
 
         <RelativeLayout
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:id="@+id/relativeLayout3"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp">
+            android:layout_centerInParent="true">
 
             <ImageView
-                android:layout_width="100sp"
-                android:layout_height="75sp"
+                android:layout_width="70sp"
+                android:layout_height="70sp"
                 android:id="@+id/imageView"
                 android:src="@drawable/th_logo_simple_white"
-                android:paddingRight="20dp" />
+                android:layout_centerInParent="true" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/imageView"
-                android:layout_centerVertical="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TrakHound"
-                    android:id="@+id/textView"
-                    android:textSize="32sp"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:layout_alignTop="@+id/imageView"
-                    android:layout_toRightOf="@+id/imageView"
-                    android:layout_toEndOf="@+id/imageView" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Mobile"
-                    android:id="@+id/textView23"
-                    android:textColor="#aaffffff"
-                    android:textSize="20sp"
-                    android:layout_below="@+id/textView"
-                    android:layout_toRightOf="@+id/imageView"
-                    android:layout_toEndOf="@+id/imageView" />
-            </LinearLayout>
-
+            <com.pnikosis.materialishprogress.ProgressWheel
+                android:id="@+id/progress_wheel"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                wheel:matProg_barColor="#fff"
+                wheel:matProg_progressIndeterminate="true"
+                android:layout_gravity="center"
+                wheel:matProg_fillRadius="true"
+                wheel:matProg_barWidth="10dp"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
-
-        <com.pnikosis.materialishprogress.ProgressWheel
-            android:id="@+id/progress_wheel"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            wheel:matProg_barColor="#fff"
-            wheel:matProg_progressIndeterminate="true"
-            android:layout_gravity="center"
-            wheel:matProg_fillRadius="true"
-            wheel:matProg_barWidth="10dp"
-            android:layout_centerInParent="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,12 +45,48 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Loading.."
             android:id="@+id/LoadingText"
-            android:layout_below="@+id/progress_wheel"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
             android:textColor="#fff"
             android:textStyle="bold"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:layout_below="@+id/relativeLayout3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/relativeLayout3"
+            android:layout_alignLeft="@+id/relativeLayout3"
+            android:layout_alignStart="@+id/relativeLayout3"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TrakHound"
+                android:id="@+id/textView"
+                android:textSize="50sp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_toRightOf="@+id/imageView"
+                android:layout_toEndOf="@+id/imageView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Mobile"
+                android:id="@+id/textView23"
+                android:textColor="#aaffffff"
+                android:textSize="40sp"
+                android:layout_below="@+id/textView"
+                android:layout_toRightOf="@+id/imageView"
+                android:layout_toEndOf="@+id/imageView"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -1,77 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".DeviceDetails"
-    tools:showIn="@layout/activity_device_details">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".DeviceDetails"
+        tools:showIn="@layout/activity_device_details"
+        android:background="@drawable/activity_background_gradient">
 
-        <FrameLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="120dp">
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            >
 
-            <View
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#EEEEEE"
-                android:id="@+id/StatusBanner" />
+                android:layout_height="120dp"
+                android:background="#EEEEEE">
 
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="175dp"
-                android:id="@+id/DeviceImage"
-                android:layout_gravity="right"
-                android:layout_marginRight="-60dp"
-                android:layout_marginTop="10dp"
-                android:alpha="0.8" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="150dp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:id="@+id/StatusBanner" />
 
                 <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/DeviceLogo"
+                    android:layout_width="300dp"
+                    android:layout_height="175dp"
+                    android:id="@+id/DeviceImage"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="-60dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="150dp"
-                    android:scaleType="fitStart" />
+                    android:alpha="0.8" />
 
-                <TextView
-                    android:id="@+id/Description"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333"
+                    android:layout_height="150dp" />
 
-                    android:ellipsize="marquee"
-                    android:singleLine="true"
-                    android:text="[Device Description]"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_below="@+id/DeviceLogo"
-                    android:layout_marginLeft="20dp" />
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/details_banner_background">
 
-            <!--<ImageView-->
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:id="@+id/DeviceLogo"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="150dp"
+                        android:scaleType="fitStart" />
+
+                    <TextView
+                        android:id="@+id/Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="[Device Description]"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:layout_alignParentBottom="true"
+                        android:paddingTop="10dp"
+                        android:background="@drawable/details_banner_background_01"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="-5dp"
+                        android:layout_marginBottom="-15dp" />
+                </RelativeLayout>
+
+                <!--<ImageView-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:id="@+id/AlertIndicator"-->
@@ -81,606 +91,1057 @@
                 <!--android:alpha="0.8" />-->
 
 
-        </FrameLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#ccc" />
-
-        // Current Status
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            </FrameLayout>
 
             <View
-                android:layout_width="30dp"
-                android:layout_height="75dp"
-                android:background="@color/statusGreen"
-                android:id="@+id/DeviceStatusIndicator"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="[Device Status]"
-                android:id="@+id/DeviceStatusText"
-                android:layout_alignParentTop="false"
-                android:layout_toRightOf="@+id/DeviceStatusIndicator"
-                android:layout_toEndOf="@+id/DeviceStatusIndicator"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="[00:00]"
-                android:id="@+id/DeviceStatusTime"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="20dp" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#ccc" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/OeeContainerLayout">
-
-            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/OeeLayout">
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ccc" />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="OEE"
-                        android:id="@+id/textView9"
-                        android:layout_gravity="center|top"
-                        android:textColor="#888"
-                        android:textSize="16dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_above="@+id/OEE"
-                        android:layout_marginBottom="5dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="[OEE]"
-                        android:id="@+id/OEE"
-                        android:textColor="#333"
-                        android:textStyle="bold"
-                        android:layout_gravity="center|right|top"
-                        android:textSize="30sp"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true" />
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/AvailabilityLayout">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Availability"
-                        android:id="@+id/textView10"
-                        android:textColor="#888"
-                        android:layout_centerHorizontal="true"
-                        android:layout_above="@+id/AvailabilityVariable"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="5dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="[A]"
-                        android:id="@+id/AvailabilityVariable"
-                        android:textColor="#333"
-                        android:textStyle="bold"
-                        android:textSize="30sp"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/PerformanceLayout">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Performance"
-                        android:id="@+id/textView11"
-                        android:textColor="#888"
-                        android:layout_centerHorizontal="true"
-                        android:layout_above="@+id/Performance"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="5dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="[P]"
-                        android:id="@+id/Performance"
-                        android:textColor="#333"
-                        android:textStyle="bold"
-                        android:textSize="30sp"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-            </FrameLayout>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#ccc" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!--Production-->
+            // Current Status
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ProductionTimesLayout"
-                android:layout_marginTop="20dp">
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
                 <View
-                    android:layout_width="30dp"
+                    android:layout_width="25dp"
                     android:layout_height="75dp"
                     android:background="@color/statusGreen"
-                    android:id="@+id/ProductionIndicator"
+                    android:id="@+id/DeviceStatusIndicator"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Production"
-                    android:id="@+id/textView12"
-                    android:textColor="#333"
-                    android:textIsSelectable="false"
-                    android:textSize="18dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Current Device Status"
+                    android:id="@+id/textView21"
+                    android:textColor="#888"
+                    android:textSize="10sp"
                     android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/ProductionIndicator"
-                    android:layout_toEndOf="@+id/ProductionIndicator"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_alignLeft="@+id/DeviceStatusText"
+                    android:layout_alignStart="@+id/DeviceStatusText" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="[P]"
-                    android:id="@+id/ProductionPercentage"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/ProductionProgressBar"
-                    android:layout_alignEnd="@+id/ProductionProgressBar"
-                    android:layout_marginTop="10dp" />
-
-                <ProgressBar
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="10dp"
-                    android:id="@+id/ProductionProgressBar"
-                    android:progress="30"
-                    android:max="100"
-                    android:indeterminate="false"
-                    android:indeterminateOnly="false"
-                    android:progressDrawable="@drawable/progress_style"
-                    android:layout_below="@+id/ProductionTime"
-                    android:layout_alignLeft="@+id/ProductionTime"
-                    android:layout_alignStart="@+id/ProductionTime"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="[Device Status]"
+                    android:id="@+id/DeviceStatusText"
+                    android:layout_alignParentTop="false"
+                    android:layout_toRightOf="@+id/DeviceStatusIndicator"
+                    android:layout_toEndOf="@+id/DeviceStatusIndicator"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="#333" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="[00:00]"
-                    android:id="@+id/ProductionTime"
-                    android:layout_below="@+id/textView12"
-                    android:layout_alignLeft="@+id/textView12"
-                    android:layout_alignStart="@+id/textView12" />
+                    android:id="@+id/DeviceStatusTime"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:textColor="#333" />
+
             </RelativeLayout>
 
-            <!--Idle-->
-            <RelativeLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/IdleTimesLayout"
-                android:layout_marginTop="10dp">
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ccc" />
 
-                <View
-                    android:layout_width="30dp"
-                    android:layout_height="75dp"
-                    android:background="@color/statusYellow"
-                    android:id="@+id/IdleIndicator"
-                    />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:id="@+id/OeeContainerLayout">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/OeeLayout">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="OEE"
+                            android:id="@+id/textView9"
+                            android:layout_gravity="center|top"
+                            android:textColor="#888"
+                            android:textSize="14sp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_above="@+id/OEE" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="[OEE]"
+                            android:id="@+id/OEE"
+                            android:textColor="#333"
+                            android:textStyle="bold"
+                            android:layout_gravity="center|right|top"
+                            android:textSize="30sp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/AvailabilityLayout">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Availability"
+                            android:id="@+id/textView10"
+                            android:textColor="#888"
+                            android:layout_centerHorizontal="true"
+                            android:layout_above="@+id/AvailabilityVariable"
+                            android:layout_gravity="center"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="[A]"
+                            android:id="@+id/AvailabilityVariable"
+                            android:textColor="#333"
+                            android:textStyle="bold"
+                            android:textSize="30sp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/PerformanceLayout">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Performance"
+                            android:id="@+id/textView11"
+                            android:textColor="#888"
+                            android:layout_centerHorizontal="true"
+                            android:layout_above="@+id/Performance"
+                            android:layout_gravity="center"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="[P]"
+                            android:id="@+id/Performance"
+                            android:textColor="#333"
+                            android:textStyle="bold"
+                            android:textSize="30sp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center" />
+                    </LinearLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ccc" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Production-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Idle"
-                    android:id="@+id/textView13"
-                    android:textColor="#333"
-                    android:textIsSelectable="false"
-                    android:textSize="18dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/IdleIndicator"
-                    android:layout_toEndOf="@+id/IdleIndicator"
-                    android:layout_marginLeft="20dp" />
+                    android:id="@+id/ProductionTimesLayout"
+                    android:layout_marginTop="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <View
+                        android:layout_width="25dp"
+                        android:layout_height="75dp"
+                        android:background="@color/statusGreen"
+                        android:id="@+id/ProductionIndicator"
+                        />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/ProductionIndicator"
+                        android:layout_toEndOf="@+id/ProductionIndicator">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Production"
+                            android:id="@+id/textView12"
+                            android:textColor="#333"
+                            android:textIsSelectable="false"
+                            android:textSize="18dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="[P]"
+                            android:id="@+id/ProductionPercentage"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignRight="@+id/ProductionProgressBar"
+                            android:layout_alignEnd="@+id/ProductionProgressBar"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#333"
+                            android:textSize="18sp" />
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="10dp"
+                            android:id="@+id/ProductionProgressBar"
+                            android:progress="30"
+                            android:max="100"
+                            android:indeterminate="false"
+                            android:indeterminateOnly="false"
+                            android:progressDrawable="@drawable/progress_style"
+                            android:layout_below="@+id/ProductionTime"
+                            android:layout_alignLeft="@+id/ProductionTime"
+                            android:layout_alignStart="@+id/ProductionTime"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="[00:00]"
+                            android:id="@+id/ProductionTime"
+                            android:layout_below="@+id/textView12"
+                            android:layout_alignLeft="@+id/textView12"
+                            android:layout_alignStart="@+id/textView12"
+                            android:textColor="#888"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <!--Idle-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="[I]"
-                    android:id="@+id/IdlePercentage"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/IdleProgressBar"
-                    android:layout_alignEnd="@+id/IdleProgressBar"
-                    android:layout_marginTop="10dp" />
+                    android:id="@+id/IdleTimesLayout"
+                    android:layout_marginTop="10dp">
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="10dp"
-                    android:id="@+id/IdleProgressBar"
-                    android:progress="30"
-                    android:max="100"
-                    android:indeterminate="false"
-                    android:indeterminateOnly="false"
-                    android:progressDrawable="@drawable/progress_style"
-                    android:layout_below="@+id/IdleTime"
-                    android:layout_alignLeft="@+id/IdleTime"
-                    android:layout_alignStart="@+id/IdleTime"
+                    <View
+                        android:layout_width="25dp"
+                        android:layout_height="75dp"
+                        android:background="@color/statusYellow"
+                        android:id="@+id/IdleIndicator"
+                        />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/IdleIndicator"
+                        android:layout_toEndOf="@+id/IdleIndicator">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Idle"
+                            android:id="@+id/textView13"
+                            android:textColor="#333"
+                            android:textIsSelectable="false"
+                            android:textSize="18dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="[I]"
+                            android:id="@+id/IdlePercentage"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignRight="@+id/IdleProgressBar"
+                            android:layout_alignEnd="@+id/IdleProgressBar"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#333"
+                            android:textSize="18sp" />
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="10dp"
+                            android:id="@+id/IdleProgressBar"
+                            android:progress="30"
+                            android:max="100"
+                            android:indeterminate="false"
+                            android:indeterminateOnly="false"
+                            android:progressDrawable="@drawable/progress_style"
+                            android:layout_below="@+id/IdleTime"
+                            android:layout_alignLeft="@+id/IdleTime"
+                            android:layout_alignStart="@+id/IdleTime"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="[00:00]"
+                            android:id="@+id/IdleTime"
+                            android:layout_below="@+id/textView13"
+                            android:layout_alignLeft="@+id/textView13"
+                            android:layout_alignStart="@+id/textView13"
+                            android:textColor="#888"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <!--Alert-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AlertTimesLayout"
                     android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp" />
+                    android:layout_marginBottom="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="[00:00]"
-                    android:id="@+id/IdleTime"
-                    android:layout_below="@+id/textView13"
-                    android:layout_alignLeft="@+id/textView13"
-                    android:layout_alignStart="@+id/textView13" />
+                    <View
+                        android:layout_width="25dp"
+                        android:layout_height="75dp"
+                        android:background="@color/statusRed"
+                        android:id="@+id/AlertIndicator"
+                        />
 
-            </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/AlertIndicator"
+                        android:layout_toEndOf="@+id/AlertIndicator">
 
-            <!--Alert-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Alert"
+                            android:id="@+id/textView14"
+                            android:textColor="#333"
+                            android:textIsSelectable="false"
+                            android:textSize="18dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="[A]"
+                            android:id="@+id/AlertPercentage"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignRight="@+id/AlertProgressBar"
+                            android:layout_alignEnd="@+id/AlertProgressBar"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#333"
+                            android:textSize="18sp" />
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="10dp"
+                            android:id="@+id/AlertProgressBar"
+                            android:progress="30"
+                            android:max="100"
+                            android:indeterminate="false"
+                            android:indeterminateOnly="false"
+                            android:progressDrawable="@drawable/progress_style"
+                            android:layout_below="@+id/AlertTime"
+                            android:layout_alignLeft="@+id/AlertTime"
+                            android:layout_alignStart="@+id/AlertTime"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="[00:00]"
+                            android:id="@+id/AlertTime"
+                            android:layout_below="@+id/textView14"
+                            android:layout_alignLeft="@+id/textView14"
+                            android:layout_alignStart="@+id/textView14"
+                            android:textColor="#888"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ccc" />
+
+            <!--Availability (Power)-->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/AlertTimesLayout"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/PowerStatusLayout">
 
-                <View
-                    android:layout_width="30dp"
-                    android:layout_height="75dp"
-                    android:background="@color/statusRed"
-                    android:id="@+id/AlertIndicator"
-                    />
-
-                <TextView
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Alert"
-                    android:id="@+id/textView14"
-                    android:textColor="#333"
-                    android:textIsSelectable="false"
-                    android:textSize="18dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/AlertIndicator"
-                    android:layout_toEndOf="@+id/AlertIndicator"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="[A]"
-                    android:id="@+id/AlertPercentage"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/AlertProgressBar"
-                    android:layout_alignEnd="@+id/AlertProgressBar"
-                    android:layout_marginTop="10dp" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ControllerAvailabilityLayout"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical">
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="10dp"
-                    android:id="@+id/AlertProgressBar"
-                    android:progress="30"
-                    android:max="100"
-                    android:indeterminate="false"
-                    android:indeterminateOnly="false"
-                    android:progressDrawable="@drawable/progress_style"
-                    android:layout_below="@+id/AlertTime"
-                    android:layout_alignLeft="@+id/AlertTime"
-                    android:layout_alignStart="@+id/AlertTime"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Availability"
+                            android:id="@+id/textView3"
+                            android:layout_gravity="center_vertical"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#888"
+                            android:textSize="10dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="[00:00]"
-                    android:id="@+id/AlertTime"
-                    android:layout_below="@+id/textView14"
-                    android:layout_alignLeft="@+id/textView14"
-                    android:layout_alignStart="@+id/textView14" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/textView3"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:paddingTop="10dp"
+                            android:id="@+id/linearLayout2">
+
+                            <!--Power On-->
+                            <FrameLayout
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:id="@+id/PowerOn"
+                                android:background="@drawable/details_item_border"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginLeft="5dp">
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/PowerOnBackground">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/on_02"
+                                        android:tint="#888"
+                                        android:id="@+id/PowerOnImage" />
+
+                                </FrameLayout>
+
+                            </FrameLayout>
+
+                            <!--Power Off-->
+                            <FrameLayout
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:id="@+id/PowerOff"
+                                android:background="@drawable/details_item_border"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp">
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#ff0000"
+                                    android:id="@+id/PowerOffBackground">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/off_02"
+                                        android:tint="#fff"
+                                        android:layout_margin="5dp"
+                                        android:id="@+id/PowerOffImage" />
+
+                                </FrameLayout>
+
+                            </FrameLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="UNAVAILABLE"
+                            android:id="@+id/AvailabilityText"
+                            android:layout_below="@+id/linearLayout2"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/statusRed"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#ccc"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/EmergencyStopLayout">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Emergency Stop"
+                            android:id="@+id/textView17"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#888"
+                            android:textSize="10dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/EmergencyStopImage"
+                            android:src="@drawable/estop_01"
+                            android:layout_below="@+id/textView17"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:tint="@color/statusRed" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="TRIGGERED"
+                            android:id="@+id/EmergencyStopText"
+                            android:layout_below="@+id/EmergencyStopImage"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/statusRed"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
 
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ccc" />
+
+            <!--System Status-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/SystemStatusLayout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="System Status"
+                    android:id="@+id/textView15"
+                    android:textColor="#888"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Fault"
+                    android:id="@+id/SystemStatusText"
+                    android:textColor="@color/statusRed"
+                    android:layout_marginTop="5dp"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="[System Message]"
+                    android:id="@+id/SystemMessageText"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/statusRed"
+                    android:textColor="#fff"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ccc" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Execution Mode"
+                    android:id="@+id/textView20"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textColor="#888"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="STOPPED"
+                    android:id="@+id/ExecutionModeText"
+                    android:layout_below="@+id/textView20"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/statusRed"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ccc" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="40dp"
+                android:id="@+id/ControllerModeLayout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Controller Mode"
+                    android:id="@+id/textView2"
+                    android:textColor="#888"
+                    android:textSize="10sp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/textView2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp">
+
+                    <!--Auto-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ControllerMode_Auto"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:tint="@color/statusGreen"
+                            android:src="@drawable/auto_02"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="AUTO"
+                            android:id="@+id/textView4"
+                            android:layout_alignParentBottom="false"
+                            android:layout_below="@+id/ControllerMode_Auto"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#888"
+                            android:textSize="10dp"
+                            android:layout_marginTop="-5dp" />
+
+                    </RelativeLayout>
+
+                    <!--MDI-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ControllerMode_MDI"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:tint="#888"
+                            android:src="@drawable/mdi_02"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="MDI"
+                            android:id="@+id/textView5"
+                            android:layout_alignParentBottom="false"
+                            android:layout_below="@+id/ControllerMode_MDI"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#888"
+                            android:textSize="10dp"
+                            android:layout_marginTop="-5dp" />
+
+                    </RelativeLayout>
+
+                    <!--Single Block-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ControllerMode_SBLK"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:tint="#888"
+                            android:src="@drawable/single_block_02"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="SBLK"
+                            android:id="@+id/textView6"
+                            android:layout_alignParentBottom="false"
+                            android:layout_below="@+id/ControllerMode_SBLK"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#888"
+                            android:textSize="10dp"
+                            android:layout_marginTop="-5dp" />
+
+                    </RelativeLayout>
+
+                    <!--Manual-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ControllerMode_Manaul"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:tint="#888"
+                            android:src="@drawable/jog_02"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="MANUAL"
+                            android:id="@+id/textView7"
+                            android:layout_alignParentBottom="false"
+                            android:layout_below="@+id/ControllerMode_Manaul"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#888"
+                            android:textSize="10dp"
+                            android:layout_marginTop="-5dp" />
+
+                    </RelativeLayout>
+
+                    <!--Edit-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ControllerMode_Edit"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:tint="#888"
+                            android:src="@drawable/edit_02"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="EDIT"
+                            android:id="@+id/textView8"
+                            android:layout_alignParentBottom="false"
+                            android:layout_below="@+id/ControllerMode_Edit"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#888"
+                            android:textSize="10dp"
+                            android:layout_marginTop="-5dp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginBottom="10dp">-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceSmall"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Availability"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/textView15"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignBottom="@+id/DeviceAvailability"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentStart="true" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceMedium"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="[Unavailable]"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/DeviceAvailability"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentTop="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toRightOf="@+id/textView15"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toEndOf="@+id/textView15"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="20dp" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceSmall"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Emegency Stop"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/textView17"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_below="@+id/textView15"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentStart="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginTop="20dp" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceMedium"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="[Unavailable]"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/EmergencyStop"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignBottom="@+id/textView17"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toRightOf="@+id/textView17"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toEndOf="@+id/textView17"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="20dp" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceSmall"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Controller Mode"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/textView19"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_below="@+id/textView17"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentStart="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginTop="20dp" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceSmall"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Execution Mode"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/textView20"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_below="@+id/textView19"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentStart="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginTop="20dp" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceSmall"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Alarm"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/textView21"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_below="@+id/textView20"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentStart="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginTop="20dp" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceMedium"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="[Unavailable]"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/ControllerMode"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_above="@+id/textView20"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toRightOf="@+id/textView20"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toEndOf="@+id/textView20"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="20dp" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceMedium"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="[Unavailable]"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/ExecutionMode"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignBottom="@+id/textView20"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toRightOf="@+id/textView20"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toEndOf="@+id/textView20"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="20dp" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceMedium"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="[Unavailable]"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/Alarm"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignBottom="@+id/textView21"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toRightOf="@+id/textView21"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_toEndOf="@+id/textView21"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="20dp" />&ndash;&gt;-->
+
+                <!--<LinearLayout-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
+
+                    <!---->
+
+                    <!---->
+
+                    <!---->
+
+                <!--</LinearLayout>-->
+
+            <!--</RelativeLayout>-->
 
         </LinearLayout>
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginBottom="10dp">-->
+    </RelativeLayout>
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-                <!--android:text="Idle"-->
-                <!--android:id="@+id/textView13"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_marginTop="10dp" />-->
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-                <!--android:text="Alert"-->
-                <!--android:id="@+id/textView14"-->
-                <!--android:layout_below="@+id/IdlePercentage"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_marginTop="10dp" />-->
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-                <!--android:text="[I]"-->
-                <!--android:id="@+id/IdlePercentage"-->
-                <!--android:layout_below="@+id/textView13"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true"-->
-                <!--android:layout_marginLeft="10dp" />-->
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-                <!--android:text="[A]"-->
-                <!--android:id="@+id/AlertPercentage"-->
-                <!--android:layout_below="@+id/textView14"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_marginBottom="10dp" />-->
-
-            <!--<ProgressBar-->
-                <!--style="?android:attr/progressBarStyleHorizontal"-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="20dp"-->
-                <!--android:id="@+id/IdleProgressBar"-->
-                <!--android:progressDrawable="@drawable/progress_idle_style"-->
-                <!--android:layout_alignTop="@+id/textView13"-->
-
-                <!--android:layout_marginTop="15dp"-->
-                <!--android:layout_marginRight="20dp"-->
-                <!--android:max="100"-->
-                <!--android:progress="30" />-->
-
-            <!--<ProgressBar-->
-                <!--style="?android:attr/progressBarStyleHorizontal"-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="20dp"-->
-                <!--android:id="@+id/AlertProgressBar"-->
-                <!--android:max="100"-->
-                <!--android:progress="30"-->
-                <!--android:indeterminate="false"-->
-                <!--android:indeterminateOnly="false"-->
-                <!--android:progressDrawable="@drawable/progress_alert_style"-->
-                <!--android:layout_alignTop="@+id/textView14"-->
-                <!--android:layout_alignLeft="@+id/IdleProgressBar"-->
-                <!--android:layout_alignStart="@+id/IdleProgressBar"-->
-                <!--android:layout_marginTop="15dp"-->
-                <!--android:layout_marginRight="20dp" />-->
-
-        <!--</RelativeLayout>-->
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#ccc" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Availability"
-                android:id="@+id/textView15"
-                android:layout_alignBottom="@+id/DeviceAvailability"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="[Unavailable]"
-                android:id="@+id/DeviceAvailability"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/textView15"
-                android:layout_toEndOf="@+id/textView15"
-                android:layout_marginLeft="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Emegency Stop"
-                android:id="@+id/textView17"
-                android:layout_below="@+id/textView15"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="[Unavailable]"
-                android:id="@+id/EmergencyStop"
-                android:layout_alignBottom="@+id/textView17"
-                android:layout_toRightOf="@+id/textView17"
-                android:layout_toEndOf="@+id/textView17"
-                android:layout_marginLeft="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Controller Mode"
-                android:id="@+id/textView19"
-                android:layout_below="@+id/textView17"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Execution Mode"
-                android:id="@+id/textView20"
-                android:layout_below="@+id/textView19"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Alarm"
-                android:id="@+id/textView21"
-                android:layout_below="@+id/textView20"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="[Unavailable]"
-                android:id="@+id/ControllerMode"
-                android:layout_above="@+id/textView20"
-                android:layout_toRightOf="@+id/textView20"
-                android:layout_toEndOf="@+id/textView20"
-                android:layout_marginLeft="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="[Unavailable]"
-                android:id="@+id/ExecutionMode"
-                android:layout_alignBottom="@+id/textView20"
-                android:layout_toRightOf="@+id/textView20"
-                android:layout_toEndOf="@+id/textView20"
-                android:layout_marginLeft="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="[Unavailable]"
-                android:id="@+id/Alarm"
-                android:layout_alignBottom="@+id/textView21"
-                android:layout_toRightOf="@+id/textView21"
-                android:layout_toEndOf="@+id/textView21"
-                android:layout_marginLeft="20dp" />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</ScrollView>

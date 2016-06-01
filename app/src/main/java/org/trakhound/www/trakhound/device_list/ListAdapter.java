@@ -133,8 +133,8 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
         if (v != null) holder.DeviceId = (TextView)v;
 
         // Manufacturer
-        v = view.findViewById(R.id.Manufacturer);
-        if (v != null) holder.Manufacturer = (TextView)v;
+//        v = view.findViewById(R.id.Manufacturer);
+//        if (v != null) holder.Manufacturer = (TextView)v;
 
         // Logo
         v = view.findViewById(R.id.ManufacturerLogo);

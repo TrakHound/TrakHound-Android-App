@@ -19,7 +19,7 @@ import android.widget.TextView;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.users.UserManagement;
 
-public class LocalLoginActivity extends AppCompatActivity {
+public class LocalLogin extends AppCompatActivity {
 
     private EditText mobileIdText;
     private TextView errorLabel;

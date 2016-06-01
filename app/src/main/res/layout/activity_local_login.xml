@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context="org.trakhound.www.trakhound.LocalLoginActivity">
+    tools:context=".LocalLogin">
 
     <!--TrakHound Toolbar-->
     <android.support.v7.widget.Toolbar
@@ -119,6 +119,7 @@
 
 
             </LinearLayout>
+
         </FrameLayout>
 
     </LinearLayout>

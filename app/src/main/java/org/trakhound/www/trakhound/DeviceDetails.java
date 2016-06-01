@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,13 +30,18 @@ import org.trakhound.www.trakhound.device_list.ListItem;
 import org.trakhound.www.trakhound.device_details.StatusHandler;
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.status_info.OeeInfo;
+import org.trakhound.www.trakhound.users.GetUserImage;
+import org.trakhound.www.trakhound.users.Logout;
+import org.trakhound.www.trakhound.users.UserConfiguration;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DeviceDetails extends AppCompatActivity {
+public class DeviceDetails extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String DEVICE_INDEX = "device_index";
+
+    Toolbar toolbar;
 
     public Device Device;
     public DeviceStatus Status;
@@ -68,7 +77,11 @@ public class DeviceDetails extends AppCompatActivity {
             loadDevice(Device);
         }
 
+        // Setup Toolbar/ActionBar
         setToolbar();
+
+        // Setup Navigation Drawer
+        setNavigationDrawer();
     }
 
     public void loadDevice(Device d) {
@@ -79,36 +92,8 @@ public class DeviceDetails extends AppCompatActivity {
 
         refresh();
 
-//        startStatusTimer();
-
         if (statusThread == null) startStatusThread();
     }
-
-//    private void startStatusTimer() {
-//
-//        if (Device != null) {
-//
-//            final String uniqueId = Device.UniqueId;
-//
-////            Timer timer = new Timer();
-////            timer.scheduleAtFixedRate(new TimerTask() {
-////                @Override
-////                public void run() {
-////
-////                    new GetDeviceStatus(this, uniqueId).execute();
-////
-////                }
-////            }, 10000, 10000);
-////            timer.scheduleAtFixedRate(new TimerTask() {
-////                @Override
-////                public void run() {
-////
-////                    new GetDeviceStatus(this, uniqueId).execute();
-////
-////                }
-////            }, 10000, 10000);
-//        }
-//    }
 
     private void startStatusThread() {
 
@@ -135,18 +120,6 @@ public class DeviceDetails extends AppCompatActivity {
 
         txt = (TextView) findViewById(R.id.Description);
         if (txt != null) txt.setText(d.Description);
-
-//        txt = (TextView) findViewById(R.id.Manufacturer);
-//        if (txt != null) txt.setText(d.Manufacturer);
-//
-//        txt = (TextView) findViewById(R.id.Model);
-//        if (txt != null) txt.setText(d.Model);
-//
-//        txt = (TextView) findViewById(R.id.Serial);
-//        if (txt != null) txt.setText(d.Serial);
-//
-//        txt = (TextView) findViewById(R.id.Controller);
-//        if (txt != null) txt.setText(d.Controller);
     }
 
 
@@ -162,18 +135,38 @@ public class DeviceDetails extends AppCompatActivity {
 
     private void updateProductionStatus(DeviceStatus status) {
 
-        // Banner
-//        View banner = findViewById(R.id.StatusBanner);
-//        if (banner != null) {
-//
-//            if (status.Production.Alert) {
-//                banner.setBackgroundColor(getResources().getColor(R.color.statusRed));
-//            } else if (status.Production.Idle) {
-//                banner.setBackgroundColor(getResources().getColor(R.color.statusYellow));
-//            } else {
-//                banner.setBackgroundColor(getResources().getColor(R.color.statusGreen));
-//            }
-//        }
+        if (status.Production != null) {
+
+            // Current Status Indicator
+            View banner = findViewById(R.id.DeviceStatusIndicator);
+            if (banner != null) {
+
+                if (status.Production.Alert) {
+                    banner.setBackgroundColor(getResources().getColor(R.color.statusRed));
+                } else if (status.Production.Idle) {
+                    banner.setBackgroundColor(getResources().getColor(R.color.statusYellow));
+                } else {
+                    banner.setBackgroundColor(getResources().getColor(R.color.statusGreen));
+                }
+            }
+
+            // Current Status Text
+            TextView txt = (TextView)findViewById(R.id.DeviceStatusText);
+            txt.setText(status.Production.ProductionStatus);
+
+            // Current Status Timer
+            int seconds = Integer.parseInt(status.Production.ProductionStatusTimer);
+            Period period = new Period(seconds * 1000);
+            String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
+
+            txt = (TextView)findViewById(R.id.DeviceStatusTime);
+            txt.setText(statusPeriod);
+
+        }
+
+
+
+
 
 //        ImageView img = (ImageView)findViewById(R.id.AlertIndicator);
 //        if (img != null) {
@@ -282,69 +275,214 @@ public class DeviceDetails extends AppCompatActivity {
 
         if (status != null && status.Controller != null) {
 
+            updateControllerStatus_Availability(status);
             updateControllerStatus_EmergencyStop(status);
             updateControllerStatus_ControllerMode(status);
             updateControllerStatus_ExecutionMode(status);
-            updateControllerStatus_Alarm(status);
+            updateControllerStatus_SystemStatus(status);
+        }
+    }
+
+    private void updateControllerStatus_Availability(DeviceStatus status) {
+
+        boolean avail = status.Controller.Availability.equals("AVAILABLE");
+
+        // Set Power On Background
+        View bkgrd = findViewById(R.id.PowerOnBackground);
+        if (bkgrd != null) {
+
+            if (avail) bkgrd.setBackgroundColor(getResources().getColor(R.color.statusGreen));
+            else bkgrd.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        // Set Power Off Background
+        bkgrd = findViewById(R.id.PowerOffBackground);
+        if (bkgrd != null) {
+
+            if (avail) bkgrd.setBackgroundColor(Color.TRANSPARENT);
+            else bkgrd.setBackgroundColor(getResources().getColor(R.color.statusRed));
+        }
+
+
+        // Set Power On Image
+        ImageView img = (ImageView)findViewById(R.id.PowerOnImage);
+        if (img != null) {
+
+            if (avail) img.setColorFilter(Color.WHITE);
+            else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
+        }
+
+        // Set Power Off Image
+        img = (ImageView)findViewById(R.id.PowerOffImage);
+        if (img != null) {
+
+            if (avail) img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
+            else img.setColorFilter(Color.WHITE);
+        }
+
+
+        // Set Text
+        TextView txt = (TextView)findViewById(R.id.AvailabilityText);
+        if (txt != null) {
+
+            txt.setText(status.Controller.Availability);
+
+            if (avail) txt.setTextColor(getResources().getColor(R.color.statusGreen));
+            else txt.setTextColor(getResources().getColor(R.color.statusRed));
         }
     }
 
     private void updateControllerStatus_EmergencyStop(DeviceStatus status) {
 
-        TextView txt = (TextView)findViewById(R.id.EmergencyStop);
+        // Set color based on value
+        int color = getResources().getColor(R.color.foreground_normal_color);
+
+        if (status.Controller.EmergencyStop.equals("ARMED"))
+            color = getResources().getColor(R.color.statusGreen);
+
+        else if (status.Controller.EmergencyStop.equals("TRIGGERED"))
+            color = getResources().getColor(R.color.statusRed);
+
+
+        // Set Image
+        ImageView img = (ImageView)findViewById(R.id.EmergencyStopImage);
+        if (img != null) img.setColorFilter(color);
+
+        // Set Text
+        TextView txt = (TextView)findViewById(R.id.EmergencyStopText);
         if (txt != null) {
             txt.setText(status.Controller.EmergencyStop);
-
-            if (status.Controller.EmergencyStop.equals("ARMED"))
-                txt.setTextColor(getResources().getColor(R.color.statusGreen));
-            else if (status.Controller.EmergencyStop.equals("TRIGGERED"))
-                txt.setTextColor(getResources().getColor(R.color.statusRed));
-            else
-                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+            txt.setTextColor(color);
         }
     }
 
     private void updateControllerStatus_ControllerMode(DeviceStatus status) {
 
-        TextView txt = (TextView)findViewById(R.id.ControllerMode);
-        if (txt != null) {
-            txt.setText(status.Controller.ControllerMode);
+        String s = status.Controller.ControllerMode;
 
-            if (status.Controller.ControllerMode.equals("AUTOMATIC"))
-                txt.setTextColor(getResources().getColor(R.color.statusGreen));
-            else
-                txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+        // Automatic
+        ImageView img = (ImageView)findViewById(R.id.ControllerMode_Auto);
+        if (img != null)
+        {
+            if (s.equals("AUTOMATIC")) img.setColorFilter(getResources().getColor(R.color.statusGreen));
+            else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
+        }
+
+        // MDI (Manual Data Input)
+        img = (ImageView)findViewById(R.id.ControllerMode_MDI);
+        if (img != null)
+        {
+            if (s.equals("MANUAL_DATA_INPUT")) img.setColorFilter(getResources().getColor(R.color.accent_normal_color));
+            else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
+        }
+
+        // SBLK (Single Block Mode)
+        img = (ImageView)findViewById(R.id.ControllerMode_SBLK);
+        if (img != null)
+        {
+            if (s.equals("SEMI_AUTOMATIC")) img.setColorFilter(getResources().getColor(R.color.accent_normal_color));
+            else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
+        }
+
+        // Manual (Jog, etc.)
+        img = (ImageView)findViewById(R.id.ControllerMode_Manaul);
+        if (img != null)
+        {
+            if (s.equals("MANUAL")) img.setColorFilter(getResources().getColor(R.color.accent_normal_color));
+            else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
+        }
+
+        // Edit
+        img = (ImageView)findViewById(R.id.ControllerMode_Edit);
+        if (img != null)
+        {
+            if (s.equals("EDIT")) img.setColorFilter(getResources().getColor(R.color.accent_normal_color));
+            else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
         }
     }
 
     private void updateControllerStatus_ExecutionMode(DeviceStatus status) {
 
-        TextView txt = (TextView)findViewById(R.id.ExecutionMode);
+        TextView txt = (TextView)findViewById(R.id.ExecutionModeText);
         if (txt != null) {
+
             txt.setText(status.Controller.ExecutionMode);
 
             if (status.Controller.ExecutionMode.equals("ACTIVE"))
+
                 txt.setTextColor(getResources().getColor(R.color.statusGreen));
+
             else if (status.Controller.ExecutionMode.equals("STOPPED") || status.Controller.ExecutionMode.equals("INTERRUPTED"))
+
                 txt.setTextColor(getResources().getColor(R.color.statusRed));
+
             else
+
                 txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
         }
     }
 
-    private void updateControllerStatus_Alarm(DeviceStatus status) {
+    private void updateControllerStatus_SystemStatus(DeviceStatus status) {
 
-        TextView txt = (TextView)findViewById(R.id.Alarm);
+        // Set System Status
+        TextView txt = (TextView)findViewById(R.id.SystemStatusText);
         if (txt != null) {
-            txt.setText(status.Controller.SystemMessage);
 
-            if (status.Controller.SystemStatus.equals("FAULT"))
+            String s1 = status.Controller.SystemStatus;
+
+            txt.setText(s1);
+
+            if (s1.equals("Normal"))
+
+                txt.setTextColor(getResources().getColor(R.color.statusGreen));
+
+            else if (s1.equals("Fault"))
+
                 txt.setTextColor(getResources().getColor(R.color.statusRed));
+
             else
+
                 txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+
+
+            // Set System Message
+            txt = (TextView)findViewById(R.id.SystemMessageText);
+            if (txt != null) {
+
+                String s2 = status.Controller.SystemMessage;
+
+                // Set System Message Text
+                txt.setText(s2);
+
+                // Set Visibility of System Message
+                if (s2 == null || s2.isEmpty()) txt.setVisibility(View.GONE);
+                else txt.setVisibility(View.VISIBLE);
+
+                // Set Colors
+                if (!s1.equals("Normal")) {
+
+                    txt.setTextColor(Color.WHITE);
+                    txt.setBackgroundColor(Color.RED);
+
+                } else {
+
+                    txt.setTextColor(getResources().getColor(R.color.foreground_normal_color));
+                    txt.setBackgroundColor(Color.YELLOW);
+                }
+            }
         }
     }
 
+
+    public void logout(){
+
+        Loading.Open(this, "Logging Out..");
+
+        new Logout(this).execute();
+    }
+
+
+    //region Toolbar
 
     private void setToolbar() {
 
@@ -358,32 +496,108 @@ public class DeviceDetails extends AppCompatActivity {
         // Set Icon
         trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
 
+        toolbar = trakhoundToolbar;
+
         setSupportActionBar(trakhoundToolbar);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.device_list, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // action with ID action_refresh was selected
-            case R.id.action_refresh:
 
-                refresh();
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-                break;
 
-            default:
-                break;
+        if (id == R.id.action_refresh) {
+
+            refresh();
         }
 
+        return super.onOptionsItemSelected(item);
+    }
+
+    //endregion
+
+    //region Navigation Drawer
+
+    private void setNavigationDrawer() {
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+        // Load Username
+        UserConfiguration userConfig = MyApplication.User;
+        if (userConfig != null) {
+
+            String username = TH_Tools.capitalizeFirst(userConfig.Username);
+
+            View headerView = navigationView.getHeaderView(0);
+            if (headerView != null) {
+
+                TextView txt = (TextView) headerView.findViewById(R.id.Username);
+                if (txt != null) txt.setText(username);
+
+                new GetUserImage(headerView, userConfig).execute();
+            }
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_logout) {
+
+            logout();
+
+        } else if (id == R.id.nav_about) {
+
+            // Open the About Page
+            startActivity(new Intent(getBaseContext(), About.class));
+
+        } else if (id == R.id.nav_deviceList) {
+
+            // Open the Device Details Page
+            startActivity(new Intent(getBaseContext(), DeviceList.class));
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //endregion
+
 
 }

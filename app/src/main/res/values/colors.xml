@@ -13,11 +13,12 @@
 
     <!--Foreground Colors-->
     <color name="foreground_normal_color">#333333</color>
+    <color name="foreground_light_color">#888888</color>
     <color name="foreground_normal_opposite_color">#fff</color>
 
     <!--Status Colors-->
-    <color name="statusGreen">#FF19B419</color>
+    <color name="statusGreen">#19b419</color>
     <color name="statusYellow">#FFFF00</color>
-    <color name="statusRed">#FF0000</color>
+    <color name="statusRed">#ff0000</color>
 
 </resources>
