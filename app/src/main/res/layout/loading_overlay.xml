@@ -9,7 +9,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:wheel="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
-        android:layout_height="500sp"
+        android:layout_height="fill_parent"
         android:background="@drawable/window_background_accent_gradient"
         android:layout_gravity="center">
 
@@ -21,21 +21,21 @@
             android:layout_centerInParent="true">
 
             <ImageView
-                android:layout_width="70sp"
-                android:layout_height="70sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:id="@+id/imageView"
                 android:src="@drawable/th_logo_simple_white"
                 android:layout_centerInParent="true" />
 
             <com.pnikosis.materialishprogress.ProgressWheel
                 android:id="@+id/progress_wheel"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 wheel:matProg_barColor="#fff"
                 wheel:matProg_progressIndeterminate="true"
                 android:layout_gravity="center"
                 wheel:matProg_fillRadius="true"
-                wheel:matProg_barWidth="10dp"
+                wheel:matProg_barWidth="5dp"
                 android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
@@ -47,8 +47,7 @@
             android:text="Loading.."
             android:id="@+id/LoadingText"
             android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:layout_below="@+id/relativeLayout3"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp" />
@@ -60,15 +59,15 @@
             android:layout_above="@+id/relativeLayout3"
             android:layout_alignLeft="@+id/relativeLayout3"
             android:layout_alignStart="@+id/relativeLayout3"
-            android:layout_marginBottom="20dp"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TrakHound"
                 android:id="@+id/textView"
-                android:textSize="50sp"
+                android:textSize="40sp"
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:layout_alignTop="@+id/imageView"
@@ -81,8 +80,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Mobile"
                 android:id="@+id/textView23"
-                android:textColor="#aaffffff"
-                android:textSize="40sp"
+                android:textColor="#fff"
+                android:textSize="30sp"
                 android:layout_below="@+id/textView"
                 android:layout_toRightOf="@+id/imageView"
                 android:layout_toEndOf="@+id/imageView"

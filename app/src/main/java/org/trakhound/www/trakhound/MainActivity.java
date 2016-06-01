@@ -105,25 +105,20 @@ public class MainActivity extends AppCompatActivity {
 
         Context context = getBaseContext();
 
-        // Open the Local Home Screen
+        // Open the Local Login Screen
         Intent localLoginIntent = new Intent(context, LocalLogin.class);
         localLoginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        // Open the Device List Page
         context.startActivity(localLoginIntent);
-
-
-
-        // Open the Device List
-//        context.startActivity(new Intent(context, LocalLogin.class));
     }
 
     public void openAbout(View view) {
 
         Context context = getBaseContext();
 
-        // Open the About Page
-        context.startActivity(new Intent(context, About.class));
+        // Open the About Screen
+        Intent aboutIntent = new Intent(context, About.class);
+        aboutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(aboutIntent);
     }
 
 }

@@ -368,7 +368,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         img = (ImageView)findViewById(R.id.ControllerMode_MDI);
         if (img != null)
         {
-            if (s.equals("MANUAL_DATA_INPUT")) img.setColorFilter(getResources().getColor(R.color.accent_normal_color));
+            if (s.equals("MANUAL_DATA_INPUT")) img.setColorFilter(getResources().getColor(R.color.accent_light_color));
             else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
         }
 
@@ -376,7 +376,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         img = (ImageView)findViewById(R.id.ControllerMode_SBLK);
         if (img != null)
         {
-            if (s.equals("SEMI_AUTOMATIC")) img.setColorFilter(getResources().getColor(R.color.accent_normal_color));
+            if (s.equals("SEMI_AUTOMATIC")) img.setColorFilter(getResources().getColor(R.color.accent_light_color));
             else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
         }
 
@@ -384,7 +384,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         img = (ImageView)findViewById(R.id.ControllerMode_Manaul);
         if (img != null)
         {
-            if (s.equals("MANUAL")) img.setColorFilter(getResources().getColor(R.color.accent_normal_color));
+            if (s.equals("MANUAL")) img.setColorFilter(getResources().getColor(R.color.accent_light_color));
             else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
         }
 
@@ -392,7 +392,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         img = (ImageView)findViewById(R.id.ControllerMode_Edit);
         if (img != null)
         {
-            if (s.equals("EDIT")) img.setColorFilter(getResources().getColor(R.color.accent_normal_color));
+            if (s.equals("EDIT")) img.setColorFilter(getResources().getColor(R.color.accent_light_color));
             else img.setColorFilter(getResources().getColor(R.color.foreground_light_color));
         }
     }
