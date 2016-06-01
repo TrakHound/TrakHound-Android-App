@@ -115,7 +115,7 @@ public class UserConfiguration {
             result.Image_Url = obj.optString("imageUrl");
 
             String lastLogin = obj.optString("lastLogin");
-            if (lastLogin != null) {
+            if (lastLogin != null && !lastLogin.equals("null")) {
 
                 DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
                 result.LastLogin = formatter.parseDateTime(lastLogin);

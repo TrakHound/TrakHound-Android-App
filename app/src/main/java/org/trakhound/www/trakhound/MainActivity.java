@@ -64,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
         if (r) {
 
             // Create Token Login
-            new GetDevices(this).execute(username, password, "");
+            new GetDevices(this, GetDevices.LoginType.CREATE_TOKEN).execute(username, password, "");
 
         } else {
 
             // Basic Login
-            new GetDevices(this).execute(username, password);
+            new GetDevices(this, GetDevices.LoginType.BASIC).execute(username, password);
         }
     }
 
@@ -78,26 +78,26 @@ public class MainActivity extends AppCompatActivity {
         // Show Loading Activity
         Loading.Open(this, "Logging in " + TH_Tools.capitalizeFirst(username) + "..");
 
-        new GetDevices(this).execute(token);
+        new GetDevices(this, GetDevices.LoginType.TOKEN).execute(token);
     }
 
     private void localLogin(String token) {
 
-        UserConfiguration userConfig = UserManagement.localLogin(token, false);
-
-        MyApplication.User = userConfig;
-        MyApplication.LoggedIn = true;
-
-        Context context = getBaseContext();
-
-        // Open the Local Home Screen
-        Intent deviceListIntent = new Intent(context, DeviceList.class);
-        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        // Open the Device List Page
-        context.startActivity(deviceListIntent);
+//        UserConfiguration userConfig = UserManagement.localLogin(token, false);
+//
+//        MyApplication.User = userConfig;
+//        MyApplication.LoggedIn = true;
+//
+//        Context context = getBaseContext();
+//
+//        // Open the Local Home Screen
+//        Intent deviceListIntent = new Intent(context, DeviceList.class);
+//        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+//                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+//                Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//        // Open the Device List Page
+//        context.startActivity(deviceListIntent);
     }
 
 
@@ -106,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
         Context context = getBaseContext();
 
         // Open the Local Home Screen
-        Intent deviceListIntent = new Intent(context, LocalLogin.class);
-        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent localLoginIntent = new Intent(context, LocalLogin.class);
+        localLoginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         // Open the Device List Page
-        context.startActivity(deviceListIntent);
+        context.startActivity(localLoginIntent);
 
 
 

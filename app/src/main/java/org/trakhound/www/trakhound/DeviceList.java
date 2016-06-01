@@ -108,7 +108,7 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         // Show Loading Activity
         Loading.Open(this, "Loading Devices..");
 
-        new GetDevices(this).execute();
+        new GetDevices(this, GetDevices.LoginType.NONE).execute();
     }
 
     private void refresh() {
@@ -116,7 +116,7 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         // Show Loading Overlay
         showLoading();
 
-        new GetDevices(this).execute();
+        new GetDevices(this, GetDevices.LoginType.NONE).execute();
     }
 
     public void updateStatus(DeviceStatus[] deviceStatus) {
@@ -171,6 +171,16 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         if (listItems != null && listItems.length > 0) {
 
             listAdapter.addAll(listItems);
+
+            // Hide 'No Devices Found' text
+            View v = findViewById(R.id.NoDevicesText);
+            if (v != null) v.setVisibility(View.GONE);
+
+        } else {
+
+            // Show 'No Devices Found' text
+            View v = findViewById(R.id.NoDevicesText);
+            if (v != null) v.setVisibility(View.VISIBLE);
         }
 
         if (statusThread == null) startStatusThread();
@@ -293,15 +303,25 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+        if (headerView != null) {
 
-        // Load Username
-        UserConfiguration userConfig = MyApplication.User;
-        if (userConfig != null) {
+            // Load Username
+            UserConfiguration userConfig = MyApplication.User;
+            if (userConfig != null) {
 
-            String username = TH_Tools.capitalizeFirst(userConfig.Username);
+                String username = null;
 
-            View headerView = navigationView.getHeaderView(0);
-            if (headerView != null) {
+                if (userConfig.Type == UserConfiguration.UserType.REMOTE) {
+
+                    username = TH_Tools.capitalizeFirst(userConfig.Username);
+                }
+                else {
+
+                    username = TH_Tools.capitalizeFirst(userConfig.Id);
+                    username = username.substring(2);
+                    username = username.toUpperCase();
+                }
 
                 TextView txt = (TextView) headerView.findViewById(R.id.Username);
                 if (txt != null) txt.setText(username);
@@ -309,6 +329,27 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
                 new GetUserImage(headerView, userConfig).execute();
             }
         }
+
+
+//        // Load Username
+//        UserConfiguration userConfig = MyApplication.User;
+//        if (userConfig != null) {
+//
+//            String username = TH_Tools.capitalizeFirst(userConfig.Username);
+//
+////            View headerView = navigationView.getHeaderView(0);
+////            if (headerView != null) {
+//
+//                TextView txt = (TextView) headerView.findViewById(R.id.Username);
+//                if (txt != null) txt.setText(username);
+//
+//                new GetUserImage(headerView, userConfig).execute();
+////            }
+//        } else {
+//
+//            View v =
+//
+//        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

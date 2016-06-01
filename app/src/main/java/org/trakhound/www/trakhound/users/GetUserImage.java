@@ -62,7 +62,7 @@ public class GetUserImage extends AsyncTask<String,Void,Bitmap> {
             } else {
 
                 v = context.findViewById(R.id.UserImageBorder);
-                if (v != null) v.setVisibility(View.INVISIBLE);
+                if (v != null) v.setVisibility(View.GONE);
             }
         }
 

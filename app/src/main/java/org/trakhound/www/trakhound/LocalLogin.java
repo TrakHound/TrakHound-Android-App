@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.trakhound.www.trakhound.device_list.GetDevices;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.users.UserManagement;
 
@@ -65,12 +66,17 @@ public class LocalLogin extends AppCompatActivity {
         CheckBox rememberCHKBX = (CheckBox)findViewById(R.id.RememberCHKBX);
         Boolean remember = rememberCHKBX.isChecked();
 
-        UserConfiguration userConfig = UserManagement.localLogin(id, remember);
+        // Show Loading Activity
+        Loading.Open(this, "Loading Devices..");
 
-        MyApplication.User = userConfig;
-        MyApplication.LoggedIn = true;
+        new GetDevices(this, GetDevices.LoginType.LOCAL).execute(id);
 
-        Context context = getBaseContext();
+//        UserConfiguration userConfig = UserManagement.localLogin(id, remember);
+//
+//        MyApplication.User = userConfig;
+//        MyApplication.LoggedIn = true;
+//
+//        Context context = getBaseContext();
 
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,15 +9,23 @@
     tools:context=".DeviceList"
     tools:showIn="@layout/activity_device_list">
 
-
     <ListView
         android:id="@+id/device_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="No Devices Found"
+        android:id="@+id/NoDevicesText"
+        android:textColor="#888"
+        android:textSize="18sp"
+        android:layout_gravity="center" />
 
-</LinearLayout>
+</FrameLayout>
 
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->

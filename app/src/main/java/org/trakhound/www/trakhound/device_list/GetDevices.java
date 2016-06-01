@@ -34,16 +34,21 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
     private DeviceList deviceList;
     private Context context;
+    private LoginType loginType;
 
-    public GetDevices(DeviceList deviceList) {
+    public enum LoginType { NONE, BASIC, CREATE_TOKEN, TOKEN, LOCAL }
+
+    public GetDevices(DeviceList deviceList, LoginType loginType) {
 
         this.deviceList = deviceList;
         this.context = deviceList;
+        this.loginType = loginType;
     }
 
-    public GetDevices(Context context) {
+    public GetDevices(Context context, LoginType loginType) {
 
         this.context = context;
+        this.loginType = loginType;
     }
 
     protected void onPreExecute(){
@@ -55,22 +60,27 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
         ListItem[] result = null;
 
-        if (arg0.length == 1) {
+        if (loginType == LoginType.TOKEN) {
 
             String token = arg0[0];
             result = get(token);
 
-        } else if (arg0.length == 2) {
+        } else if (loginType == LoginType.BASIC) {
 
             String username = arg0[0];
             String password = arg0[1];
             result = get(username, password, false);
 
-        } else if (arg0.length == 3) {
+        } else if (loginType == LoginType.CREATE_TOKEN) {
 
             String username = arg0[0];
             String password = arg0[1];
             result = get(username, password, true);
+
+        } else if (loginType == LoginType.LOCAL) {
+
+            String id = arg0[0];
+            result = getLocal(id);
 
         } else {
 
@@ -80,6 +90,32 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
                 result = get(userConfig);
             }
         }
+
+//        if (arg0.length == 1) {
+//
+//            String token = arg0[0];
+//            result = get(token);
+//
+//        } else if (arg0.length == 2) {
+//
+//            String username = arg0[0];
+//            String password = arg0[1];
+//            result = get(username, password, false);
+//
+//        } else if (arg0.length == 3) {
+//
+//            String username = arg0[0];
+//            String password = arg0[1];
+//            result = get(username, password, true);
+//
+//        } else {
+//
+//            UserConfiguration userConfig = MyApplication.User;
+//            if (userConfig != null) {
+//
+//                result = get(userConfig);
+//            }
+//        }
 
         return result;
     }
@@ -109,8 +145,6 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
             deviceList.addDevices();
 
             deviceList.hideLoading();
-
-//            new GetLogos(deviceList).execute();
 
         } else {
 
@@ -167,6 +201,9 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
                     UserConfiguration userConfig = UserConfiguration.get(userLogin);
                     if (userConfig != null) {
 
+                        if (userConfig.Id.startsWith("%%")) userConfig.Type = UserConfiguration.UserType.LOCAL;
+                        else userConfig.Type = UserConfiguration.UserType.REMOTE;
+
                         MyApplication.User = userConfig;
 
                         UserManagement.setRememberToken(userConfig.RememberToken);
@@ -177,42 +214,44 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
                 }
 
                 // Description Array is first index
-                JSONArray descriptionArray = a.getJSONArray(datastart++);
+                JSONArray descriptionArray = a.optJSONArray(datastart++);
+                if (descriptionArray != null) {
 
-                JSONArray productionArray = null;
-                JSONArray oeeArray = null;
+                    JSONArray productionArray = null;
+                    JSONArray oeeArray = null;
 
-                if (a.length() > 1) productionArray = a.getJSONArray(datastart++);
-                if (a.length() > 2) oeeArray = a.getJSONArray(datastart++);
+                    if (a.length() > 1) productionArray = a.getJSONArray(datastart++);
+                    if (a.length() > 2) oeeArray = a.getJSONArray(datastart++);
 
-                for (int i = 0; i < descriptionArray.length(); i++) {
+                    for (int i = 0; i < descriptionArray.length(); i++) {
 
-                    JSONObject obj = descriptionArray.getJSONObject(i);
+                        JSONObject obj = descriptionArray.getJSONObject(i);
 
-                    Device device = Device.parse(obj);
-                    if (device != null) {
+                        Device device = Device.parse(obj);
+                        if (device != null) {
 
-                        String uniqueId = device.UniqueId;
-                        if (uniqueId != null) {
+                            String uniqueId = device.UniqueId;
+                            if (uniqueId != null) {
 
-                            ListItem listItem = new ListItem();
-                            listItem.Device = device;
+                                ListItem listItem = new ListItem();
+                                listItem.Device = device;
 
-                            // Get Production Info
-                            obj = Json.find(productionArray, "unique_id", uniqueId);
-                            if (obj != null) {
+                                // Get Production Info
+                                obj = Json.find(productionArray, "unique_id", uniqueId);
+                                if (obj != null) {
 
-                                listItem.Status.Production = ProductionInfo.parse(obj);
+                                    listItem.Status.Production = ProductionInfo.parse(obj);
+                                }
+
+                                // Get Oee Info
+                                obj = Json.find(oeeArray, "unique_id", uniqueId);
+                                if (obj != null) {
+
+                                    listItem.Status.Oee = OeeInfo.parse(obj);
+                                }
+
+                                result.add(listItem);
                             }
-
-                            // Get Oee Info
-                            obj = Json.find(oeeArray, "unique_id", uniqueId);
-                            if (obj != null) {
-
-                                listItem.Status.Oee = OeeInfo.parse(obj);
-                            }
-
-                            result.add(listItem);
                         }
                     }
                 }
@@ -282,6 +321,26 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
                 return processResponse(response);
 
             } catch (UnsupportedEncodingException ex) { Log.d("Exception", ex.getMessage()); }
+        }
+
+        return null;
+    }
+
+    public static ListItem[] getLocal(String id) {
+
+        if (id != null) {
+
+            String url = "https://www.feenux.com/trakhound/api/mobile/get/";
+
+            String userId = "%%" + id;
+
+            PostData[] postDatas = new PostData[3];
+            postDatas[0] = new PostData("id", userId);
+            postDatas[1] = new PostData("sender_id", UserManagement.getSenderId());
+            postDatas[2] = new PostData("command", "1101"); // Get Description, Status, and Oee tables
+
+            String response = Requests.post(url, postDatas);
+            return processResponse(response);
         }
 
         return null;
