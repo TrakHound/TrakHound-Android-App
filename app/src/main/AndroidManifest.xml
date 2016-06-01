@@ -61,6 +61,7 @@
             android:label="@string/title_activity_settings" />
 
         <activity android:name=".Loading"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

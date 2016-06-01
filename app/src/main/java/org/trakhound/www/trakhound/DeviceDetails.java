@@ -40,9 +40,9 @@ import java.util.TimerTask;
 public class DeviceDetails extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String DEVICE_INDEX = "device_index";
+    public static DeviceStatus Status;
 
     public Device Device;
-    public DeviceStatus Status;
 
     private Toolbar toolbar;
     private Thread statusThread;
@@ -69,7 +69,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
             Device = listItem.Device;
 
-            if (listItem.Status != null) {
+            if (listItem.Status != null && Status == null) {
 
                 Status = new DeviceStatus();
                 Status.Oee = listItem.Status.Oee;
@@ -580,15 +580,25 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+        if (headerView != null) {
 
-        // Load Username
-        UserConfiguration userConfig = MyApplication.User;
-        if (userConfig != null) {
+            // Load Username
+            UserConfiguration userConfig = MyApplication.User;
+            if (userConfig != null) {
 
-            String username = TH_Tools.capitalizeFirst(userConfig.Username);
+                String username = null;
 
-            View headerView = navigationView.getHeaderView(0);
-            if (headerView != null) {
+                if (userConfig.Type == UserConfiguration.UserType.REMOTE) {
+
+                    username = TH_Tools.capitalizeFirst(userConfig.Username);
+                }
+                else {
+
+                    username = TH_Tools.capitalizeFirst(userConfig.Id);
+                    username = username.substring(2);
+                    username = username.toUpperCase();
+                }
 
                 TextView txt = (TextView) headerView.findViewById(R.id.Username);
                 if (txt != null) txt.setText(username);

@@ -5,29 +5,52 @@
 
 package org.trakhound.www.trakhound.device_details;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import org.trakhound.www.trakhound.DeviceDetails;
+import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 
 public class GetDeviceStatus extends AsyncTask<String,Void,DeviceStatus> {
 
-    private DeviceDetails context;
+    private DeviceDetails deviceDetails;
+    private Context context;
     private String uniqueId;
+    private int position;
 
-    public GetDeviceStatus(DeviceDetails context, String uniqueId) {
+    public GetDeviceStatus(DeviceDetails deviceDetails, String uniqueId) {
+
+        this.deviceDetails = deviceDetails;
+        this.uniqueId = uniqueId;
+    }
+
+    public GetDeviceStatus(Context context, int position) {
 
         this.context = context;
-        this.uniqueId = uniqueId;
+        this.position = position;
+
+        if (MyApplication.ListItems != null) {
+
+            if (position < MyApplication.ListItems.length) {
+
+                Device device = MyApplication.ListItems[position].Device;
+                if (device != null) {
+
+                    this.uniqueId = device.UniqueId;
+                }
+            }
+        }
     }
 
     protected void onPreExecute(){
 
-        if (context != null) {
+        if (deviceDetails != null) {
 
-            context.showLoading();
+            deviceDetails.showLoading();
         }
     }
 
@@ -47,12 +70,24 @@ public class GetDeviceStatus extends AsyncTask<String,Void,DeviceStatus> {
     @Override
     protected void onPostExecute(DeviceStatus status){
 
-        context.Status = status;
-        context.loadData();
+        deviceDetails.Status = status;
 
-        if (context != null) {
+        if (deviceDetails != null) {
 
-            context.hideLoading();
+            deviceDetails.loadData();
+
+            deviceDetails.hideLoading();
+
+        } else {
+
+            Intent deviceDetailsIntent = new Intent(context, DeviceDetails.class);
+            deviceDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            // Pass the index of the device in the MyApplication.Devices array
+            deviceDetailsIntent.putExtra(DeviceDetails.DEVICE_INDEX, position);
+
+            // Open the Device List Page
+            context.startActivity(deviceDetailsIntent);
         }
 
     }

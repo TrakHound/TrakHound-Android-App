@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.trakhound.www.trakhound.device_details.GetDeviceStatus;
 import org.trakhound.www.trakhound.device_list.*;
 import org.trakhound.www.trakhound.device_list.StatusHandler;
 import org.trakhound.www.trakhound.devices.Device;
@@ -62,12 +63,9 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                Intent intent = new Intent(context, DeviceDetails.class);
+                Loading.Open(context, "Loading Details..");
 
-                // Pass the index of the device in the MyApplication.Devices array
-                intent.putExtra(DeviceDetails.DEVICE_INDEX, position);
-
-                context.startActivity(intent);
+                new GetDeviceStatus(context, position).execute();
             }
         });
 
@@ -90,6 +88,9 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
             addDevices();
         }
+
+        // Load Device Logo Images
+        new GetLogos(this).execute();
     }
 
     @Override
@@ -98,8 +99,6 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         super.onStop();
 
         if (statusThread != null) statusThread.interrupt();
-
-        Log.d("test","onStop");
     }
 
 
@@ -185,7 +184,6 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
         if (statusThread == null) startStatusThread();
 
-        new GetLogos(this).execute();
     }
 
     private void startStatusThread() {
@@ -329,27 +327,6 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
                 new GetUserImage(headerView, userConfig).execute();
             }
         }
-
-
-//        // Load Username
-//        UserConfiguration userConfig = MyApplication.User;
-//        if (userConfig != null) {
-//
-//            String username = TH_Tools.capitalizeFirst(userConfig.Username);
-//
-////            View headerView = navigationView.getHeaderView(0);
-////            if (headerView != null) {
-//
-//                TextView txt = (TextView) headerView.findViewById(R.id.Username);
-//                if (txt != null) txt.setText(username);
-//
-//                new GetUserImage(headerView, userConfig).execute();
-////            }
-//        } else {
-//
-//            View v =
-//
-//        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
