@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +38,7 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
     private Context context;
     private LoginType loginType;
 
+
     public enum LoginType { NONE, BASIC, CREATE_TOKEN, TOKEN, LOCAL }
 
     public GetDevices(DeviceList deviceList, LoginType loginType) {
@@ -53,6 +56,7 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
     protected void onPreExecute(){
 
+        MainActivity.error = false;
     }
 
     @Override
@@ -90,32 +94,6 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
                 result = get(userConfig);
             }
         }
-
-//        if (arg0.length == 1) {
-//
-//            String token = arg0[0];
-//            result = get(token);
-//
-//        } else if (arg0.length == 2) {
-//
-//            String username = arg0[0];
-//            String password = arg0[1];
-//            result = get(username, password, false);
-//
-//        } else if (arg0.length == 3) {
-//
-//            String username = arg0[0];
-//            String password = arg0[1];
-//            result = get(username, password, true);
-//
-//        } else {
-//
-//            UserConfiguration userConfig = MyApplication.User;
-//            if (userConfig != null) {
-//
-//                result = get(userConfig);
-//            }
-//        }
 
         return result;
     }
@@ -178,7 +156,12 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
                 JSONArray a = new JSONArray(response);
                 return processResponseArray(a);
 
-            } catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
+            } catch (JSONException ex) {
+
+                Log.d("Exception", ex.getMessage());
+
+                MainActivity.error = true;
+            }
         }
 
         return null;
@@ -208,6 +191,10 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
                         UserManagement.setRememberToken(userConfig.RememberToken);
                         UserManagement.setRememberUsername(userConfig.Username);
+
+                    } else {
+
+                        MainActivity.error = true;
                     }
 
                     datastart++;
@@ -259,7 +246,15 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
                 ListItem[] resultArray = new ListItem[result.size()];
                 return result.toArray(resultArray);
 
-            } catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
+            } catch (JSONException ex) {
+
+                Log.d("Exception", ex.getMessage());
+
+                MainActivity.error = true;
+            }
+        } else {
+
+            MainActivity.error = true;
         }
 
         return null;

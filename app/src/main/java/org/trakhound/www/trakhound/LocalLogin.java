@@ -5,8 +5,6 @@
 
 package org.trakhound.www.trakhound;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.trakhound.www.trakhound.device_list.GetDevices;
-import org.trakhound.www.trakhound.users.UserConfiguration;
-import org.trakhound.www.trakhound.users.UserManagement;
 
 public class LocalLogin extends AppCompatActivity {
 
@@ -53,9 +49,6 @@ public class LocalLogin extends AppCompatActivity {
         // Set Icon
         trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
 
-        // Set Navigation Button Icon
-//        trakhoundToolbar.setNavigationIcon(R.drawable.back_01);
-
         setSupportActionBar(trakhoundToolbar);
     }
 
@@ -70,23 +63,5 @@ public class LocalLogin extends AppCompatActivity {
         Loading.Open(this, "Loading Devices..");
 
         new GetDevices(this, GetDevices.LoginType.LOCAL).execute(id);
-
-//        UserConfiguration userConfig = UserManagement.localLogin(id, remember);
-//
-//        MyApplication.User = userConfig;
-//        MyApplication.LoggedIn = true;
-//
-//        Context context = getBaseContext();
-
-
-
-//        // Open the Local Home Screen
-//        Intent deviceListIntent = new Intent(context, DeviceList.class);
-//        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-//                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-//                Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        // Open the Device List Page
-//        context.startActivity(deviceListIntent);
     }
 }

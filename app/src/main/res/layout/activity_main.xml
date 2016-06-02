@@ -69,6 +69,24 @@
                     android:layout_alignParentStart="true">
 
                     <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Login Failed. Try Again."
+                        android:id="@+id/ErrorLabel"
+                        android:visibility="gone"
+                        android:textColor="#ff0000"
+                        android:textAlignment="center"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_toLeftOf="@+id/LoginButton"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="14dp"
+                        android:layout_gravity="left" />
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -140,21 +158,6 @@
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentEnd="true" />
-
-                        <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Login Failed"
-                            android:id="@+id/ErrorLabel"
-                            android:visibility="invisible"
-                            android:textColor="#ff0000"
-                            android:textAlignment="center"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_toLeftOf="@+id/LoginButton"
-                            android:layout_marginRight="10dp" />
 
                     </RelativeLayout>
 

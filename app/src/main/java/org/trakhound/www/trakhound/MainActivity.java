@@ -20,6 +20,8 @@ import org.trakhound.www.trakhound.users.UserManagement;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static boolean error;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         MyApplication.setCurrentActivity(this);
 
         UserManagement.context = getApplicationContext();
+
+        if (error) {
+
+            TextView errorTextView = (TextView)findViewById(R.id.ErrorLabel);
+            errorTextView.setVisibility(View.VISIBLE);
+        }
 
         // Attempt to login using saved credentials
         if (MyApplication.User == null) tokenLogin();
@@ -74,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void userLogin(String token, String username) {
+
+        TextView errorLabel = (TextView)findViewById(R.id.ErrorLabel);
 
         // Show Loading Activity
         Loading.Open(this, "Logging in " + TH_Tools.capitalizeFirst(username) + "..");
