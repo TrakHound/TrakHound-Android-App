@@ -62,6 +62,13 @@ public class LocalLogin extends AppCompatActivity {
         // Show Loading Activity
         Loading.Open(this, "Loading Devices..");
 
-        new GetDevices(this, GetDevices.LoginType.LOCAL).execute(id);
+        if (remember) {
+
+            new GetDevices(this, GetDevices.LoginType.CREATE_LOCAL_TOKEN).execute(id);
+
+        } else {
+
+            new GetDevices(this, GetDevices.LoginType.LOCAL).execute(id);
+        }
     }
 }

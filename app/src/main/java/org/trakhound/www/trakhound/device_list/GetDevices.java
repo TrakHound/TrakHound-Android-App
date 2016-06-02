@@ -36,22 +36,22 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
     private DeviceList deviceList;
     private Context context;
-    private LoginType loginType;
+    private static LoginType loginType;
 
 
-    public enum LoginType { NONE, BASIC, CREATE_TOKEN, TOKEN, LOCAL }
+    public enum LoginType { NONE, BASIC, CREATE_TOKEN, TOKEN, LOCAL, CREATE_LOCAL_TOKEN }
 
-    public GetDevices(DeviceList deviceList, LoginType loginType) {
+    public GetDevices(DeviceList deviceList, LoginType type) {
 
         this.deviceList = deviceList;
         this.context = deviceList;
-        this.loginType = loginType;
+        loginType = type;
     }
 
-    public GetDevices(Context context, LoginType loginType) {
+    public GetDevices(Context context, LoginType type) {
 
         this.context = context;
-        this.loginType = loginType;
+        loginType = type;
     }
 
     protected void onPreExecute(){
@@ -81,7 +81,7 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
             String password = arg0[1];
             result = get(username, password, true);
 
-        } else if (loginType == LoginType.LOCAL) {
+        } else if (loginType == LoginType.LOCAL || loginType == LoginType.CREATE_LOCAL_TOKEN) {
 
             String id = arg0[0];
             result = getLocal(id);
@@ -189,8 +189,18 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
                         MyApplication.User = userConfig;
 
-                        UserManagement.setRememberToken(userConfig.RememberToken);
-                        UserManagement.setRememberUsername(userConfig.Username);
+                        if (loginType == LoginType.CREATE_TOKEN) {
+
+                            UserManagement.setRememberToken(userConfig.RememberToken);
+                            UserManagement.setRememberUsername(userConfig.Username);
+
+                        } else if (loginType == LoginType.CREATE_LOCAL_TOKEN) {
+
+                            String username = userConfig.Id.substring(2).toUpperCase();
+
+                            UserManagement.setRememberToken(userConfig.Id);
+                            UserManagement.setRememberUsername(username);
+                        }
 
                     } else {
 
@@ -207,8 +217,8 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
                     JSONArray productionArray = null;
                     JSONArray oeeArray = null;
 
-                    if (a.length() > 1) productionArray = a.getJSONArray(datastart++);
-                    if (a.length() > 2) oeeArray = a.getJSONArray(datastart++);
+                    if (a.length() > 1) productionArray = a.optJSONArray(datastart++);
+                    if (a.length() > 2) oeeArray = a.optJSONArray(datastart++);
 
                     for (int i = 0; i < descriptionArray.length(); i++) {
 
@@ -327,7 +337,8 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
             String url = "https://www.feenux.com/trakhound/api/mobile/get/";
 
-            String userId = "%%" + id;
+            String userId = id;
+            if (!userId.startsWith("%%")) userId = "%%" + userId;
 
             PostData[] postDatas = new PostData[3];
             postDatas[0] = new PostData("id", userId);

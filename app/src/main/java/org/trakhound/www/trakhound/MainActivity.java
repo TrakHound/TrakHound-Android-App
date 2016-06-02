@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         if (token != null) {
             if (token.startsWith("%%")) {
 
-                localLogin(token);
+                localLogin(token, username);
 
             } else {
 
@@ -64,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
         String password = ((TextView)findViewById(R.id.PasswordText)).getText().toString();
 
         Boolean r = ((CheckBox)findViewById(R.id.RememberCHKBX)).isChecked();
-
-        TextView errorLabel = (TextView)findViewById(R.id.ErrorLabel);
 
         Loading.Open(this, "Logging in " + TH_Tools.capitalizeFirst(username) + "..");
 
@@ -83,31 +81,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void userLogin(String token, String username) {
 
-        TextView errorLabel = (TextView)findViewById(R.id.ErrorLabel);
-
         // Show Loading Activity
         Loading.Open(this, "Logging in " + TH_Tools.capitalizeFirst(username) + "..");
 
         new GetDevices(this, GetDevices.LoginType.TOKEN).execute(token);
     }
 
-    private void localLogin(String token) {
+    private void localLogin(String token, String username) {
 
-//        UserConfiguration userConfig = UserManagement.localLogin(token, false);
-//
-//        MyApplication.User = userConfig;
-//        MyApplication.LoggedIn = true;
-//
-//        Context context = getBaseContext();
-//
-//        // Open the Local Home Screen
-//        Intent deviceListIntent = new Intent(context, DeviceList.class);
-//        deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-//                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-//                Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        // Open the Device List Page
-//        context.startActivity(deviceListIntent);
+        // Show Loading Activity
+        Loading.Open(this, "Loading Devices for " + TH_Tools.capitalizeFirst(username) + "..");
+
+        new GetDevices(this, GetDevices.LoginType.LOCAL).execute(token);
     }
 
 

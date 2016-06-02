@@ -69,9 +69,6 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
             }
         });
 
-
-        Log.d("test", "onCreate");
-
         // Setup Toolbar/ActionBar
         setToolbar();
 

@@ -17,20 +17,23 @@ public class Json {
 
         JSONObject result = null;
 
-        for (int i = 0; i < a.length(); i++) {
+        if (a != null) {
 
-            try {
+            for (int i = 0; i < a.length(); i++) {
 
-                JSONObject obj = a.getJSONObject(i);
+                try {
 
-                String s = obj.getString(key);
-                if (s.equals(value)) {
+                    JSONObject obj = a.getJSONObject(i);
 
-                    result = obj;
-                    break;
+                    String s = obj.getString(key);
+                    if (s.equals(value)) {
+
+                        result = obj;
+                        break;
+                    }
                 }
+                catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
             }
-            catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
         }
 
         return result;
@@ -40,26 +43,27 @@ public class Json {
 
         ArrayList<JSONObject> result = new ArrayList<>();
 
-        for (int i = 0; i < a.length(); i++) {
+        if (a != null) {
 
-            try {
+            for (int i = 0; i < a.length(); i++) {
 
-                JSONObject obj = a.getJSONObject(i);
+                try {
 
-                String s = obj.getString(key);
-                if (s.equals(value)) {
+                    JSONObject obj = a.getJSONObject(i);
 
-                    result.add(obj);
+                    String s = obj.getString(key);
+                    if (s.equals(value)) {
+
+                        result.add(obj);
+                    }
                 }
+                catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
             }
-            catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
         }
 
         // Convert list and return as array
         JSONObject[] statusArray = new JSONObject[result.size()];
         return result.toArray(statusArray);
     }
-
-
 
 }

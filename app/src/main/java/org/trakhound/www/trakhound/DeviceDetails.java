@@ -85,6 +85,14 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         setNavigationDrawer();
     }
 
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+
+        if (statusThread != null) statusThread.interrupt();
+    }
+
     public void loadDevice(Device d) {
 
         loadImages(d);
