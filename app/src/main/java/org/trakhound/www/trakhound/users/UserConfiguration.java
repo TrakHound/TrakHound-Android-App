@@ -46,44 +46,48 @@ public class UserConfiguration {
 
         UserConfiguration result = null;
 
+
+
         try {
 
             JSONObject obj = new JSONObject(json);
 
-            result = new UserConfiguration();
-
-            result.Id = obj.getString("id");
-
-            result.Username = obj.getString("username");
-
-            result.FirstName = obj.optString("firstName");
-            result.LastName = obj.optString("lastName");
-            result.Company = obj.optString("company");
-            result.Email = obj.optString("email");
-            result.Phone = obj.optString("phone");
-            result.Address1 = obj.optString("address1");
-            result.Address2 = obj.optString("address2");
-            result.City = obj.optString("city");
-            result.State = obj.optString("state");
-            result.Country = obj.optString("country");
-            result.ZipCode = obj.optString("zipcode");
-            result.Image_Url = obj.optString("imageUrl");
-
-            String lastLogin = obj.optString("lastLogin");
-            if (lastLogin != null) {
-
-                DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-                result.LastLogin = formatter.parseDateTime(lastLogin);
-            }
-
-            String planType = obj.optString("planType");
-            if (planType.equals("0")) result.PlanType = "Basic";
-            else if (planType.equals("1")) result.PlanType = "Pro";
-
-
-            result.RememberToken = obj.optString("token");
-            result.SessionToken = obj.optString("sessionToken");
-
+            result = UserConfiguration.get(obj);
+//
+//            result = new UserConfiguration();
+//
+//            result.Id = obj.getString("id");
+//
+//            result.Username = obj.getString("username");
+//
+//            result.FirstName = obj.optString("first_name");
+//            result.LastName = obj.optString("last_name");
+//            result.Company = obj.optString("company");
+//            result.Email = obj.optString("email");
+//            result.Phone = obj.optString("phone");
+//            result.Address1 = obj.optString("address1");
+//            result.Address2 = obj.optString("address2");
+//            result.City = obj.optString("city");
+//            result.State = obj.optString("state");
+//            result.Country = obj.optString("country");
+//            result.ZipCode = obj.optString("zipcode");
+//            result.Image_Url = obj.optString("image_url");
+//
+//            String lastLogin = obj.optString("last_login");
+//            if (lastLogin != null) {
+//
+//                DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+//                result.LastLogin = formatter.parseDateTime(lastLogin);
+//            }
+//
+////            String planType = obj.optString("planType");
+////            if (planType.equals("0")) result.PlanType = "Basic";
+////            else if (planType.equals("1")) result.PlanType = "Pro";
+//
+//
+//            result.RememberToken = obj.optString("token");
+//            result.SessionToken = obj.optString("session_token");
+//
         } catch (JSONException e) { e.printStackTrace(); }
 
         return result;
@@ -101,8 +105,8 @@ public class UserConfiguration {
 
             result.Username = obj.getString("username");
 
-            result.FirstName = obj.optString("firstName");
-            result.LastName = obj.optString("lastName");
+            result.FirstName = obj.optString("first_name");
+            result.LastName = obj.optString("last_name");
             result.Company = obj.optString("company");
             result.Email = obj.optString("email");
             result.Phone = obj.optString("phone");
@@ -114,20 +118,20 @@ public class UserConfiguration {
             result.ZipCode = obj.optString("zipcode");
             result.Image_Url = obj.optString("imageUrl");
 
-            String lastLogin = obj.optString("lastLogin");
+            String lastLogin = obj.optString("last_login");
             if (lastLogin != null && !lastLogin.equals("null")) {
 
                 DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
                 result.LastLogin = formatter.parseDateTime(lastLogin);
             }
 
-            String planType = obj.optString("planType");
-            if (planType.equals("0")) result.PlanType = "Basic";
-            else if (planType.equals("1")) result.PlanType = "Pro";
+//            String planType = obj.optString("planType");
+//            if (planType.equals("0")) result.PlanType = "Basic";
+//            else if (planType.equals("1")) result.PlanType = "Pro";
 
 
             result.RememberToken = obj.optString("token");
-            result.SessionToken = obj.optString("sessionToken");
+            result.SessionToken = obj.optString("session_token");
 
         } catch (JSONException e) { e.printStackTrace(); }
 

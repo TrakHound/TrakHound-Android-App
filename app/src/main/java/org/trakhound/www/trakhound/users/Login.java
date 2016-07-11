@@ -34,21 +34,21 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
 
             String token = arg0[0];
 
-            return UserManagement.tokenLogin(token);
+            return UserManagement.tokenLogin(token, "TrakHound Android App - Token Login");
 
         } else if (arg0.length == 2) {
 
             String id = arg0[0];
             String password = arg0[1];
 
-            return UserManagement.basicLogin(id, password);
+            return UserManagement.basicLogin(id, password, "TrakHound Android App - Basic Login");
 
         } else if (arg0.length == 3) {
 
             String id = arg0[0];
             String password = arg0[1];
 
-            return UserManagement.createTokenLogin(id, password);
+            return UserManagement.createTokenLogin(id, password, "TrakHound Android App - Create Token Login");
 
         } else {
             return null;
@@ -75,6 +75,14 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
 
                 // Open the Device List Page
                 context.startActivity(deviceListIntent);
+
+//                Intent deviceListIntent = new Intent(context, DeviceList.class);
+//                deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+//                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+//                        Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//                // Open the Device List Page
+//                context.startActivity(deviceListIntent);
 
             } else {
 

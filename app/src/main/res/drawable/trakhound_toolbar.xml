@@ -11,13 +11,13 @@
 
         <shape>
 
-            <gradient
-                android:type="radial"
-                android:gradientRadius="250"
-                android:startColor="@color/accent_light_color"
-                android:endColor="@color/accent_normal_color" />
+            <!--<gradient-->
+                <!--android:type="radial"-->
+                <!--android:gradientRadius="250"-->
+                <!--android:startColor="@color/accent_light_color"-->
+                <!--android:endColor="@color/accent_normal_color" />-->
 
-            <!--<solid android:color="@android:color/transparent" />-->
+            <solid android:color="@color/accent_normal_color" />
             <stroke
                 android:width="2dp"
                 android:color="#33000000" />

@@ -275,7 +275,8 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
         if (token != null) {
 
-            String url = "https://www.feenux.com/trakhound/api/mobile/get/";
+            //String url = "https://www.feenux.com/trakhound/api/mobile/get/";
+            String url = "http://192.168.1.129/api/data/get/index.php";
 
             PostData[] postDatas = new PostData[3];
             postDatas[0] = new PostData("token", token);
@@ -293,7 +294,9 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
         if (id != null && password != null) {
 
-            String url = "https://www.feenux.com/trakhound/api/mobile/get/?";
+            //String url = "https://www.feenux.com/trakhound/api/mobile/get/?";
+            String url = "http://192.168.1.129/api/data/get/index.php";
+
 
             PostData[] postDatas = new PostData[6];
             postDatas[0] = new PostData("id", id);
@@ -302,7 +305,7 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
             postDatas[3] = new PostData("command", "1101"); // Get Description, Status, and Oee tables
             if (remember) postDatas[4] = new PostData("remember", "1");
             else postDatas[4] = new PostData("remember", "0");
-            postDatas[5] = new PostData("note", "TrakHound Mobile Android App");
+            postDatas[5] = new PostData("note", "TrakHound Mobile Android App - Get Devices Login");
 
             String response = Requests.post(url, postDatas);
             return processResponse(response);
@@ -317,7 +320,12 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
             try {
 
-                String url = "https://www.feenux.com/trakhound/api/mobile/get/?" +
+//                String url = "https://www.feenux.com/trakhound/api/mobile/get/?" +
+//                        "token=" + URLEncoder.encode(userConfig.SessionToken, "UTF-8") +
+//                        "&sender_id=" + URLEncoder.encode(UserManagement.getSenderId(), "UTF-8") +
+//                        "&command=1101"; // Get Description, Status, and Oee tables
+
+                String url = "http://192.168.1.129/api/data/get/?" +
                         "token=" + URLEncoder.encode(userConfig.SessionToken, "UTF-8") +
                         "&sender_id=" + URLEncoder.encode(UserManagement.getSenderId(), "UTF-8") +
                         "&command=1101"; // Get Description, Status, and Oee tables

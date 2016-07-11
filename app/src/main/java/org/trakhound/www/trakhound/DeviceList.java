@@ -8,6 +8,7 @@ package org.trakhound.www.trakhound;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -69,6 +72,9 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
             }
         });
 
+        // Set Status Bar Color
+        setStatusBar();
+
         // Setup Toolbar/ActionBar
         setToolbar();
 
@@ -76,18 +82,18 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         setNavigationDrawer();
 
         // Load Devices
-        ListItem[] listItems = MyApplication.ListItems;
-        if (listItems == null) {
-
-            loadDevices();
-
-        } else {
-
-            addDevices();
-        }
+//        ListItem[] listItems = MyApplication.ListItems;
+//        if (listItems == null) {
+//
+//            loadDevices();
+//
+//        } else {
+//
+//            addDevices();
+//        }
 
         // Load Device Logo Images
-        new GetLogos(this).execute();
+//        new GetLogos(this).execute();
     }
 
     @Override
@@ -228,6 +234,24 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
     }
 
     //endregion
+
+
+    private void setStatusBar(){
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            Window window = this.getWindow();
+
+            // clear FLAG_TRANSLUCENT_STATUS flag:
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+            // finally change the color
+            window.setStatusBarColor(this.getResources().getColor(R.color.accent_normal_color));
+        }
+    }
 
     //region Toolbar
 

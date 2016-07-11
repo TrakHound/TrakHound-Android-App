@@ -6,14 +6,18 @@
 package org.trakhound.www.trakhound;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.content.Intent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.trakhound.www.trakhound.device_list.GetDevices;
+import org.trakhound.www.trakhound.users.Login;
 import org.trakhound.www.trakhound.users.UserConfiguration;
 import org.trakhound.www.trakhound.users.UserManagement;
 
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MyApplication.setCurrentActivity(this);
+
+        // Set Status Bar Color
+        setStatusBar();
 
         UserManagement.context = getApplicationContext();
 
@@ -70,12 +77,13 @@ public class MainActivity extends AppCompatActivity {
         if (r) {
 
             // Create Token Login
-            new GetDevices(this, GetDevices.LoginType.CREATE_TOKEN).execute(username, password, "");
+            new Login(this, null).execute(username, password, "");
+            //new GetDevices(this, GetDevices.LoginType.CREATE_TOKEN).execute(username, password, "");
 
         } else {
 
             // Basic Login
-            new GetDevices(this, GetDevices.LoginType.BASIC).execute(username, password);
+            //new GetDevices(this, GetDevices.LoginType.BASIC).execute(username, password);
         }
     }
 
@@ -85,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
         Loading.Open(this, "Logging in " + TH_Tools.capitalizeFirst(username) + "..");
 
         new GetDevices(this, GetDevices.LoginType.TOKEN).execute(token);
+
+        //new Login(this, null).execute()
     }
 
     private void localLogin(String token, String username) {
@@ -114,6 +124,23 @@ public class MainActivity extends AppCompatActivity {
         Intent aboutIntent = new Intent(context, About.class);
         aboutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(aboutIntent);
+    }
+
+    private void setStatusBar(){
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            Window window = this.getWindow();
+
+            // clear FLAG_TRANSLUCENT_STATUS flag:
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+            // finally change the color
+            window.setStatusBarColor(this.getResources().getColor(R.color.accent_normal_color));
+        }
     }
 
 }
