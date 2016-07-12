@@ -9,13 +9,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
-import android.util.Log;
 
 import org.trakhound.www.trakhound.DeviceDetails;
 import org.trakhound.www.trakhound.MyApplication;
-import org.trakhound.www.trakhound.device_details.DeviceStatus;
 import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.users.UserConfiguration;
+import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
 
 /**
@@ -59,7 +57,7 @@ public class StatusHandler implements Runnable {
                             final Runnable refresh = new Runnable() {
                                 public void run() {
 
-                                    context.Status = status;
+                                    context.deviceStatus = status;
                                     context.loadData();
                                 }
                             };

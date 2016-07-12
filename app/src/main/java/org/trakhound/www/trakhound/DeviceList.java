@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,10 +28,7 @@ import android.widget.TextView;
 import org.trakhound.www.trakhound.device_details.GetDeviceStatus;
 import org.trakhound.www.trakhound.device_list.*;
 import org.trakhound.www.trakhound.device_list.StatusHandler;
-import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.users.GetUserImage;
-import org.trakhound.www.trakhound.users.Logout;
-import org.trakhound.www.trakhound.users.UserConfiguration;
+import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
 import java.util.ArrayList;
 
@@ -53,7 +49,7 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
         MyApplication.setCurrentActivity(this);
 
-        hideLoading();
+//        hideLoading();
 
         context = this;
         deviceListView = (ListView) findViewById(R.id.device_list);
@@ -82,15 +78,15 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         setNavigationDrawer();
 
         // Load Devices
-//        ListItem[] listItems = MyApplication.ListItems;
-//        if (listItems == null) {
-//
-//            loadDevices();
-//
-//        } else {
-//
-//            addDevices();
-//        }
+        ListItem[] listItems = MyApplication.ListItems;
+        if (listItems == null) {
+
+            loadDevices();
+
+        } else {
+
+            addDevices();
+        }
 
         // Load Device Logo Images
 //        new GetLogos(this).execute();
@@ -134,13 +130,14 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
                     for (int i = 0; i < statuses.length; i++) {
 
                         DeviceStatus status = statuses[i];
-                        String uniqueId = status.UniqueId;
+                        String uniqueId = status.uniqueId;
 
                         int listIndex = getListIndex(uniqueId);
                         if (listIndex >= 0) {
 
                             ListItem listItem = listAdapter.getItem(listIndex);
-                            listItem.Status = status;
+                            listItem.statusInfo = status.statusInfo;
+                            listItem.oeeInfo = status.oeeInfo;
                         }
                     }
 
@@ -153,17 +150,31 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
     private int getListIndex(String uniqueId) {
 
-        Device[] devices = MyApplication.Devices;
-        if (devices != null) {
+        ListItem[] listItems = MyApplication.ListItems;
+        if (listItems != null) {
 
-            for (int i = 0; i < devices.length; i++) {
+            for (int i = 0; i < listItems.length; i++) {
 
-                if (devices[i].UniqueId.equals(uniqueId)) return i;
+                if (listItems[i].uniqueId.equals(uniqueId)) return i;
             }
         }
 
         return -1;
     }
+
+//    private int getListIndex(String uniqueId) {
+//
+//        Device[] devices = MyApplication.Devices;
+//        if (devices != null) {
+//
+//            for (int i = 0; i < devices.length; i++) {
+//
+//                if (devices[i].UniqueId.equals(uniqueId)) return i;
+//            }
+//        }
+//
+//        return -1;
+//    }
 
     public void addDevices() {
 
@@ -186,6 +197,8 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         }
 
         if (statusThread == null) startStatusThread();
+
+        hideLoading();
 
     }
 
@@ -225,6 +238,8 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
     }
 
     public void hideLoading() {
+
+        Loading.Close();
 
         View v = findViewById(R.id.loadingOverlay);
         if (v != null) {
@@ -331,13 +346,13 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
                 String username = null;
 
-                if (userConfig.Type == UserConfiguration.UserType.REMOTE) {
+                if (userConfig.type == UserConfiguration.UserType.REMOTE) {
 
-                    username = TH_Tools.capitalizeFirst(userConfig.Username);
+                    username = TH_Tools.capitalizeFirst(userConfig.username);
                 }
                 else {
 
-                    username = TH_Tools.capitalizeFirst(userConfig.Id);
+                    username = TH_Tools.capitalizeFirst(userConfig.id);
                     username = username.substring(2);
                     username = username.toUpperCase();
                 }

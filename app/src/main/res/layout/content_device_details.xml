@@ -24,91 +24,94 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="wrap_content"
                 android:background="#EEEEEE">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:id="@+id/StatusBanner" />
-
-                <ImageView
-                    android:layout_width="300dp"
-                    android:layout_height="175dp"
-                    android:id="@+id/DeviceImage"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="-60dp"
-                    android:layout_marginTop="10dp"
-                    android:alpha="0.8" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/details_banner_background">
-
-                    <ImageView
-                        android:layout_width="fill_parent"
-                        android:layout_height="50dp"
-                        android:id="@+id/DeviceLogo"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="150dp"
-                        android:scaleType="fitStart" />
+                    android:layout_margin="5sp">
 
                     <TextView
-                        android:id="@+id/Description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#fff"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="[Description]"
+                        android:id="@+id/Description"
+                        android:textColor="#333"
+                        android:textSize="18sp" />
 
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="[Device Description]"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:layout_alignParentBottom="true"
-                        android:paddingTop="10dp"
-                        android:background="@drawable/details_banner_background_01"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="-5dp"
-                        android:layout_marginBottom="-15dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="[Manufacturer]"
+                        android:id="@+id/Manufacturer"
+                        android:textColor="#333"
+                        android:textSize="16sp"
+                        android:layout_below="@+id/Description"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="2sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="[Model]"
+                        android:id="@+id/Model"
+                        android:textColor="#333"
+                        android:textSize="16sp"
+                        android:layout_alignTop="@+id/Manufacturer"
+                        android:layout_toRightOf="@+id/Manufacturer"
+                        android:layout_toEndOf="@+id/Manufacturer"
+                        android:layout_marginLeft="5sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="[Serial]"
+                        android:id="@+id/Serial"
+                        android:textColor="#333"
+                        android:textSize="16sp"
+                        android:layout_below="@+id/Manufacturer"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="2sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="[Device Id]"
+                        android:id="@+id/DeviceId"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/Description"
+                        android:layout_toEndOf="@+id/Description"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="5sp"
+                        android:textColor="#666666" />
                 </RelativeLayout>
-
-                <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/AlertIndicator"-->
-                <!--android:layout_gravity="bottom|left"-->
-                <!--android:src="@drawable/warning_01"-->
-                <!--android:visibility="invisible"-->
-                <!--android:alpha="0.8" />-->
-
 
             </FrameLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1sp"
                 android:layout_alignParentBottom="true"
                 android:background="#ccc" />
 
             // Current Status
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
+                android:layout_height="50sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp">
 
                 <View
-                    android:layout_width="25dp"
-                    android:layout_height="75dp"
+                    android:layout_width="25sp"
+                    android:layout_height="50sp"
                     android:background="@color/statusGreen"
                     android:id="@+id/DeviceStatusIndicator"
                     />
@@ -135,7 +138,7 @@
                     android:layout_toRightOf="@+id/DeviceStatusIndicator"
                     android:layout_toEndOf="@+id/DeviceStatusIndicator"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="20sp"
                     android:textColor="#333" />
 
                 <TextView
@@ -147,21 +150,21 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="20sp"
                     android:textColor="#333" />
 
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1sp"
                 android:layout_alignParentBottom="true"
                 android:background="#ccc" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="100sp"
                 android:id="@+id/OeeContainerLayout">
 
                 <FrameLayout
@@ -286,252 +289,390 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1sp"
                 android:layout_alignParentBottom="true"
                 android:background="#ccc" />
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingTop="20sp"
+                android:paddingBottom="20sp">
 
-                <!--Production-->
+                <!--Active-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ProductionTimesLayout"
-                    android:layout_marginTop="20dp">
-
-                    <View
-                        android:layout_width="25dp"
-                        android:layout_height="75dp"
-                        android:background="@color/statusGreen"
-                        android:id="@+id/ProductionIndicator"
-                        />
+                    android:layout_height="40sp"
+                    android:id="@+id/ActiveTimesLayout">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/ProductionIndicator"
-                        android:layout_toEndOf="@+id/ProductionIndicator">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Production"
-                            android:id="@+id/textView12"
-                            android:textColor="#333"
-                            android:textIsSelectable="false"
-                            android:textSize="18dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginLeft="20dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="[P]"
-                            android:id="@+id/ProductionPercentage"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignRight="@+id/ProductionProgressBar"
-                            android:layout_alignEnd="@+id/ProductionProgressBar"
-                            android:layout_marginTop="10dp"
-                            android:textColor="#333"
-                            android:textSize="18sp" />
+                        android:layout_alignWithParentIfMissing="true"
+                        android:layout_alignParentBottom="true">
 
                         <ProgressBar
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="fill_parent"
-                            android:layout_height="10dp"
-                            android:id="@+id/ProductionProgressBar"
+                            android:layout_height="10sp"
+                            android:id="@+id/ActiveProgressBar"
                             android:progress="30"
                             android:max="100"
                             android:indeterminate="false"
                             android:indeterminateOnly="false"
-                            android:progressDrawable="@drawable/progress_style"
-                            android:layout_below="@+id/ProductionTime"
-                            android:layout_alignLeft="@+id/ProductionTime"
-                            android:layout_alignStart="@+id/ProductionTime"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="20dp" />
+                            android:progressDrawable="@drawable/progress_active_style"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="10sp"
+                            android:layout_marginBottom="10sp"
+                            android:layout_marginRight="10sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="[00:00]"
-                            android:id="@+id/ProductionTime"
-                            android:layout_below="@+id/textView12"
-                            android:layout_alignLeft="@+id/textView12"
-                            android:layout_alignStart="@+id/textView12"
-                            android:textColor="#888"
-                            android:textSize="16sp" />
                     </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="[Ac]"
+                        android:id="@+id/ActivePercentage"
+                        android:textColor="#333"
+                        android:textSize="18sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Active"
+                        android:id="@+id/textView12"
+                        android:textColor="#333"
+                        android:textIsSelectable="false"
+                        android:textSize="18sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="false"
+                        android:layout_marginLeft="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="[00:00]"
+                        android:id="@+id/ActiveTime"
+                        android:textColor="#888"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/textView12"
+                        android:layout_toEndOf="@+id/textView12" />
 
                 </RelativeLayout>
 
                 <!--Idle-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40sp"
                     android:id="@+id/IdleTimesLayout"
-                    android:layout_marginTop="10dp">
-
-                    <View
-                        android:layout_width="25dp"
-                        android:layout_height="75dp"
-                        android:background="@color/statusYellow"
-                        android:id="@+id/IdleIndicator"
-                        />
+                    android:layout_marginTop="20sp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/IdleIndicator"
-                        android:layout_toEndOf="@+id/IdleIndicator">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Idle"
-                            android:id="@+id/textView13"
-                            android:textColor="#333"
-                            android:textIsSelectable="false"
-                            android:textSize="18dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginLeft="20dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="[I]"
-                            android:id="@+id/IdlePercentage"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignRight="@+id/IdleProgressBar"
-                            android:layout_alignEnd="@+id/IdleProgressBar"
-                            android:layout_marginTop="10dp"
-                            android:textColor="#333"
-                            android:textSize="18sp" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignWithParentIfMissing="true"
+                        android:layout_alignParentBottom="true">
 
                         <ProgressBar
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="fill_parent"
-                            android:layout_height="10dp"
+                            android:layout_height="10sp"
                             android:id="@+id/IdleProgressBar"
                             android:progress="30"
                             android:max="100"
                             android:indeterminate="false"
                             android:indeterminateOnly="false"
-                            android:progressDrawable="@drawable/progress_style"
-                            android:layout_below="@+id/IdleTime"
-                            android:layout_alignLeft="@+id/IdleTime"
-                            android:layout_alignStart="@+id/IdleTime"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="20dp" />
+                            android:progressDrawable="@drawable/progress_idle_style"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="10sp"
+                            android:layout_marginBottom="10sp"
+                            android:layout_marginRight="10sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="[00:00]"
-                            android:id="@+id/IdleTime"
-                            android:layout_below="@+id/textView13"
-                            android:layout_alignLeft="@+id/textView13"
-                            android:layout_alignStart="@+id/textView13"
-                            android:textColor="#888"
-                            android:textSize="16sp" />
                     </RelativeLayout>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="[I]"
+                        android:id="@+id/IdlePercentage"
+                        android:textColor="#333"
+                        android:textSize="18sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Idle"
+                        android:id="@+id/textView13"
+                        android:textColor="#333"
+                        android:textIsSelectable="false"
+                        android:textSize="18sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="false"
+                        android:layout_marginLeft="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="[00:00]"
+                        android:id="@+id/IdleTime"
+                        android:textColor="#888"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/textView13"
+                        android:layout_toEndOf="@+id/textView13" />
+
                 </RelativeLayout>
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/IdleTimesLayout"-->
+                    <!--android:layout_marginTop="10sp">-->
+
+                    <!--<View-->
+                        <!--android:layout_width="25sp"-->
+                        <!--android:layout_height="75sp"-->
+                        <!--android:background="@color/statusYellow"-->
+                        <!--android:id="@+id/IdleIndicator"-->
+                        <!--/>-->
+
+                    <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_toRightOf="@+id/IdleIndicator"-->
+                        <!--android:layout_toEndOf="@+id/IdleIndicator">-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                            <!--android:text="Idle"-->
+                            <!--android:id="@+id/textView13"-->
+                            <!--android:textColor="#333"-->
+                            <!--android:textIsSelectable="false"-->
+                            <!--android:textSize="18sp"-->
+                            <!--android:layout_alignParentTop="true"-->
+                            <!--android:layout_marginLeft="20sp" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                            <!--android:text="[I]"-->
+                            <!--android:id="@+id/IdlePercentage"-->
+                            <!--android:layout_alignParentTop="true"-->
+                            <!--android:layout_alignRight="@+id/IdleProgressBar"-->
+                            <!--android:layout_alignEnd="@+id/IdleProgressBar"-->
+                            <!--android:layout_marginTop="10sp"-->
+                            <!--android:textColor="#333"-->
+                            <!--android:textSize="18sp" />-->
+
+                        <!--<ProgressBar-->
+                            <!--style="?android:attr/progressBarStyleHorizontal"-->
+                            <!--android:layout_width="fill_parent"-->
+                            <!--android:layout_height="10sp"-->
+                            <!--android:id="@+id/IdleProgressBar"-->
+                            <!--android:progress="30"-->
+                            <!--android:max="100"-->
+                            <!--android:indeterminate="false"-->
+                            <!--android:indeterminateOnly="false"-->
+                            <!--android:progressDrawable="@drawable/progress_style"-->
+                            <!--android:layout_below="@+id/IdleTime"-->
+                            <!--android:layout_alignLeft="@+id/IdleTime"-->
+                            <!--android:layout_alignStart="@+id/IdleTime"-->
+                            <!--android:layout_marginTop="10sp"-->
+                            <!--android:layout_marginRight="20sp" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                            <!--android:text="[00:00]"-->
+                            <!--android:id="@+id/IdleTime"-->
+                            <!--android:layout_below="@+id/textView13"-->
+                            <!--android:layout_alignLeft="@+id/textView13"-->
+                            <!--android:layout_alignStart="@+id/textView13"-->
+                            <!--android:textColor="#888"-->
+                            <!--android:textSize="16sp" />-->
+                    <!--</RelativeLayout>-->
+
+                <!--</RelativeLayout>-->
 
                 <!--Alert-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40sp"
                     android:id="@+id/AlertTimesLayout"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp">
-
-                    <View
-                        android:layout_width="25dp"
-                        android:layout_height="75dp"
-                        android:background="@color/statusRed"
-                        android:id="@+id/AlertIndicator"
-                        />
+                    android:layout_marginTop="20sp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/AlertIndicator"
-                        android:layout_toEndOf="@+id/AlertIndicator">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Alert"
-                            android:id="@+id/textView14"
-                            android:textColor="#333"
-                            android:textIsSelectable="false"
-                            android:textSize="18dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginLeft="20dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="[A]"
-                            android:id="@+id/AlertPercentage"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignRight="@+id/AlertProgressBar"
-                            android:layout_alignEnd="@+id/AlertProgressBar"
-                            android:layout_marginTop="10dp"
-                            android:textColor="#333"
-                            android:textSize="18sp" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignWithParentIfMissing="true"
+                        android:layout_alignParentBottom="true">
 
                         <ProgressBar
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="fill_parent"
-                            android:layout_height="10dp"
+                            android:layout_height="10sp"
                             android:id="@+id/AlertProgressBar"
                             android:progress="30"
                             android:max="100"
                             android:indeterminate="false"
                             android:indeterminateOnly="false"
-                            android:progressDrawable="@drawable/progress_style"
-                            android:layout_below="@+id/AlertTime"
-                            android:layout_alignLeft="@+id/AlertTime"
-                            android:layout_alignStart="@+id/AlertTime"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="20dp" />
+                            android:progressDrawable="@drawable/progress_alert_style"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="10sp"
+                            android:layout_marginBottom="10sp"
+                            android:layout_marginRight="10sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="[00:00]"
-                            android:id="@+id/AlertTime"
-                            android:layout_below="@+id/textView14"
-                            android:layout_alignLeft="@+id/textView14"
-                            android:layout_alignStart="@+id/textView14"
-                            android:textColor="#888"
-                            android:textSize="16sp" />
                     </RelativeLayout>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="[Al]"
+                        android:id="@+id/AlertPercentage"
+                        android:textColor="#333"
+                        android:textSize="18sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Alert"
+                        android:id="@+id/textView14"
+                        android:textColor="#333"
+                        android:textIsSelectable="false"
+                        android:textSize="18sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="false"
+                        android:layout_marginLeft="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="[00:00]"
+                        android:id="@+id/AlertTime"
+                        android:textColor="#888"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/textView14"
+                        android:layout_toEndOf="@+id/textView14" />
+
                 </RelativeLayout>
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/AlertTimesLayout"-->
+                    <!--android:layout_marginTop="10sp"-->
+                    <!--android:layout_marginBottom="20sp">-->
+
+                    <!--<View-->
+                        <!--android:layout_width="25sp"-->
+                        <!--android:layout_height="75sp"-->
+                        <!--android:background="@color/statusRed"-->
+                        <!--android:id="@+id/AlertIndicator"-->
+                        <!--/>-->
+
+                    <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_toRightOf="@+id/AlertIndicator"-->
+                        <!--android:layout_toEndOf="@+id/AlertIndicator">-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                            <!--android:text="Alert"-->
+                            <!--android:id="@+id/textView14"-->
+                            <!--android:textColor="#333"-->
+                            <!--android:textIsSelectable="false"-->
+                            <!--android:textSize="18sp"-->
+                            <!--android:layout_alignParentTop="true"-->
+                            <!--android:layout_marginLeft="20sp" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                            <!--android:text="[A]"-->
+                            <!--android:id="@+id/AlertPercentage"-->
+                            <!--android:layout_alignParentTop="true"-->
+                            <!--android:layout_alignRight="@+id/AlertProgressBar"-->
+                            <!--android:layout_alignEnd="@+id/AlertProgressBar"-->
+                            <!--android:layout_marginTop="10sp"-->
+                            <!--android:textColor="#333"-->
+                            <!--android:textSize="18sp" />-->
+
+                        <!--<ProgressBar-->
+                            <!--style="?android:attr/progressBarStyleHorizontal"-->
+                            <!--android:layout_width="fill_parent"-->
+                            <!--android:layout_height="10sp"-->
+                            <!--android:id="@+id/AlertProgressBar"-->
+                            <!--android:progress="30"-->
+                            <!--android:max="100"-->
+                            <!--android:indeterminate="false"-->
+                            <!--android:indeterminateOnly="false"-->
+                            <!--android:progressDrawable="@drawable/progress_style"-->
+                            <!--android:layout_below="@+id/AlertTime"-->
+                            <!--android:layout_alignLeft="@+id/AlertTime"-->
+                            <!--android:layout_alignStart="@+id/AlertTime"-->
+                            <!--android:layout_marginTop="10sp"-->
+                            <!--android:layout_marginRight="20sp" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                            <!--android:text="[00:00]"-->
+                            <!--android:id="@+id/AlertTime"-->
+                            <!--android:layout_below="@+id/textView14"-->
+                            <!--android:layout_alignLeft="@+id/textView14"-->
+                            <!--android:layout_alignStart="@+id/textView14"-->
+                            <!--android:textColor="#888"-->
+                            <!--android:textSize="16sp" />-->
+                    <!--</RelativeLayout>-->
+
+                <!--</RelativeLayout>-->
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1sp"
                 android:layout_alignParentBottom="true"
                 android:background="#ccc" />
 
@@ -539,10 +680,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
                 android:id="@+id/PowerStatusLayout">
 
                 <LinearLayout
@@ -567,7 +708,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_centerHorizontal="true"
                             android:textColor="#888"
-                            android:textSize="10dp" />
+                            android:textSize="10sp" />
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -576,17 +717,17 @@
                             android:layout_below="@+id/textView3"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
-                            android:paddingTop="10dp"
+                            android:paddingTop="10sp"
                             android:id="@+id/linearLayout2">
 
                             <!--Power On-->
                             <FrameLayout
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
+                                android:layout_width="50sp"
+                                android:layout_height="50sp"
                                 android:id="@+id/PowerOn"
                                 android:background="@drawable/details_item_border"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginLeft="5dp">
+                                android:layout_marginRight="5sp"
+                                android:layout_marginLeft="5sp">
 
                                 <FrameLayout
                                     android:layout_width="match_parent"
@@ -606,12 +747,12 @@
 
                             <!--Power Off-->
                             <FrameLayout
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
+                                android:layout_width="50sp"
+                                android:layout_height="50sp"
                                 android:id="@+id/PowerOff"
                                 android:background="@drawable/details_item_border"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginRight="5dp">
+                                android:layout_marginLeft="5sp"
+                                android:layout_marginRight="5sp">
 
                                 <FrameLayout
                                     android:layout_width="match_parent"
@@ -624,7 +765,7 @@
                                         android:layout_height="match_parent"
                                         android:src="@drawable/off_02"
                                         android:tint="#fff"
-                                        android:layout_margin="5dp"
+                                        android:layout_margin="5sp"
                                         android:id="@+id/PowerOffImage" />
 
                                 </FrameLayout>
@@ -641,18 +782,18 @@
                             android:id="@+id/AvailabilityText"
                             android:layout_below="@+id/linearLayout2"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="10sp"
                             android:textColor="@color/statusRed"
                             android:textSize="14sp" />
 
                     </RelativeLayout>
 
                     <View
-                        android:layout_width="1dp"
+                        android:layout_width="1sp"
                         android:layout_height="match_parent"
                         android:background="#ccc"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp" />
+                        android:layout_marginLeft="20sp"
+                        android:layout_marginRight="20sp" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -669,7 +810,7 @@
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:textColor="#888"
-                            android:textSize="10dp" />
+                            android:textSize="10sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -679,8 +820,8 @@
                             android:layout_below="@+id/textView17"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginBottom="5sp"
                             android:tint="@color/statusRed" />
 
                         <TextView
@@ -701,7 +842,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1sp"
                 android:layout_alignParentBottom="true"
                 android:background="#ccc" />
 
@@ -710,10 +851,10 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
                 android:id="@+id/SystemStatusLayout">
 
                 <TextView
@@ -732,7 +873,7 @@
                     android:text="Fault"
                     android:id="@+id/SystemStatusText"
                     android:textColor="@color/statusRed"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="5sp"
                     android:textSize="18sp" />
 
                 <TextView
@@ -741,27 +882,27 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="[System Message]"
                     android:id="@+id/SystemMessageText"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="5sp"
                     android:background="@color/statusRed"
                     android:textColor="#fff"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:paddingTop="2sp"
+                    android:paddingBottom="2sp"
                     android:textSize="18sp" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1sp"
                 android:layout_alignParentBottom="true"
                 android:background="#ccc" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="10sp">
 
 
                 <TextView
@@ -785,14 +926,14 @@
                     android:layout_below="@+id/textView20"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="5sp"
                     android:textColor="@color/statusRed"
                     android:textSize="18sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1sp"
                 android:layout_alignParentBottom="true"
                 android:background="#ccc" />
 
@@ -800,7 +941,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="10sp">
 
 
                 <TextView
@@ -824,24 +965,24 @@
                     android:layout_below="@+id/textView22"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="5sp"
                     android:textColor="@color/foreground_normal_color"
                     android:textSize="18sp" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1sp"
                 android:layout_alignParentBottom="true"
                 android:background="#ccc" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginBottom="40sp"
                 android:id="@+id/ControllerModeLayout">
 
                 <TextView
@@ -860,7 +1001,7 @@
                     android:layout_below="@+id/textView2"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10sp">
 
                     <!--Auto-->
                     <RelativeLayout

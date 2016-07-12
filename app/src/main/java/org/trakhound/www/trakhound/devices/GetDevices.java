@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 
 import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
-import org.trakhound.www.trakhound.users.UserConfiguration;
+import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
 
 public class GetDevices extends AsyncTask<String,Void,Device[]> {
@@ -37,7 +37,7 @@ public class GetDevices extends AsyncTask<String,Void,Device[]> {
         UserConfiguration userConfig = MyApplication.User;
         if (userConfig != null) {
 
-            result = Device.readAll(userConfig);
+            //result = Device.readAll(userConfig);
         }
 
         return result;

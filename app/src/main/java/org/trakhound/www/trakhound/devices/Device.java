@@ -7,40 +7,35 @@ package org.trakhound.www.trakhound.devices;
 
 import android.graphics.Bitmap;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.trakhound.www.trakhound.users.UserConfiguration;
-import org.trakhound.www.trakhound.http.PostData;
-import org.trakhound.www.trakhound.http.Requests;
-import org.trakhound.www.trakhound.users.UserManagement;
 
-import java.util.ArrayList;
+import org.trakhound.www.trakhound.api.http.Requests;
 
 /**
  * Created by Patrick on 4/27/2016.
  */
 public class Device {
 
-    // Table Addresses ------------------------------------------------------------------
-
-    // General
-    private static String ADR_UNIQUE_ID = "device_unique_id";
-    private static String ADR_ENABLED = "device_client_enabled";
-
-    // Description
-    private static String ADR_DESCRIPTION = "device_description";
-    private static String ADR_MANUFACTURER = "device_manufacturer";
-    private static String ADR_DEVICE_ID = "device_device_id";
-    private static String ADR_MODEL = "device_model";
-    private static String ADR_SERIAL = "device_serial";
-    private static String ADR_CONTROLLER = "device_controller";
-
-    // Images
-    private static String ADR_LOGO_URL = "device_logo_url";
-    private static String ADR_IMAGE_URL = "device_image_url";
-
-    // ----------------------------------------------------------------------------------
+//    // Table Addresses ------------------------------------------------------------------
+//
+//    // General
+//    private static String ADR_UNIQUE_ID = "device_unique_id";
+//    private static String ADR_ENABLED = "device_client_enabled";
+//
+//    // Description
+//    private static String ADR_DESCRIPTION = "device_description";
+//    private static String ADR_MANUFACTURER = "device_manufacturer";
+//    private static String ADR_DEVICE_ID = "device_device_id";
+//    private static String ADR_MODEL = "device_model";
+//    private static String ADR_SERIAL = "device_serial";
+//    private static String ADR_CONTROLLER = "device_controller";
+//
+//    // Images
+//    private static String ADR_LOGO_URL = "device_logo_url";
+//    private static String ADR_IMAGE_URL = "device_image_url";
+//
+//    // ----------------------------------------------------------------------------------
 
 
 //    public DeviceStatus Status;
@@ -70,52 +65,52 @@ public class Device {
 
     }
 
-    public static Device[] readAll(UserConfiguration userConfig) {
-
-        Device[] result = null;
-
-        String url = "https://www.feenux.com/trakhound/api/mobile/get/?" +
-                "token=" + userConfig.SessionToken +
-                "&sender_id=" + UserManagement.getSenderId() +
-                "&command=" + "1";
-
-        String response = Requests.get(url);
-        if (response != null) {
-
-            try {
-
-                JSONArray a = new JSONArray(response);
-
-                // Device Description objects are in the first array
-                a = a.getJSONArray(0);
-
-                ArrayList<Device> devices = new ArrayList<>();
-
-                for (int i = 0; i < a.length(); i++) {
-
-                    JSONObject obj = a.getJSONObject(i);
-
-                    Device device = parse(obj);
-                    if (device != null) {
-
-                        // Get Manufacturer Logo
-                        setLogoImage(device);
-
-                        // Get Device Image
-                        //setDeviceImage(device);
-
-                        devices.add(device);
-                    }
-                }
-
-                Device[] devArray = new Device[devices.size()];
-                result = devices.toArray(devArray);
-
-            } catch (JSONException ex) { ex.getStackTrace(); }
-        }
-
-        return result;
-    }
+//    public static Device[] readAll(UserConfiguration userConfig) {
+//
+//        Device[] result = null;
+//
+//        String url = "https://www.feenux.com/trakhound/api/mobile/get/?" +
+//                "token=" + userConfig.SessionToken +
+//                "&sender_id=" + UserManagement.getSenderId() +
+//                "&command=" + "1";
+//
+//        String response = Requests.get(url);
+//        if (response != null) {
+//
+//            try {
+//
+//                JSONArray a = new JSONArray(response);
+//
+//                // Device Description objects are in the first array
+//                a = a.getJSONArray(0);
+//
+//                ArrayList<Device> devices = new ArrayList<>();
+//
+//                for (int i = 0; i < a.length(); i++) {
+//
+//                    JSONObject obj = a.getJSONObject(i);
+//
+//                    Device device = parse(obj);
+//                    if (device != null) {
+//
+//                        // Get Manufacturer Logo
+//                        setLogoImage(device);
+//
+//                        // Get Device Image
+//                        //setDeviceImage(device);
+//
+//                        devices.add(device);
+//                    }
+//                }
+//
+//                Device[] devArray = new Device[devices.size()];
+//                result = devices.toArray(devArray);
+//
+//            } catch (JSONException ex) { ex.getStackTrace(); }
+//        }
+//
+//        return result;
+//    }
 
     public static Device parse(JSONObject json) {
 

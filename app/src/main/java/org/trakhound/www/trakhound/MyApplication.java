@@ -10,7 +10,7 @@ import android.graphics.Bitmap;
 
 import org.trakhound.www.trakhound.device_list.ListItem;
 import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.users.UserConfiguration;
+import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
 /**
  * Created by Patrick on 4/27/2016.

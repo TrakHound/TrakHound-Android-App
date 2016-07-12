@@ -3,7 +3,7 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-package org.trakhound.www.trakhound.users;
+package org.trakhound.www.trakhound.api.users;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,8 +11,8 @@ import android.net.Uri;
 
 import java.util.UUID;
 
-import org.trakhound.www.trakhound.http.PostData;
-import org.trakhound.www.trakhound.http.Requests;
+import org.trakhound.www.trakhound.api.http.PostData;
+import org.trakhound.www.trakhound.api.http.Requests;
 
 
 /**
@@ -35,8 +35,8 @@ public class UserManagement {
             String userId = "%%" + id;
 
             result = new UserConfiguration();
-            result.Username = userId;
-            result.Type = UserConfiguration.UserType.LOCAL;
+            result.username = userId;
+            result.type = UserConfiguration.UserType.LOCAL;
 
             if (remember) {
                 setRememberToken(userId);
@@ -58,21 +58,19 @@ public class UserManagement {
 
             try{
 
-                String senderId = getSenderId();
-//                String url = "https://www.feenux.com/trakhound/api/login/";
-                String url = Uri.withAppendedPath(ApiConfiguration.ApiHost, "users/login/index.php").toString();
+                String url = Uri.withAppendedPath(ApiConfiguration.apiHost, "users/login/index.php").toString();
 
                 PostData[] postDatas = new PostData[2];
                 postDatas[0] = new PostData("id", id);
                 postDatas[1] = new PostData("password", password);
-                postDatas[2] = new PostData("sender_id", senderId);
+                postDatas[2] = new PostData("sender_id", getSenderId());
                 postDatas[3] = new PostData("note", note);
 
                 String response = Requests.post(url, postDatas);
                 if (response != null) {
 
                     result = UserConfiguration.get(response);
-                    result.Type = UserConfiguration.UserType.REMOTE;
+                    result.type = UserConfiguration.UserType.REMOTE;
                 }
             }
             catch(Exception e){ e.printStackTrace(); }
@@ -90,15 +88,13 @@ public class UserManagement {
 
             try{
 
-                String senderId = getSenderId();
-                //String url = "https://www.feenux.com/trakhound/api/login/";
-                String url = Uri.withAppendedPath(ApiConfiguration.ApiHost, "users/login/index.php").toString();
+                String url = Uri.withAppendedPath(ApiConfiguration.apiHost, "users/login/index.php").toString();
 
                 PostData[] postDatas = new PostData[5];
                 postDatas[0] = new PostData("id", id);
                 postDatas[1] = new PostData("password", password);
                 postDatas[2] = new PostData("remember", "1");
-                postDatas[3] = new PostData("sender_id", senderId);
+                postDatas[3] = new PostData("sender_id", getSenderId());
                 postDatas[4] = new PostData("note", note);
 
                 String response = Requests.post(url, postDatas);
@@ -107,11 +103,11 @@ public class UserManagement {
                     result = UserConfiguration.get(response);
                     if (result != null) {
 
-                        setRememberToken(result.RememberToken);
-                        setRememberUsername(result.Username);
+                        setRememberToken(result.rememberToken);
+                        setRememberUsername(result.username);
                     }
 
-                    result.Type = UserConfiguration.UserType.REMOTE;
+                    result.type = UserConfiguration.UserType.REMOTE;
                 }
             }
             catch(Exception e){ e.printStackTrace(); }
@@ -129,19 +125,16 @@ public class UserManagement {
 
             try{
 
-                String senderId = getSenderId();
-
-                String url = Uri.withAppendedPath(ApiConfiguration.ApiHost, "users/login/index.php").toString();
+                String url = Uri.withAppendedPath(ApiConfiguration.apiHost, "users/login/index.php").toString();
                 url += "?token=" + token;
-                url += "&sender_id=" + senderId;
+                url += "&sender_id=" + getSenderId();
                 url += "&note=" + note;
-                //String url = "https://www.feenux.com/trakhound/api/login?token=" + token + "&sender_id=" + senderId;
 
                 String response = Requests.get(url);
                 if (response != null) {
 
                     result = UserConfiguration.get(response);
-                    result.Type = UserConfiguration.UserType.REMOTE;
+                    result.type = UserConfiguration.UserType.REMOTE;
                 }
             }
             catch(Exception e){ e.printStackTrace(); }
@@ -156,9 +149,7 @@ public class UserManagement {
 
         try{
 
-            String senderId = getSenderId();
-
-            String url = "https://www.feenux.com/trakhound/api/logout?sender_id=" + senderId;
+            String url = Uri.withAppendedPath(ApiConfiguration.apiHost, "users/logout/?sender_id=" + getSenderId()).toString();
 
             String response = Requests.get(url);
             if (response != null) {

@@ -1,4 +1,4 @@
-package org.trakhound.www.trakhound.users;
+package org.trakhound.www.trakhound.api.users;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,10 +12,10 @@ public class ApiConfiguration {
     public static Context context;
 
     //public static Uri ApiHost = Uri.parse("https://www.feenux.com/trakhound/api/");
-    public static Uri ApiHost = Uri.parse("http://192.168.1.129/api/");
+    public static Uri apiHost = Uri.parse("http://192.168.1.129/api/");
 
-    public String Host;
-    public String Path;
+    public String host;
+    public String path;
 
 
     public static String getSavedHost() {

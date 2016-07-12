@@ -8,12 +8,10 @@ package org.trakhound.www.trakhound.device_list;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
-import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.users.UserConfiguration;
+import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
 
 /**
@@ -44,9 +42,10 @@ public class StatusHandler implements Runnable {
                 if (connected) {
 
                     UserConfiguration user = MyApplication.User;
-                    Device[] devices = MyApplication.Devices;
+                    //Device[] devices = MyApplication.Devices;
 
-                    if (user != null && devices != null) {
+                   // if (user != null && devices != null) {
+                    if (user != null) {
 
                         DeviceStatus[] statuses = DeviceStatus.get(user);
                         if (statuses != null) {
@@ -58,9 +57,11 @@ public class StatusHandler implements Runnable {
 
                 ((DeviceList) context).updateConnectionStatus(connected);
 
-                Thread.sleep(10000);
+                Thread.sleep(1000);
+                //Thread.sleep(10000);
             }
-            catch (InterruptedException ex) { exit = true; }
+            catch (InterruptedException ex) {  }
+//            catch (InterruptedException ex) { exit = true; }
         }
     }
 

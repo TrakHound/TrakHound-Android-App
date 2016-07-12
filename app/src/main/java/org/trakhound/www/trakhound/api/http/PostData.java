@@ -3,7 +3,7 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-package org.trakhound.www.trakhound.http;
+package org.trakhound.www.trakhound.api.http;
 
 /**
  * Created by Patrick on 4/26/2016.

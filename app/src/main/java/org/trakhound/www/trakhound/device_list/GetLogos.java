@@ -11,7 +11,7 @@ import android.os.AsyncTask;
 import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
 import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.http.Requests;
+import org.trakhound.www.trakhound.api.http.Requests;
 
 /**
  * Created by Patrick on 5/26/2016.
@@ -35,13 +35,13 @@ public class GetLogos extends AsyncTask<String,Void,String> {
         ListItem[] listItems = MyApplication.ListItems;
         if (listItems != null) {
 
-            for (int i = 0; i < listItems.length; i++) {
-
-                if (listItems[i].Device != null) {
-
-                    setLogoImage((listItems[i].Device));
-                }
-            }
+//            for (int i = 0; i < listItems.length; i++) {
+//
+//                if (listItems[i].Device != null) {
+//
+//                    setLogoImage((listItems[i].Device));
+//                }
+//            }
         }
 
         return null;

@@ -3,7 +3,7 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-package org.trakhound.www.trakhound.users;
+package org.trakhound.www.trakhound;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 
 import org.trakhound.www.trakhound.MainActivity;
 import org.trakhound.www.trakhound.MyApplication;
+import org.trakhound.www.trakhound.api.users.UserManagement;
 
 
 public class Logout extends AsyncTask<String,Void,String> {

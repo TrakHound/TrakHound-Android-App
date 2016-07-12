@@ -3,7 +3,7 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-package org.trakhound.www.trakhound.users;
+package org.trakhound.www.trakhound;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import org.trakhound.www.trakhound.R;
-import org.trakhound.www.trakhound.http.Requests;
+import org.trakhound.www.trakhound.api.http.Requests;
+import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
 /**
  * Created by Patrick on 5/16/2016.
@@ -35,9 +36,9 @@ public class GetUserImage extends AsyncTask<String,Void,Bitmap> {
     @Override
     protected Bitmap doInBackground(String... arg0) {
 
-        if (userConfig.Image_Url != null) {
+        if (userConfig.imageUrl != null) {
 
-            String url = "http://www.feenux.com/trakhound/users/files/" + userConfig.Image_Url;
+            String url = "http://www.feenux.com/trakhound/users/files/" + userConfig.imageUrl;
 
             return Requests.getImage(url);
         }

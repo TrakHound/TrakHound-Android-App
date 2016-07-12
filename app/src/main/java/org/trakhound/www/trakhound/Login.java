@@ -3,7 +3,7 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-package org.trakhound.www.trakhound.users;
+package org.trakhound.www.trakhound;
 
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +13,8 @@ import android.os.AsyncTask;
 
 import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
+import org.trakhound.www.trakhound.api.users.UserConfiguration;
+import org.trakhound.www.trakhound.api.users.UserManagement;
 
 
 public class Login extends AsyncTask<String,Void,UserConfiguration> {

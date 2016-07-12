@@ -17,7 +17,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -27,25 +26,22 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.joda.time.Period;
+import org.trakhound.www.trakhound.api.data.OeeInfo;
+import org.trakhound.www.trakhound.api.data.StatusInfo;
+import org.trakhound.www.trakhound.api.data.TimersInfo;
 import org.trakhound.www.trakhound.device_details.DeviceStatus;
 import org.trakhound.www.trakhound.device_details.GetDeviceStatus;
 import org.trakhound.www.trakhound.device_list.ListItem;
-import org.trakhound.www.trakhound.device_details.StatusHandler;
 import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.status_info.OeeInfo;
-import org.trakhound.www.trakhound.users.GetUserImage;
-import org.trakhound.www.trakhound.users.Logout;
-import org.trakhound.www.trakhound.users.UserConfiguration;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
 public class DeviceDetails extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String DEVICE_INDEX = "device_index";
-    public static DeviceStatus Status;
 
-    public Device Device;
+    public static DeviceStatus deviceStatus;
+
+    //public Device Device;
 
     private Toolbar toolbar;
     private Thread statusThread;
@@ -70,15 +66,13 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
             ListItem listItem = listItems[deviceIndex];
 
-            Device = listItem.Device;
+            if (listItem != null && deviceStatus == null) {
 
-            if (listItem.Status != null && Status == null) {
-
-                Status = new DeviceStatus();
-                Status.Oee = listItem.Status.Oee;
+                deviceStatus = new DeviceStatus();
+                deviceStatus.oeeInfo = listItem.oeeInfo;
             }
 
-            loadDevice(Device);
+            loadDevice(listItem);
         }
 
         // Set Status Bar Color
@@ -99,13 +93,24 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         if (statusThread != null) statusThread.interrupt();
     }
 
-    public void loadDevice(Device d) {
+    public void loadDevice(ListItem item) {
 
-        loadImages(d);
+        //loadImages(d);
 
-        loadDescription(d);
+        loadDescription(item);
 
         loadData();
+
+        if (statusThread == null) startStatusThread();
+    }
+
+    public void loadDevice(Device d) {
+
+        //loadImages(d);
+
+        //loadDescription(d);
+
+//        loadData();
 
         if (statusThread == null) startStatusThread();
     }
@@ -113,57 +118,86 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
     private void startStatusThread() {
 
         // Start Status Updates on separate thread
-        StatusHandler statusHandler = new StatusHandler(this, handler, Device);
-        statusThread = new Thread(statusHandler);
-        statusThread.start();
+//        StatusHandler statusHandler = new StatusHandler(this, handler, Device);
+//        statusThread = new Thread(statusHandler);
+//        statusThread.start();
     }
 
-    private void loadImages(Device d) {
+//    private void loadImages(Device d) {
+//
+//        ImageView img;
+//
+//        img = (ImageView) findViewById(R.id.DeviceImage);
+//        if (img != null) img.setImageBitmap(d.Image);
+//
+//        img = (ImageView) findViewById(R.id.DeviceLogo);
+//        if (img != null) img.setImageBitmap(d.Logo);
+//    }
 
-        ImageView img;
-
-        img = (ImageView) findViewById(R.id.DeviceImage);
-        if (img != null) img.setImageBitmap(d.Image);
-
-        img = (ImageView) findViewById(R.id.DeviceLogo);
-        if (img != null) img.setImageBitmap(d.Logo);
-    }
-
-    private void loadDescription(Device d) {
+    private void loadDescription(ListItem item) {
 
         TextView txt;
 
         txt = (TextView) findViewById(R.id.Description);
-        if (txt != null) txt.setText(d.Description);
+        if (txt != null) txt.setText(item.descriptionInfo.description);
+
+        txt = (TextView) findViewById(R.id.DeviceId);
+        if (txt != null) txt.setText(item.descriptionInfo.deviceId);
+
+        txt = (TextView) findViewById(R.id.Manufacturer);
+        if (txt != null) txt.setText(item.descriptionInfo.manufacturer);
+
+        txt = (TextView) findViewById(R.id.Model);
+        if (txt != null) txt.setText(item.descriptionInfo.model);
+
+        txt = (TextView) findViewById(R.id.Serial);
+        if (txt != null) txt.setText(item.descriptionInfo.serial);
+
     }
+
+//    private void loadDescription(Device d) {
+//
+//        TextView txt;
+//
+//        txt = (TextView) findViewById(R.id.Description);
+//        if (txt != null) txt.setText(d.Description);
+//    }
 
 
     public void loadData() {
 
-        if (Status != null) {
+        if (deviceStatus != null) {
 
-            updateProductionStatus(Status);
-            updateOeeStatus(Status);
-            updateControllerStatus(Status);
+            updateStatus(deviceStatus);
+
+            updateOeeStatus(deviceStatus);
+
+            updateDevicePercentages(deviceStatus);
+
+            updateControllerStatus(deviceStatus);
         }
     }
 
     public void refresh() {
 
-        if (Device != null) new GetDeviceStatus(this, Device.UniqueId).execute();
+        if (deviceStatus != null) new GetDeviceStatus(this, deviceStatus.uniqueId).execute();
     }
 
-    private void updateProductionStatus(DeviceStatus status) {
+    private void updateStatus(DeviceStatus status) {
 
-        if (status.Production != null) {
+        if (status.statusInfo == null) status.statusInfo = new StatusInfo();
+
+        if (status.statusInfo.deviceStatus != null) {
+
+            String deviceStatus = status.statusInfo.deviceStatus;
 
             // Current Status Indicator
             View banner = findViewById(R.id.DeviceStatusIndicator);
             if (banner != null) {
 
-                if (status.Production.Alert) {
+                if (deviceStatus.equals("Alert")) {
                     banner.setBackgroundColor(getResources().getColor(R.color.statusRed));
-                } else if (status.Production.Idle) {
+                } else if (deviceStatus.equals("Idle")) {
                     banner.setBackgroundColor(getResources().getColor(R.color.statusYellow));
                 } else {
                     banner.setBackgroundColor(getResources().getColor(R.color.statusGreen));
@@ -172,11 +206,10 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
             // Current Status Text
             TextView txt = (TextView)findViewById(R.id.DeviceStatusText);
-            txt.setText(status.Production.ProductionStatus);
+            txt.setText(deviceStatus);
 
             // Current Status Timer
-            int seconds = Integer.parseInt(status.Production.ProductionStatusTimer);
-            Period period = new Period(seconds * 1000);
+            Period period = new Period(status.statusInfo.deviceStatusTimer * 1000);
             String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
 
             txt = (TextView)findViewById(R.id.DeviceStatusTime);
@@ -184,17 +217,23 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
         }
 
-        // Percentages
-        if (status.Timers != null && status.Timers.Total > 0) {
+    }
 
-            double production = (status.Timers.Production / status.Timers.Total) * 100;
-            double idle = (status.Timers.Idle / status.Timers.Total) * 100;
-            double alert = (status.Timers.Alert / status.Timers.Total) * 100;
+    private void updateDevicePercentages(DeviceStatus status) {
+
+        // Percentages
+        if (status.timersInfo != null && status.timersInfo.total > 0) {
+
+            TimersInfo info = status.timersInfo;
+
+            double production = (info.active / info.total) * 100;
+            double idle = (info.idle / info.total) * 100;
+            double alert = (info.alert / info.total) * 100;
 
             // Progress Bars
 
             // Production
-            ProgressBar pb = (ProgressBar)findViewById(R.id.ProductionProgressBar);
+            ProgressBar pb = (ProgressBar)findViewById(R.id.ActiveProgressBar);
             if (pb != null) pb.setProgress((int)Math.round(production));
 
             // Idle
@@ -209,7 +248,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
             // Percentage TextViews
 
             // Production
-            TextView txt = (TextView)findViewById(R.id.ProductionPercentage);
+            TextView txt = (TextView)findViewById(R.id.ActivePercentage);
             if (txt != null) txt.setText(String.format("%.0f%%", production));
 
             // Idle
@@ -222,40 +261,40 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
             // Time Elapsed TextViews
 
-            // Production
-            Integer seconds = Integer.valueOf((int) Math.round(status.Timers.Production));
+            // Active
+            Integer seconds = Integer.valueOf((int) Math.round(info.active));
             Period period = new Period(seconds * 1000);
             String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
-            txt = (TextView)findViewById(R.id.ProductionTime);
+            txt = (TextView)findViewById(R.id.ActiveTime);
             txt.setText(statusPeriod);
 
             // Idle
-            seconds = Integer.valueOf((int) Math.round(status.Timers.Idle));
+            seconds = Integer.valueOf((int) Math.round(info.idle));
             period = new Period(seconds * 1000);
             statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
             txt = (TextView)findViewById(R.id.IdleTime);
             txt.setText(statusPeriod);
 
             // Alert
-            seconds = Integer.valueOf((int) Math.round(status.Timers.Alert));
+            seconds = Integer.valueOf((int) Math.round(info.alert));
             period = new Period(seconds * 1000);
             statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
             txt = (TextView)findViewById(R.id.AlertTime);
             txt.setText(statusPeriod);
 
         }
-    }
 
+    }
 
     private void updateOeeStatus(DeviceStatus status) {
 
-        if (status.Oee == null) status.Oee = new OeeInfo();
+        if (status.oeeInfo == null) status.oeeInfo = new OeeInfo();
 
         // Set OEE
         TextView txt = (TextView) findViewById(R.id.OEE);
         if (txt != null) {
 
-            double val = status.Oee.Oee * 100;
+            double val = status.oeeInfo.oee * 100;
             String s = String.format("%.0f%%", val);
             txt.setText(s);
         }
@@ -264,7 +303,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         txt = (TextView) findViewById(R.id.AvailabilityVariable);
         if (txt != null) {
 
-            double val = status.Oee.Availability * 100;
+            double val = status.oeeInfo.availability * 100;
             String s = String.format("%.0f%%", val);
             txt.setText(s);
         }
@@ -273,7 +312,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         txt = (TextView) findViewById(R.id.Performance);
         if (txt != null) {
 
-            double val = status.Oee.Performance * 100;
+            double val = status.oeeInfo.performance * 100;
             String s = String.format("%.0f%%", val);
             txt.setText(s);
         }
@@ -282,7 +321,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
     private void updateControllerStatus(DeviceStatus status) {
 
-        if (status != null && status.Controller != null) {
+        if (status != null && status.controllerInfo != null) {
 
             updateControllerStatus_Availability(status);
             updateControllerStatus_EmergencyStop(status);
@@ -295,7 +334,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
     private void updateControllerStatus_Availability(DeviceStatus status) {
 
-        boolean avail = status.Controller.Availability.equals("AVAILABLE");
+        boolean avail = status.controllerInfo.availability.equals("AVAILABLE");
 
         // Set Power On Background
         View bkgrd = findViewById(R.id.PowerOnBackground);
@@ -335,7 +374,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         TextView txt = (TextView)findViewById(R.id.AvailabilityText);
         if (txt != null) {
 
-            txt.setText(status.Controller.Availability);
+            txt.setText(status.controllerInfo.availability);
 
             if (avail) txt.setTextColor(getResources().getColor(R.color.statusGreen));
             else txt.setTextColor(getResources().getColor(R.color.statusRed));
@@ -347,10 +386,10 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         // Set color based on value
         int color = getResources().getColor(R.color.foreground_normal_color);
 
-        if (status.Controller.EmergencyStop.equals("ARMED"))
+        if (status.controllerInfo.emergencyStop.equals("ARMED"))
             color = getResources().getColor(R.color.statusGreen);
 
-        else if (status.Controller.EmergencyStop.equals("TRIGGERED"))
+        else if (status.controllerInfo.emergencyStop.equals("TRIGGERED"))
             color = getResources().getColor(R.color.statusRed);
 
 
@@ -361,14 +400,14 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         // Set Text
         TextView txt = (TextView)findViewById(R.id.EmergencyStopText);
         if (txt != null) {
-            txt.setText(status.Controller.EmergencyStop);
+            txt.setText(status.controllerInfo.emergencyStop);
             txt.setTextColor(color);
         }
     }
 
     private void updateControllerStatus_ControllerMode(DeviceStatus status) {
 
-        String s = status.Controller.ControllerMode;
+        String s = status.controllerInfo.controllerMode;
 
         // Automatic
         ImageView img = (ImageView)findViewById(R.id.ControllerMode_Auto);
@@ -416,13 +455,13 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         TextView txt = (TextView)findViewById(R.id.ExecutionModeText);
         if (txt != null) {
 
-            txt.setText(status.Controller.ExecutionMode);
+            txt.setText(status.controllerInfo.executionMode);
 
-            if (status.Controller.ExecutionMode.equals("ACTIVE"))
+            if (status.controllerInfo.executionMode.equals("ACTIVE"))
 
                 txt.setTextColor(getResources().getColor(R.color.statusGreen));
 
-            else if (status.Controller.ExecutionMode.equals("STOPPED") || status.Controller.ExecutionMode.equals("INTERRUPTED"))
+            else if (status.controllerInfo.executionMode.equals("STOPPED") || status.controllerInfo.executionMode.equals("INTERRUPTED"))
 
                 txt.setTextColor(getResources().getColor(R.color.statusRed));
 
@@ -438,7 +477,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         TextView txt = (TextView)findViewById(R.id.SystemStatusText);
         if (txt != null) {
 
-            String s1 = status.Controller.SystemStatus;
+            String s1 = status.controllerInfo.systemStatus;
 
             txt.setText(s1);
 
@@ -459,7 +498,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
             txt = (TextView)findViewById(R.id.SystemMessageText);
             if (txt != null) {
 
-                String s2 = status.Controller.SystemMessage;
+                String s2 = status.controllerInfo.systemMessage;
 
                 // Set System Message Text
                 txt.setText(s2);
@@ -489,7 +528,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         TextView txt = (TextView)findViewById(R.id.CurrentProgramText);
         if (txt != null) {
 
-            String s1 = status.Controller.ProgramName;
+            String s1 = status.controllerInfo.programName;
             txt.setText(s1);
         }
     }
@@ -621,13 +660,13 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
                 String username = null;
 
-                if (userConfig.Type == UserConfiguration.UserType.REMOTE) {
+                if (userConfig.type == UserConfiguration.UserType.REMOTE) {
 
-                    username = TH_Tools.capitalizeFirst(userConfig.Username);
+                    username = TH_Tools.capitalizeFirst(userConfig.username);
                 }
                 else {
 
-                    username = TH_Tools.capitalizeFirst(userConfig.Id);
+                    username = TH_Tools.capitalizeFirst(userConfig.id);
                     username = username.substring(2);
                     username = username.toUpperCase();
                 }

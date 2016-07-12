@@ -12,13 +12,27 @@ import android.widget.TextView;
 
 public class Loading extends AppCompatActivity {
 
-    public static String LOADING_TEXT = "loading_text";
+    public static String loadingText = "loading_text";
+
+    public static Loading instance;
 
     public static void Open(Context context, String loadingText) {
 
-        Intent loading = new Intent(context, Loading.class);
-        loading.putExtra(Loading.LOADING_TEXT, loadingText);
-        context.startActivity(loading);
+        if (instance == null) {
+
+            Intent loading = new Intent(context, Loading.class);
+            loading.putExtra(Loading.loadingText, loadingText);
+            context.startActivity(loading);
+
+        } else {
+
+            instance.setLoadingText(loadingText);
+        }
+    }
+
+    public static void Close() {
+
+        instance = null;
     }
 
     @Override
@@ -27,11 +41,12 @@ public class Loading extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
 
         Intent myIntent = getIntent();
-        String loadingText = myIntent.getStringExtra(LOADING_TEXT);
-        setLoadingText(loadingText);
+        setLoadingText(myIntent.getStringExtra(loadingText));
 
         // Set Status Bar Color
         setStatusBar();
+
+        instance = this;
     }
 
     public void setLoadingText(String s) {

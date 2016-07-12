@@ -10,10 +10,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import org.trakhound.www.trakhound.DeviceDetails;
-import org.trakhound.www.trakhound.DeviceList;
 import org.trakhound.www.trakhound.MyApplication;
-import org.trakhound.www.trakhound.devices.Device;
-import org.trakhound.www.trakhound.users.UserConfiguration;
+import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
 public class GetDeviceStatus extends AsyncTask<String,Void,DeviceStatus> {
 
@@ -37,10 +35,10 @@ public class GetDeviceStatus extends AsyncTask<String,Void,DeviceStatus> {
 
             if (position < MyApplication.ListItems.length) {
 
-                Device device = MyApplication.ListItems[position].Device;
-                if (device != null) {
+                String uniqueId = MyApplication.ListItems[position].uniqueId;
+                if (uniqueId != null) {
 
-                    this.uniqueId = device.UniqueId;
+                    this.uniqueId = uniqueId;
                 }
             }
         }
@@ -70,7 +68,7 @@ public class GetDeviceStatus extends AsyncTask<String,Void,DeviceStatus> {
     @Override
     protected void onPostExecute(DeviceStatus status){
 
-        deviceDetails.Status = status;
+        deviceDetails.deviceStatus = status;
 
         if (deviceDetails != null) {
 

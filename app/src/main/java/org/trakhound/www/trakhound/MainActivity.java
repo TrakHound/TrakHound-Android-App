@@ -17,9 +17,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.trakhound.www.trakhound.device_list.GetDevices;
-import org.trakhound.www.trakhound.users.Login;
-import org.trakhound.www.trakhound.users.UserConfiguration;
-import org.trakhound.www.trakhound.users.UserManagement;
+import org.trakhound.www.trakhound.api.users.UserManagement;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -83,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             // Basic Login
+            new Login(this, null).execute(username, password);
             //new GetDevices(this, GetDevices.LoginType.BASIC).execute(username, password);
         }
     }
@@ -92,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
         // Show Loading Activity
         Loading.Open(this, "Logging in " + TH_Tools.capitalizeFirst(username) + "..");
 
-        new GetDevices(this, GetDevices.LoginType.TOKEN).execute(token);
+        new Login(this, null).execute(token);
+
+        //new GetDevices(this, GetDevices.LoginType.TOKEN).execute(token);
 
         //new Login(this, null).execute()
     }

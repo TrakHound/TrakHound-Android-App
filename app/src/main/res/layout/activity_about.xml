@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout5"
         android:paddingBottom="10dp"
-        android:background="@drawable/window_background_accent_gradient">
+        android:background="@color/accent_normal_color">
 
         <RelativeLayout
             android:layout_width="300dp"
