@@ -12,6 +12,7 @@ import android.os.Handler;
 
 import org.trakhound.www.trakhound.DeviceDetails;
 import org.trakhound.www.trakhound.MyApplication;
+import org.trakhound.www.trakhound.device_list.ListItem;
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
@@ -23,13 +24,13 @@ public class StatusHandler implements Runnable {
 
     private DeviceDetails context;
     private Handler handler;
-    private Device device;
+    private ListItem listItem;
 
-    public StatusHandler(DeviceDetails context, Handler handler, Device device) {
+    public StatusHandler(DeviceDetails context, Handler handler, ListItem listItem) {
 
         this.context = context;
         this.handler = handler;
-        this.device = device;
+        this.listItem = listItem;
     }
 
 
@@ -48,9 +49,10 @@ public class StatusHandler implements Runnable {
                 if (connected) {
 
                     UserConfiguration user = MyApplication.User;
-                    if (user != null && device != null) {
 
-                        final DeviceStatus status = DeviceStatus.get(user, device.UniqueId);
+                    if (user != null && listItem != null) {
+
+                        final DeviceStatus status = DeviceStatus.get(user, listItem.uniqueId);
                         if (status != null) {
 
                             // Update UI on DeviceDetails
@@ -69,10 +71,9 @@ public class StatusHandler implements Runnable {
 
                 //context.updateConnectionStatus(connected);
 
-                Thread.sleep(10000);
+                Thread.sleep(5000);
             }
-            catch (InterruptedException ex) { exit = true; }
-//            catch (Exception ex) { Log.d("Exception", ex.getMessage()); }
+            catch (InterruptedException ex) {  }
         }
     }
 

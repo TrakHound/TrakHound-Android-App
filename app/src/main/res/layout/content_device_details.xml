@@ -11,7 +11,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".DeviceDetails"
         tools:showIn="@layout/activity_device_details"
-        android:background="@drawable/activity_background_gradient">
+        android:background="#fff">
 
         <LinearLayout
             android:orientation="vertical"
@@ -25,7 +25,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#EEEEEE">
+                android:background="#fff">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -39,7 +39,8 @@
                         android:text="[Description]"
                         android:id="@+id/Description"
                         android:textColor="#333"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -164,7 +165,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="100sp"
+                android:layout_height="80sp"
                 android:id="@+id/OeeContainerLayout">
 
                 <FrameLayout

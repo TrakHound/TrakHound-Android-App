@@ -57,7 +57,7 @@ public class StatusHandler implements Runnable {
 
                 ((DeviceList) context).updateConnectionStatus(connected);
 
-                Thread.sleep(1000);
+                Thread.sleep(5000);
                 //Thread.sleep(10000);
             }
             catch (InterruptedException ex) {  }

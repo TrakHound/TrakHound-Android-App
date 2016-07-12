@@ -31,6 +31,7 @@ import org.trakhound.www.trakhound.api.data.StatusInfo;
 import org.trakhound.www.trakhound.api.data.TimersInfo;
 import org.trakhound.www.trakhound.device_details.DeviceStatus;
 import org.trakhound.www.trakhound.device_details.GetDeviceStatus;
+import org.trakhound.www.trakhound.device_details.StatusHandler;
 import org.trakhound.www.trakhound.device_list.ListItem;
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.api.users.UserConfiguration;
@@ -101,26 +102,26 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
         loadData();
 
-        if (statusThread == null) startStatusThread();
+        if (statusThread == null) startStatusThread(item);
     }
 
-    public void loadDevice(Device d) {
+//    public void loadDevice(Device d) {
+//
+//        //loadImages(d);
+//
+//        //loadDescription(d);
+//
+////        loadData();
+//
+//        if (statusThread == null) startStatusThread();
+//    }
 
-        //loadImages(d);
-
-        //loadDescription(d);
-
-//        loadData();
-
-        if (statusThread == null) startStatusThread();
-    }
-
-    private void startStatusThread() {
+    private void startStatusThread(ListItem listItem) {
 
         // Start Status Updates on separate thread
-//        StatusHandler statusHandler = new StatusHandler(this, handler, Device);
-//        statusThread = new Thread(statusHandler);
-//        statusThread.start();
+        StatusHandler statusHandler = new StatusHandler(this, handler, listItem);
+        statusThread = new Thread(statusHandler);
+        statusThread.start();
     }
 
 //    private void loadImages(Device d) {

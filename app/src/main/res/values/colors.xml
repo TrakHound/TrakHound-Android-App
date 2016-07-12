@@ -23,7 +23,7 @@
 
     <!--Status Hover Colors-->
     <color name="statusGreenHover">#2019b419</color>
-    <color name="statusYellowHover">#20FFFF00</color>
-    <color name="statusRedHover">#20ff0000</color>
+    <color name="statusYellowHover">#10ffff00</color>
+    <color name="statusRedHover">#10ff0000</color>
 
 </resources>
