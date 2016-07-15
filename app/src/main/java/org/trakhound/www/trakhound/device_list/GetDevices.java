@@ -24,7 +24,7 @@ import org.trakhound.www.trakhound.api.data.OeeInfo;
 import org.trakhound.www.trakhound.api.data.TimersInfo;
 import org.trakhound.www.trakhound.api.http.PostData;
 import org.trakhound.www.trakhound.api.http.Requests;
-import org.trakhound.www.trakhound.api.users.ApiConfiguration;
+import org.trakhound.www.trakhound.api.ApiConfiguration;
 import org.trakhound.www.trakhound.api.users.UserConfiguration;
 import org.trakhound.www.trakhound.api.users.UserManagement;
 
@@ -104,18 +104,6 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
         MyApplication.Devices = null;
         MyApplication.ListItems = null;
-
-//        if (listItems != null) {
-//
-//            Device[] devices = new Device[listItems.length];
-//
-//            for (int i = 0; i < listItems.length; i++) {
-//
-//                devices[i] = listItems[i].Device;
-//            }
-//
-//            MyApplication.Devices = devices;
-//        }
 
         MyApplication.ListItems = listItems;
 
@@ -208,110 +196,6 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
         return null;
     }
-
-//    private static ListItem[] processResponseArray(JSONArray a) {
-//
-//        if (a != null && a.length() > 0) {
-//
-//            // Create ArrayList to return
-//            ArrayList<ListItem> result = new ArrayList<>();
-//
-//            try {
-//
-//                //int datastart = 0;
-//
-////                JSONObject userLogin = a.optJSONObject(0);
-////                if (userLogin != null) {
-////
-////                    UserConfiguration userConfig = UserConfiguration.get(userLogin);
-////                    if (userConfig != null) {
-////
-////                        if (userConfig.Id.startsWith("%%")) userConfig.Type = UserConfiguration.UserType.LOCAL;
-////                        else userConfig.Type = UserConfiguration.UserType.REMOTE;
-////
-////                        MyApplication.User = userConfig;
-////
-////                        if (loginType == LoginType.CREATE_TOKEN) {
-////
-////                            UserManagement.setRememberToken(userConfig.RememberToken);
-////                            UserManagement.setRememberUsername(userConfig.Username);
-////
-////                        } else if (loginType == LoginType.CREATE_LOCAL_TOKEN) {
-////
-////                            String username = userConfig.Id.substring(2).toUpperCase();
-////
-////                            UserManagement.setRememberToken(userConfig.Id);
-////                            UserManagement.setRememberUsername(username);
-////                        }
-////
-////                    } else {
-////
-////                        MainActivity.error = true;
-////                    }
-////
-////                    datastart++;
-////                }
-//
-//                // Description Array is first index
-//                JSONArray descriptionArray = a.optJSONArray(datastart++);
-//                if (descriptionArray != null) {
-//
-//                    JSONArray productionArray = null;
-//                    JSONArray oeeArray = null;
-//
-//                    if (a.length() > 1) productionArray = a.optJSONArray(datastart++);
-//                    if (a.length() > 2) oeeArray = a.optJSONArray(datastart++);
-//
-//                    for (int i = 0; i < descriptionArray.length(); i++) {
-//
-//                        JSONObject obj = descriptionArray.getJSONObject(i);
-//
-//                        Device device = Device.parse(obj);
-//                        if (device != null) {
-//
-//                            String uniqueId = device.UniqueId;
-//                            if (uniqueId != null) {
-//
-//                                ListItem listItem = new ListItem();
-//                                listItem.Device = device;
-//
-//                                // Get Production Info
-//                                obj = Json.find(productionArray, "unique_id", uniqueId);
-//                                if (obj != null) {
-//
-//                                    listItem.Status.Production = ProductionInfo.parse(obj);
-//                                }
-//
-//                                // Get Oee Info
-//                                obj = Json.find(oeeArray, "unique_id", uniqueId);
-//                                if (obj != null) {
-//
-//                                    listItem.Status.Oee = OeeInfo.parse(obj);
-//                                }
-//
-//                                result.add(listItem);
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                ListItem[] resultArray = new ListItem[result.size()];
-//                return result.toArray(resultArray);
-//
-//            } catch (JSONException ex) {
-//
-//                Log.d("Exception", ex.getMessage());
-//
-//                MainActivity.error = true;
-//            }
-//        } else {
-//
-//            MainActivity.error = true;
-//        }
-//
-//        return null;
-//    }
-
 
     public static ListItem[] get(String token) {
 

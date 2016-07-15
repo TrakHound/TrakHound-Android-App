@@ -42,8 +42,6 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
     public static DeviceStatus deviceStatus;
 
-    //public Device Device;
-
     private Toolbar toolbar;
     private Thread statusThread;
     private final Handler handler = new Handler();
@@ -66,12 +64,6 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         if (listItems != null) {
 
             ListItem listItem = listItems[deviceIndex];
-
-            if (listItem != null && deviceStatus == null) {
-
-                deviceStatus = new DeviceStatus();
-                deviceStatus.oeeInfo = listItem.oeeInfo;
-            }
 
             loadDevice(listItem);
         }
@@ -96,6 +88,14 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
     public void loadDevice(ListItem item) {
 
+        if (deviceStatus == null) deviceStatus = new DeviceStatus();
+
+        deviceStatus.uniqueId = item.uniqueId;
+        deviceStatus.statusInfo = item.statusInfo;
+        deviceStatus.controllerInfo = item.controllerInfo;
+        deviceStatus.oeeInfo = item.oeeInfo;
+        deviceStatus.timersInfo = item.timersInfo;
+
         //loadImages(d);
 
         loadDescription(item);
@@ -104,17 +104,6 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
         if (statusThread == null) startStatusThread(item);
     }
-
-//    public void loadDevice(Device d) {
-//
-//        //loadImages(d);
-//
-//        //loadDescription(d);
-//
-////        loadData();
-//
-//        if (statusThread == null) startStatusThread();
-//    }
 
     private void startStatusThread(ListItem listItem) {
 
@@ -155,15 +144,6 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
         if (txt != null) txt.setText(item.descriptionInfo.serial);
 
     }
-
-//    private void loadDescription(Device d) {
-//
-//        TextView txt;
-//
-//        txt = (TextView) findViewById(R.id.Description);
-//        if (txt != null) txt.setText(d.Description);
-//    }
-
 
     public void loadData() {
 
@@ -207,17 +187,28 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
             // Current Status Text
             TextView txt = (TextView)findViewById(R.id.DeviceStatusText);
-            txt.setText(deviceStatus);
+            if (txt != null) txt.setText(deviceStatus);
 
             // Current Status Timer
             Period period = new Period(status.statusInfo.deviceStatusTimer * 1000);
             String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
 
             txt = (TextView)findViewById(R.id.DeviceStatusTime);
-            txt.setText(statusPeriod);
+            if (txt != null) txt.setText(statusPeriod);
 
-        }
+        } else clearStatus();
+    }
 
+    private void clearStatus() {
+
+        View banner = findViewById(R.id.DeviceStatusIndicator);
+        if (banner != null) banner.setBackgroundColor(Color.TRANSPARENT);
+
+        TextView txt = (TextView)findViewById(R.id.DeviceStatusText);
+        if (txt != null) txt.setText("");
+
+        txt = (TextView)findViewById(R.id.DeviceStatusTime);
+        if (txt != null) txt.setText("");
     }
 
     private void updateDevicePercentages(DeviceStatus status) {
@@ -227,15 +218,15 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
             TimersInfo info = status.timersInfo;
 
-            double production = (info.active / info.total) * 100;
+            double active = (info.active / info.total) * 100;
             double idle = (info.idle / info.total) * 100;
             double alert = (info.alert / info.total) * 100;
 
             // Progress Bars
 
-            // Production
+            // Active
             ProgressBar pb = (ProgressBar)findViewById(R.id.ActiveProgressBar);
-            if (pb != null) pb.setProgress((int)Math.round(production));
+            if (pb != null) pb.setProgress((int)Math.round(active));
 
             // Idle
             pb = (ProgressBar)findViewById(R.id.IdleProgressBar);
@@ -248,9 +239,9 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
             // Percentage TextViews
 
-            // Production
+            // Active
             TextView txt = (TextView)findViewById(R.id.ActivePercentage);
-            if (txt != null) txt.setText(String.format("%.0f%%", production));
+            if (txt != null) txt.setText(String.format("%.0f%%", active));
 
             // Idle
             txt = (TextView)findViewById(R.id.IdlePercentage);
@@ -267,56 +258,81 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
             Period period = new Period(seconds * 1000);
             String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
             txt = (TextView)findViewById(R.id.ActiveTime);
-            txt.setText(statusPeriod);
+            if (txt != null) txt.setText(statusPeriod);
 
             // Idle
             seconds = Integer.valueOf((int) Math.round(info.idle));
             period = new Period(seconds * 1000);
             statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
             txt = (TextView)findViewById(R.id.IdleTime);
-            txt.setText(statusPeriod);
+            if (txt != null) txt.setText(statusPeriod);
 
             // Alert
             seconds = Integer.valueOf((int) Math.round(info.alert));
             period = new Period(seconds * 1000);
             statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
             txt = (TextView)findViewById(R.id.AlertTime);
-            txt.setText(statusPeriod);
+            if (txt != null) txt.setText(statusPeriod);
 
-        }
+        } else clearDevicePercentages();
+    }
 
+    private void clearDevicePercentages() {
+
+        // Active
+        TextView txt = (TextView)findViewById(R.id.ActivePercentage);
+        if (txt != null) txt.setText("");
+        txt = (TextView)findViewById(R.id.ActiveTime);
+        if (txt != null) txt.setText("");
+
+        // Idle
+        txt = (TextView)findViewById(R.id.IdlePercentage);
+        if (txt != null) txt.setText("");
+        txt = (TextView)findViewById(R.id.IdleTime);
+        if (txt != null) txt.setText("");
+
+        // Alert
+        txt = (TextView)findViewById(R.id.AlertPercentage);
+        if (txt != null) txt.setText("");
+        txt = (TextView)findViewById(R.id.AlertTime);
+        if (txt != null) txt.setText("");
     }
 
     private void updateOeeStatus(DeviceStatus status) {
 
-        if (status.oeeInfo == null) status.oeeInfo = new OeeInfo();
+        if (status.oeeInfo != null) {
 
-        // Set OEE
-        TextView txt = (TextView) findViewById(R.id.OEE);
-        if (txt != null) {
-
+            // Set OEE
             double val = status.oeeInfo.oee * 100;
             String s = String.format("%.0f%%", val);
-            txt.setText(s);
-        }
+            TextView txt = (TextView) findViewById(R.id.OEE);
+            if (txt != null) txt.setText(s);
 
-        // Set Availability
+            // Set Availability
+            val = status.oeeInfo.availability * 100;
+            s = String.format("%.0f%%", val);
+            txt = (TextView) findViewById(R.id.AvailabilityVariable);
+            if (txt != null) txt.setText(s);
+
+            // Set Performance
+            val = status.oeeInfo.performance * 100;
+            s = String.format("%.0f%%", val);
+            txt = (TextView) findViewById(R.id.Performance);
+            if (txt != null) txt.setText(s);
+
+        } else clearOeeStatus();
+    }
+
+    private void clearOeeStatus() {
+
+        TextView txt = (TextView) findViewById(R.id.OEE);
+        if (txt != null) txt.setText("");
+
         txt = (TextView) findViewById(R.id.AvailabilityVariable);
-        if (txt != null) {
+        if (txt != null) txt.setText("");
 
-            double val = status.oeeInfo.availability * 100;
-            String s = String.format("%.0f%%", val);
-            txt.setText(s);
-        }
-
-        // Set Performance
         txt = (TextView) findViewById(R.id.Performance);
-        if (txt != null) {
-
-            double val = status.oeeInfo.performance * 100;
-            String s = String.format("%.0f%%", val);
-            txt.setText(s);
-        }
+        if (txt != null) txt.setText("");
     }
 
 
@@ -525,13 +541,20 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
     private void updateControllerStatus_CurrentProgram(DeviceStatus status) {
 
-        // Set System Status
-        TextView txt = (TextView)findViewById(R.id.CurrentProgramText);
-        if (txt != null) {
+        if (status.controllerInfo != null) {
 
-            String s1 = status.controllerInfo.programName;
-            txt.setText(s1);
-        }
+            // Set System Status
+            String s = status.controllerInfo.programName;
+            TextView txt = (TextView)findViewById(R.id.CurrentProgramText);
+            if (txt != null) txt.setText(s);
+
+        } else clearControllerStatus_CurrentProgram();
+    }
+
+    private void clearControllerStatus_CurrentProgram() {
+
+        TextView txt = (TextView)findViewById(R.id.CurrentProgramText);
+        if (txt != null) txt.setText("");
     }
 
 
@@ -708,6 +731,5 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
     }
 
     //endregion
-
 
 }

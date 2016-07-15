@@ -174,17 +174,6 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
         }
     }
 
-//    private void setDescription (ViewHolder holder, Device device) {
-//
-//        if (holder.Description != null) holder.Description.setText(device.Description);
-//        if (holder.DeviceId != null) holder.DeviceId.setText(device.Device_Id);
-//        if (holder.Manufacturer != null) holder.Manufacturer.setText(device.Manufacturer);
-//
-//        if (holder.Logo != null) holder.Logo.setImageBitmap(device.Logo);
-//        if (holder.Image != null) holder.Image.setImageBitmap(device.Image);
-//    }
-
-
     private void initializeStatusIndicator(View view, ViewHolder holder) {
 
         View v;
@@ -218,26 +207,6 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
         }
     }
 
-//    private void setStatusIndicator(ViewHolder holder, DeviceStatus status) {
-//
-//        if (holder.StatusIndicator != null && holder.AlertIcon != null && status.Production != null) {
-//
-//            if (status.Production.Alert) {
-//
-//                holder.StatusIndicator.setBackgroundColor(holder.StatusRed);
-//
-//                holder.AlertIcon.setVisibility(View.VISIBLE);
-//
-//            } else {
-//
-//                holder.AlertIcon.setVisibility(View.INVISIBLE);
-//
-//                if (status.Production.Idle) holder.StatusIndicator.setBackgroundColor(holder.StatusYellow);
-//                else if (status.Production.Active) holder.StatusIndicator.setBackgroundColor(holder.StatusGreen);
-//            }
-//        }
-//    }
-
     private void initializeProductionStatus(View view, ViewHolder holder) {
 
         View v;
@@ -267,26 +236,6 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
         }
     }
 
-//    private void setProductionStatus(ViewHolder holder, DeviceStatus status) {
-//
-//        if (status.Production != null) {
-//
-//            if (holder.ProductionStatus != null) holder.ProductionStatus.setText(status.Production.ProductionStatus);
-//
-//            if (holder.ProductionStatusTimer != null &&
-//                    status.Production.ProductionStatusTimer != null &&
-//                    status.Production.ProductionStatusTimer.length() > 0) {
-//
-//                int seconds = Integer.parseInt(status.Production.ProductionStatusTimer);
-//
-//                Period period = new Period(seconds * 1000);
-//                String statusPeriod = String.format("%02d:%02d:%02d", period.getHours(), period.getMinutes(), period.getSeconds());
-//
-//                holder.ProductionStatusTimer.setText(statusPeriod);
-//            }
-//        }
-//    }
-
     private void initializeOEEStatus(View view, ViewHolder holder) {
 
         View v;
@@ -313,23 +262,5 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
                 holder.OEE.setTextColor(holder.StatusRed);
         }
     }
-
-//    private void setOEEStatus(ViewHolder holder, DeviceStatus status) {
-//
-//        // Set OEE
-//        if (holder.OEE != null && status.Oee != null) {
-//
-//            double d = status.Oee.Oee * 100;
-//            String s = String.format("%.0f%%",d);
-//            holder.OEE.setText(s);
-//
-//            if (status.Oee.Oee > 0.6)
-//                holder.OEE.setTextColor(holder.StatusGreen);
-//            else if (status.Oee.Oee > 0.3)
-//                holder.OEE.setTextColor(holder.ForegroundNormal);
-//            else
-//                holder.OEE.setTextColor(holder.StatusRed);
-//        }
-//    }
 
 }

@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean error;
 
+    public static String showError = "show_error";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,85 +39,98 @@ public class MainActivity extends AppCompatActivity {
 
         UserManagement.context = getApplicationContext();
 
-        if (error) {
+        if (savedInstanceState == null) {
 
-            TextView errorTextView = (TextView)findViewById(R.id.ErrorLabel);
-            errorTextView.setVisibility(View.VISIBLE);
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                error = extras.getBoolean(showError);
+            }
         }
+
+        if (error) showError();
 
         // Attempt to login using saved credentials
         if (MyApplication.User == null) tokenLogin();
+    }
+
+    private void showError() {
+
+        TextView errorTextView = (TextView)findViewById(R.id.ErrorLabel);
+        if (errorTextView != null) errorTextView.setVisibility(View.VISIBLE);
     }
 
     public void tokenLogin() {
 
         String username = UserManagement.getRememberUsername();
         String token = UserManagement.getRememberToken();
-        if (token != null) {
-            if (token.startsWith("%%")) {
 
-                localLogin(token, username);
-
-            } else {
-
-                userLogin(token, username);
-            }
-        }
+        if (token != null) userLogin(token, username);
     }
+
+//    public void tokenLogin() {
+//
+//        String username = UserManagement.getRememberUsername();
+//        String token = UserManagement.getRememberToken();
+//        if (token != null) {
+//            if (token.startsWith("%%")) {
+//
+//                localLogin(token, username);
+//
+//            } else {
+//
+//                userLogin(token, username);
+//            }
+//        }
+//    }
 
     public void login(View view) {
 
         String username = ((TextView)findViewById(R.id.UsernameText)).getText().toString();
         String password = ((TextView)findViewById(R.id.PasswordText)).getText().toString();
 
-        Boolean r = ((CheckBox)findViewById(R.id.RememberCHKBX)).isChecked();
+        if (!username.isEmpty() && !password.isEmpty()) {
 
-        Loading.Open(this, "Logging in " + TH_Tools.capitalizeFirst(username) + "..");
-
-        if (r) {
+            showLoading(username);
 
             // Create Token Login
             new Login(this, null).execute(username, password, "");
-            //new GetDevices(this, GetDevices.LoginType.CREATE_TOKEN).execute(username, password, "");
 
-        } else {
+        } else showError();
+    }
 
-            // Basic Login
-            new Login(this, null).execute(username, password);
-            //new GetDevices(this, GetDevices.LoginType.BASIC).execute(username, password);
-        }
+    private void showLoading(String username) {
+
+        // Open Loading screen
+        String displayUsername = TH_Tools.capitalizeFirst(username);
+        if (displayUsername != null) Loading.Open(this, "Logging in " + displayUsername + "..");
+        else Loading.Open(this, "Logging in..");
     }
 
     public void userLogin(String token, String username) {
 
-        // Show Loading Activity
-        Loading.Open(this, "Logging in " + TH_Tools.capitalizeFirst(username) + "..");
+        showLoading(username);
 
         new Login(this, null).execute(token);
-
-        //new GetDevices(this, GetDevices.LoginType.TOKEN).execute(token);
-
-        //new Login(this, null).execute()
     }
 
-    private void localLogin(String token, String username) {
+//    private void localLogin(String token, String username) {
+//
+//        // Show Loading Activity
+//        Loading.Open(this, "Loading Devices for " + TH_Tools.capitalizeFirst(username) + "..");
+//
+//        new GetDevices(this, GetDevices.LoginType.LOCAL).execute(token);
+//    }
 
-        // Show Loading Activity
-        Loading.Open(this, "Loading Devices for " + TH_Tools.capitalizeFirst(username) + "..");
 
-        new GetDevices(this, GetDevices.LoginType.LOCAL).execute(token);
-    }
-
-
-    public void openLocalLogin(View view){
-
-        Context context = getBaseContext();
-
-        // Open the Local Login Screen
-        Intent localLoginIntent = new Intent(context, LocalLogin.class);
-        localLoginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(localLoginIntent);
-    }
+//    public void openLocalLogin(View view){
+//
+//        Context context = getBaseContext();
+//
+//        // Open the Local Login Screen
+//        Intent localLoginIntent = new Intent(context, LocalLogin.class);
+//        localLoginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        context.startActivity(localLoginIntent);
+//    }
 
     public void openAbout(View view) {
 

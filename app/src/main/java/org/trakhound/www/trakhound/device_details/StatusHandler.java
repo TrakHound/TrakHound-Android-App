@@ -69,8 +69,6 @@ public class StatusHandler implements Runnable {
                     }
                 }
 
-                //context.updateConnectionStatus(connected);
-
                 Thread.sleep(5000);
             }
             catch (InterruptedException ex) {  }

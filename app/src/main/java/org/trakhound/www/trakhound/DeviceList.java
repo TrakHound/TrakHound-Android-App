@@ -48,9 +48,7 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         setContentView(R.layout.activity_device_list);
 
         MyApplication.setCurrentActivity(this);
-
-//        hideLoading();
-
+        
         context = this;
         deviceListView = (ListView) findViewById(R.id.device_list);
         listAdapter = new ListAdapter(this, new ArrayList<ListItem>());

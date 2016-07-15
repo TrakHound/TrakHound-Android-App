@@ -84,7 +84,7 @@
                         android:layout_toLeftOf="@+id/LoginButton"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:layout_gravity="left" />
 
                     <TextView
@@ -131,73 +131,41 @@
                         android:paddingRight="10dp"
                         android:paddingBottom="0dp" />
 
-                    <CheckBox
-                        android:layout_width="fill_parent"
-                        android:layout_height="50dp"
-                        android:text="Remember Login"
-                        android:id="@+id/RememberCHKBX"
-                        android:checked="true"
-                        android:textColor="#333" />
+                    <Button
+                        android:text="Login"
+                        android:id="@+id/LoginButton"
+                        android:onClick="login"
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:textColor="#fff"
+                        android:textSize="18sp"
 
-                        <Button
-                            android:text="Login"
-                            android:id="@+id/LoginButton"
-                            android:onClick="login"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="150dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/button_blue"
+                        android:clickable="true"
 
-                            android:textColor="#fff"
-                            android:textSize="18sp"
-
-                            android:layout_width="150dp"
-                            android:layout_height="60dp"
-                            android:background="@drawable/button_blue"
-                            android:clickable="true"
-                            android:layout_gravity="right"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true" />
-
-                    </RelativeLayout>
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_centerHorizontal="true" />
 
                 </LinearLayout>
 
             </RelativeLayout>
 
-            <LinearLayout
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:text="About"
+                android:id="@+id/button2"
+                android:background="@null"
+                android:textSize="14sp"
+                android:textColor="@color/accent_normal_color"
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="Local ID Login"
-                    android:id="@+id/button"
-                    android:background="@null"
-                    android:textSize="14dp"
-                    android:textColor="@color/accent_normal_color"
-                    android:backgroundTint="@null"
-                    android:onClick="openLocalLogin"
-                    style="@null" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="About"
-                    android:id="@+id/button2"
-                    android:background="@null"
-                    android:textSize="14dp"
-                    android:textColor="@color/accent_normal_color"
-                    android:layout_marginLeft="20dp"
-                    android:onClick="openAbout"/>
-
-            </LinearLayout>
+                android:layout_marginBottom="20dp"
+                android:onClick="openAbout"/>
 
         </LinearLayout>
 

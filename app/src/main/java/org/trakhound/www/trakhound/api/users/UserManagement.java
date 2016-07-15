@@ -11,6 +11,7 @@ import android.net.Uri;
 
 import java.util.UUID;
 
+import org.trakhound.www.trakhound.api.ApiConfiguration;
 import org.trakhound.www.trakhound.api.http.PostData;
 import org.trakhound.www.trakhound.api.http.Requests;
 

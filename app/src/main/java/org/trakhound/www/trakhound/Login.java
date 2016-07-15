@@ -78,18 +78,19 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
                 // Open the Device List Page
                 context.startActivity(deviceListIntent);
 
-//                Intent deviceListIntent = new Intent(context, DeviceList.class);
-//                deviceListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-//                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
-//                        Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//                // Open the Device List Page
-//                context.startActivity(deviceListIntent);
-
             } else {
 
-                if (errorText != null) errorText.setVisibility(View.VISIBLE);
+                Intent mainIntent = new Intent(context, MainActivity.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
 
+                mainIntent.putExtra(MainActivity.showError, true);
+
+                // Open the Main Page Again
+                context.startActivity(mainIntent);
+
+//                if (errorText != null) errorText.setVisibility(View.VISIBLE);
                 MyApplication.LoggedIn = false;
             }
         }
