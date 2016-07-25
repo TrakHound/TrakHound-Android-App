@@ -80,6 +80,10 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
 
             } else {
 
+                MyApplication.LoggedIn = false;
+                UserManagement.clearRememberToken();
+                UserManagement.clearRememberUsername();
+
                 Intent mainIntent = new Intent(context, MainActivity.class);
                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                         Intent.FLAG_ACTIVITY_CLEAR_TASK |
@@ -90,8 +94,6 @@ public class Login extends AsyncTask<String,Void,UserConfiguration> {
                 // Open the Main Page Again
                 context.startActivity(mainIntent);
 
-//                if (errorText != null) errorText.setVisibility(View.VISIBLE);
-                MyApplication.LoggedIn = false;
             }
         }
     }

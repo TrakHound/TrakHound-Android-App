@@ -50,22 +50,22 @@ public class GetUserImage extends AsyncTask<String,Void,Bitmap> {
     @Override
     protected void onPostExecute(Bitmap bitmap){
 
-        View v = context.findViewById(R.id.UserImage);
-        if (v != null) {
-
-            if (bitmap != null) {
-
-                ((ImageView)v).setImageBitmap(bitmap);
-
-                v = context.findViewById(R.id.UserImageBorder);
-                if (v != null) v.setVisibility(View.VISIBLE);
-
-            } else {
-
-                v = context.findViewById(R.id.UserImageBorder);
-                if (v != null) v.setVisibility(View.GONE);
-            }
-        }
+//        View v = context.findViewById(R.id.UserImage);
+//        if (v != null) {
+//
+//            if (bitmap != null) {
+//
+//                ((ImageView)v).setImageBitmap(bitmap);
+//
+//                v = context.findViewById(R.id.UserImageBorder);
+//                if (v != null) v.setVisibility(View.VISIBLE);
+//
+//            } else {
+//
+//                v = context.findViewById(R.id.UserImageBorder);
+//                if (v != null) v.setVisibility(View.GONE);
+//            }
+//        }
 
     }
 

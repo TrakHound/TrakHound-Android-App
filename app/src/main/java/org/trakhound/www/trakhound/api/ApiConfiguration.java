@@ -11,7 +11,7 @@ public class ApiConfiguration {
 
     public static Context context;
 
-    public static Uri apiHost = Uri.parse("http://52.10.7.188/api/");
+    public static Uri apiHost = Uri.parse("http://trakhound.com/api/");
 
     public String host;
     public String path;

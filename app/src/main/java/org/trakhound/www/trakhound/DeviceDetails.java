@@ -698,7 +698,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
                 TextView txt = (TextView) headerView.findViewById(R.id.Username);
                 if (txt != null) txt.setText(username);
 
-                new GetUserImage(headerView, userConfig).execute();
+//                new GetUserImage(headerView, userConfig).execute();
             }
         }
     }

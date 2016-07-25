@@ -7,7 +7,8 @@
     android:fitsSystemWindows="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".DeviceList"
-    tools:showIn="@layout/activity_device_list">
+    tools:showIn="@layout/activity_device_list"
+    android:background="#fff">
 
     <ListView
         android:id="@+id/device_list"

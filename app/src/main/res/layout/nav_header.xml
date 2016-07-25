@@ -80,9 +80,18 @@
             android:id="@+id/textView16"
             android:textColor="#aaffffff"
             android:layout_below="@+id/view4"
-            android:layout_toRightOf="@+id/UserImageBorder"
-            android:layout_toEndOf="@+id/UserImageBorder"
             android:layout_marginTop="10dp" />
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Logged in as"-->
+            <!--android:id="@+id/textView16"-->
+            <!--android:textColor="#aaffffff"-->
+            <!--android:layout_below="@+id/view4"-->
+            <!--android:layout_toRightOf="@+id/UserImageBorder"-->
+            <!--android:layout_toEndOf="@+id/UserImageBorder"-->
+            <!--android:layout_marginTop="10dp" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,26 +107,27 @@
             android:layout_alignStart="@+id/textView16" />
 
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_panel"
-            android:id="@+id/UserImageBorder"
-            android:layout_below="@+id/view4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="10dp"
-            android:padding="5dp">
+        <!--<FrameLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/border_panel"-->
+            <!--android:id="@+id/UserImageBorder"-->
+            <!--android:layout_below="@+id/view4"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:padding="5dp"-->
+            <!--android:visibility="gone">-->
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/UserImage"
-                android:background="#EEE"
+            <!--<ImageView-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:id="@+id/UserImage"-->
+                <!--android:background="#EEE"-->
 
-                 />
+                 <!--/>-->
 
-        </FrameLayout>
+        <!--</FrameLayout>-->
 
     </RelativeLayout>
 

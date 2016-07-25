@@ -36,8 +36,9 @@ public class Logout extends AsyncTask<String,Void,String> {
 
         // Clear MyApplication variables
         MyApplication.User = null;
-        MyApplication.Devices = null;
         MyApplication.LoggedIn = false;
+        MyApplication.Devices = null;
+        MyApplication.ListItems = null;
 
         // Clear the Remember Me Token in SharedPreferences
         UserManagement.clearRememberToken();

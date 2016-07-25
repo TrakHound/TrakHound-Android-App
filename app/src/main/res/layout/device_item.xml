@@ -46,7 +46,8 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/StatusIndicatorBorder"
         android:layout_toEndOf="@+id/StatusIndicatorBorder"
-        android:paddingLeft="10sp">
+        android:paddingLeft="10sp"
+        android:layout_marginRight="40sp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -57,23 +58,22 @@
             <TextView
                 android:id="@+id/Description"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="18sp"
                 android:textColor="#333"
                 android:ellipsize="marquee"
                 android:singleLine="false"
                 android:text="[Description]"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="14sp"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="2sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="18sp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="[Device ID]"
                 android:id="@+id/DeviceId"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="#666666"
                 android:layout_alignTop="@+id/Description"
                 android:layout_toRightOf="@+id/Description"
@@ -85,25 +85,27 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="[Manufacturer]"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:id="@+id/Manufacturer"
                 android:layout_below="@+id/Description"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textColor="#333" />
+                android:textColor="#333"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="[Model]"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:id="@+id/Model"
                 android:layout_toRightOf="@+id/Manufacturer"
                 android:layout_toEndOf="@+id/Manufacturer"
                 android:layout_alignTop="@+id/Manufacturer"
                 android:layout_marginLeft="5sp"
-                android:textColor="#333" />
+                android:textColor="#333"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
