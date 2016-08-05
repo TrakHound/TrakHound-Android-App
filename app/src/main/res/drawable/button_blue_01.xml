@@ -3,12 +3,9 @@
     <corners
         android:radius="5dp"
         />
-    <solid android:color="@color/accent_normal_color" />
-    <!--<gradient-->
-        <!--android:type="radial"-->
-        <!--android:gradientRadius="250"-->
-        <!--android:startColor="@color/accent_light_color"-->
-        <!--android:endColor="@color/accent_normal_color" />-->
+
+    <solid android:color="@color/colorPrimary" />
+
     <padding
         android:left="0dp"
         android:top="0dp"

@@ -48,12 +48,6 @@
         android:layout_above="@+id/textView19"
         android:textStyle="bold" />
 
-    <!--<TextView-->
-    <!--android:id="@+id/textView"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="www.TrakHound.org" />-->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

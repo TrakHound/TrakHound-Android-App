@@ -6,7 +6,7 @@
     <color name="colorAccent">#0080FF</color>
 
     <!--TrakHound Colors-->
-    <color name="accent_normal_color">#0080FF</color>
+    <color name="accent_normal_color">#143a5a</color>
     <color name="accent_light_color">#40A0FF</color>
     <color name="accent_dark_color">#0060FF</color>
     <color name="accent_hover_color">#200080FF</color>
