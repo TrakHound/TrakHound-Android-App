@@ -682,18 +682,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
             UserConfiguration userConfig = MyApplication.User;
             if (userConfig != null) {
 
-                String username = null;
-
-                if (userConfig.type == UserConfiguration.UserType.REMOTE) {
-
-                    username = TH_Tools.capitalizeFirst(userConfig.username);
-                }
-                else {
-
-                    username = TH_Tools.capitalizeFirst(userConfig.id);
-                    username = username.substring(2);
-                    username = username.toUpperCase();
-                }
+                String username = TH_Tools.capitalizeFirst(userConfig.username);
 
                 TextView txt = (TextView) headerView.findViewById(R.id.Username);
                 if (txt != null) txt.setText(username);

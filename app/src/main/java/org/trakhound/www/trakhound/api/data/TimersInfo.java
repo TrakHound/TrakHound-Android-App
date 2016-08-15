@@ -30,19 +30,22 @@ public class TimersInfo {
 
         TimersInfo result = new TimersInfo();
 
-        try {
+        if (json != null) {
 
-            result.total = json.getDouble("total");
+            try {
 
-            result.active = json.getDouble("active");
+                result.total = json.getDouble("total");
 
-            result.idle = json.getDouble("idle");
+                result.active = json.getDouble("active");
 
-            result.alert = json.getDouble("alert");
+                result.idle = json.getDouble("idle");
 
-            return result;
+                result.alert = json.getDouble("alert");
+
+                return result;
+            }
+            catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
         }
-        catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
 
         return null;
     }

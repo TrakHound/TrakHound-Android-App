@@ -27,16 +27,19 @@ public class OeeInfo {
 
         OeeInfo result = new OeeInfo();
 
-        try {
+        if (json != null) {
 
-            result.oee = json.getDouble("oee");
-            result.availability = json.getDouble("availability");
-            result.performance = json.getDouble("performance");
-            result.quality = json.getDouble("quality");
+            try {
 
-            return result;
+                result.oee = json.getDouble("oee");
+                result.availability = json.getDouble("availability");
+                result.performance = json.getDouble("performance");
+                result.quality = json.getDouble("quality");
+
+                return result;
+            }
+            catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
         }
-        catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
 
         return null;
     }

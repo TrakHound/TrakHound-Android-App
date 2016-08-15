@@ -4,20 +4,11 @@
     android:layout_height="90sp"
     >
 
-    <!--<View-->
-        <!--android:id="@+id/StatusIndicator"-->
-        <!--android:layout_width="25dp"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:background="#EEEEEE"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true" />-->
-
     <FrameLayout
         android:id="@+id/StatusIndicator"
         android:layout_width="25sp"
         android:layout_height="match_parent"
-        android:background="#EEEEEE"
+        android:background="#eee"
         android:paddingLeft="2.5dp"
         android:paddingRight="2.5dp">
 
@@ -29,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="false"
             android:layout_alignParentStart="false"
-            android:alpha="0.8" />
+            />
     </FrameLayout>
 
     <View
@@ -47,7 +38,8 @@
         android:layout_toRightOf="@+id/StatusIndicatorBorder"
         android:layout_toEndOf="@+id/StatusIndicatorBorder"
         android:paddingLeft="10sp"
-        android:layout_marginRight="40sp">
+        android:layout_marginRight="40sp"
+        android:background="#fff">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -74,7 +66,7 @@
                 android:text="[Device ID]"
                 android:id="@+id/DeviceId"
                 android:textSize="14sp"
-                android:textColor="#666666"
+                android:textColor="#333"
                 android:layout_alignTop="@+id/Description"
                 android:layout_toRightOf="@+id/Description"
                 android:layout_toEndOf="@+id/Description"
@@ -117,7 +109,7 @@
                 android:layout_below="@+id/Manufacturer"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textColor="#333" />
+                android:textColor="#888" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -136,7 +128,7 @@
                 android:text="[Device Status]"
                 android:id="@+id/DeviceStatus"
                 android:textSize="14sp"
-                android:textColor="#333"
+                android:textColor="#888"
                 android:layout_alignParentRight="false"
                 android:layout_alignParentEnd="false"
                 android:layout_centerVertical="true"
@@ -161,39 +153,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/OeeLayout"
-            android:layout_below="@+id/StatusLayout"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="2sp">
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="OEE"
-            android:textSize="14sp"
-            android:id="@+id/textView9"
-            android:layout_above="@+id/OeeLayout"
+            android:layout_alignBaseline="@+id/StatusLayout"
+            android:layout_alignBottom="@+id/StatusLayout"
             android:layout_toRightOf="@+id/StatusLayout"
             android:layout_toEndOf="@+id/StatusLayout"
-            android:layout_marginLeft="20sp" />
+            android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="[OEE]"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="OEE"
+                android:textSize="14sp"
+                android:id="@+id/textView9"
+                android:layout_marginLeft="20sp"
+                android:textColor="#888"/>
 
-            android:id="@+id/OEE"
-            android:textColor="@color/foreground_normal_color"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:layout_above="@+id/OeeLayout"
-            android:layout_toRightOf="@+id/textView9"
-            android:layout_toEndOf="@+id/textView9"
-            android:layout_marginLeft="5sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="[OEE]"
+
+                android:id="@+id/OEE"
+                android:textColor="#333"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_toRightOf="@+id/textView9"
+                android:layout_toEndOf="@+id/textView9"
+                android:layout_marginLeft="5sp" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -216,7 +206,9 @@
         android:layout_alignParentRight="true"
         android:src="@drawable/carrot_right_01"
         android:alpha="0.25"
-        android:layout_marginRight="5sp" />
+        android:layout_marginRight="5sp"
+        android:visibility="gone"
+        />
 
 
     <!--<View-->

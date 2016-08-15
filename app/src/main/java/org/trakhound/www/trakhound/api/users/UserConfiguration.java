@@ -16,7 +16,8 @@ import org.json.JSONObject;
  */
 public class UserConfiguration {
 
-    public UserType type;
+//    public UserType type;
+
 
     public String id;
 
@@ -34,6 +35,8 @@ public class UserConfiguration {
     public String zipCode;
     public String imageUrl;
     public DateTime lastLogin;
+
+    public int type;
 
     public String rememberToken;
     public String sessionToken;
@@ -82,6 +85,8 @@ public class UserConfiguration {
                 DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
                 result.lastLogin = formatter.parseDateTime(lastLogin);
             }
+
+            result.type = obj.optInt("type");
 
             result.rememberToken = obj.optString("token");
             result.sessionToken = obj.optString("session_token");

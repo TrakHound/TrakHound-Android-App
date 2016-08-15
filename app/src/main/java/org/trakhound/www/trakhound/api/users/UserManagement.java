@@ -37,7 +37,6 @@ public class UserManagement {
 
             result = new UserConfiguration();
             result.username = userId;
-            result.type = UserConfiguration.UserType.LOCAL;
 
             if (remember) {
                 setRememberToken(userId);
@@ -71,7 +70,6 @@ public class UserManagement {
                 if (response != null) {
 
                     result = UserConfiguration.get(response);
-                    result.type = UserConfiguration.UserType.REMOTE;
                 }
             }
             catch(Exception e){ e.printStackTrace(); }
@@ -107,8 +105,6 @@ public class UserManagement {
                         setRememberToken(result.rememberToken);
                         setRememberUsername(result.username);
                     }
-
-                    result.type = UserConfiguration.UserType.REMOTE;
                 }
             }
             catch(Exception e){ e.printStackTrace(); }
@@ -135,7 +131,6 @@ public class UserManagement {
                 if (response != null) {
 
                     result = UserConfiguration.get(response);
-                    result.type = UserConfiguration.UserType.REMOTE;
                 }
             }
             catch(Exception e){ e.printStackTrace(); }

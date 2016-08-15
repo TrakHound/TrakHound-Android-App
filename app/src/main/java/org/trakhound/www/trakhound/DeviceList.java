@@ -54,17 +54,24 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         listAdapter = new ListAdapter(this, new ArrayList<ListItem>());
         deviceListView.setAdapter(listAdapter);
 
-        // Set onClick listener
-        deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
 
-                Loading.Open(context, "Loading Details..");
+        if (MyApplication.User != null) {
 
-                new GetDeviceStatus(context, position).execute();
+            if (MyApplication.User.type == 1) {
+
+                // Set onClick listener
+                deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position,
+                                            long id) {
+
+                        Loading.Open(context, "Loading Details..");
+
+                        new GetDeviceStatus(context, position).execute();
+                    }
+                });
             }
-        });
+        }
 
         // Set Status Bar Color
         setStatusBar();
@@ -74,6 +81,8 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
         // Setup Navigation Drawer
         setNavigationDrawer();
+
+        setUserType();
 
         // Load Devices
         ListItem[] listItems = MyApplication.ListItems;
@@ -246,6 +255,25 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         }
     }
 
+    private void setUserType() {
+
+        // Selection Arrow
+        View v = findViewById(R.id.Arrow);
+        if (v != null) {
+
+            if (MyApplication.User != null && MyApplication.User.type == 1) v.setVisibility(View.VISIBLE);
+            v.setVisibility(View.GONE);
+        }
+
+        // Oee
+        v = findViewById(R.id.OeeLayout);
+        if (v != null) {
+
+            if (MyApplication.User != null && MyApplication.User.type == 1) v.setVisibility(View.VISIBLE);
+            v.setVisibility(View.GONE);
+        }
+    }
+
     //endregion
 
 
@@ -342,18 +370,7 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
             UserConfiguration userConfig = MyApplication.User;
             if (userConfig != null) {
 
-                String username = null;
-
-                if (userConfig.type == UserConfiguration.UserType.REMOTE) {
-
-                    username = TH_Tools.capitalizeFirst(userConfig.username);
-                }
-                else {
-
-                    username = TH_Tools.capitalizeFirst(userConfig.id);
-                    username = username.substring(2);
-                    username = username.toUpperCase();
-                }
+                String username = TH_Tools.capitalizeFirst(userConfig.username);
 
                 TextView txt = (TextView) headerView.findViewById(R.id.Username);
                 if (txt != null) txt.setText(username);
