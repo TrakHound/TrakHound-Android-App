@@ -4,11 +4,11 @@
   Author: Feenux LLC
   -->
   
-![TrakHound Logo] (http://feenux.com/github/v2/images/headers/header_01.png)
+![TrakHound Logo] (http://trakhound.com/images/header_03.png)
 
 <p align="center">
 
-  <a href="http://www.trakhound.org/">www.TrakHound.org</a>
+  <a href="http://www.trakhound.com/">www.TrakHound.com</a>
   
   <!--<br>
   
@@ -19,16 +19,16 @@
 
 
 ##About
-TrakHound is an Open Source MDC software package designed to retrieve and store data from CNC and other PLC driven industrial equipment. Data is retrieved using <a href="http://mtconnect.org">MTConnect®</a>, processed, and then stored in a database. 
+TrakHound is an Open Source MDC software package designed to retrieve and store data from CNC and other PLC driven industrial equipment. Data is retrieved using <a href="http://mtconnect.org">MTConnect®</a>. 
 
 Machine Data Collection (MDC) software is used to evaluate shop productivity and identify problem areas. TrakHound provides free dashboards to view current machine status and basic production data so shop supervisors can quickly see which machines are operating normally and which ones are in need of attention. This transparency allows for a smoother workflow through your shop with reduced downtime. 
 
 <table style="width:100%">
  
   <tr>
-    <td><img src="http://www.feenux.com/github/android-app/images/Screenshot_2016-05-18-13-55-39.png"/></td>
-    <td><img src="http://www.feenux.com/github/android-app/images/Screenshot_2016-05-18-13-56-20.png"/></td>
-    <td><img src="http://www.feenux.com/github/android-app/images/Screenshot_2016-05-18-13-56-26.png"/></td>
+    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/devicelist_01.png"/></td>
+    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/nav_01.png"/></td>
+    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/login_01.png"/></td>
   </tr>
   
 </table> 
