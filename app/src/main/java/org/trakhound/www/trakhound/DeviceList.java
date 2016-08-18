@@ -82,8 +82,6 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         // Setup Navigation Drawer
         setNavigationDrawer();
 
-        setUserType();
-
         // Load Devices
         ListItem[] listItems = MyApplication.ListItems;
         if (listItems == null) {
@@ -251,25 +249,6 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         View v = findViewById(R.id.loadingOverlay);
         if (v != null) {
 
-            v.setVisibility(View.GONE);
-        }
-    }
-
-    private void setUserType() {
-
-        // Selection Arrow
-        View v = findViewById(R.id.Arrow);
-        if (v != null) {
-
-            if (MyApplication.User != null && MyApplication.User.type == 1) v.setVisibility(View.VISIBLE);
-            v.setVisibility(View.GONE);
-        }
-
-        // Oee
-        v = findViewById(R.id.OeeLayout);
-        if (v != null) {
-
-            if (MyApplication.User != null && MyApplication.User.type == 1) v.setVisibility(View.VISIBLE);
             v.setVisibility(View.GONE);
         }
     }

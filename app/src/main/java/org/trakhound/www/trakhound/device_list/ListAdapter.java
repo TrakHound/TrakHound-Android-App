@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.joda.time.Period;
+import org.trakhound.www.trakhound.MyApplication;
 import org.trakhound.www.trakhound.R;
 import org.trakhound.www.trakhound.api.data.DescriptionInfo;
 import org.trakhound.www.trakhound.api.data.OeeInfo;
@@ -56,6 +57,9 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
         public int StatusYellow;
         public int StatusGreen;
         public int ForegroundNormal;
+
+        public View OeeLayout;
+        public View SelectionArrow;
 
     }
 
@@ -99,6 +103,8 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
             holder = (ViewHolder)view.getTag();
         }
 
+        setUserType(holder);
+
         // Set the description components
         setDescription(holder, item.descriptionInfo);
         //setDescription(holder, device);
@@ -126,6 +132,9 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
         holder.StatusYellow = ContextCompat.getColor(view.getContext(), R.color.statusYellow);
 
         holder.ForegroundNormal = ContextCompat.getColor(view.getContext(), R.color.foreground_normal_color);
+
+        View v = view.findViewById(R.id.Arrow);
+        if (v != null) holder.SelectionArrow = v;
     }
 
 
@@ -240,6 +249,9 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
         View v;
 
+        v = view.findViewById(R.id.OeeLayout);
+        if (v != null) holder.OeeLayout = v;
+
         // OEE
         v = view.findViewById(R.id.OEE);
         if (v != null) holder.OEE = (TextView)v;
@@ -260,6 +272,23 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
                 holder.OEE.setTextColor(holder.ForegroundNormal);
             else
                 holder.OEE.setTextColor(holder.StatusRed);
+        }
+    }
+
+    private void setUserType(ViewHolder holder) {
+
+        // Selection Arrow
+        if (holder.SelectionArrow != null) {
+
+            if (MyApplication.User != null && MyApplication.User.type == 1) holder.SelectionArrow.setVisibility(View.VISIBLE);
+            else holder.SelectionArrow.setVisibility(View.GONE);
+        }
+
+        // Oee
+        if (holder.OeeLayout != null) {
+
+            if (MyApplication.User != null && MyApplication.User.type == 1) holder.OeeLayout.setVisibility(View.VISIBLE);
+            else holder.OeeLayout.setVisibility(View.GONE);
         }
     }
 

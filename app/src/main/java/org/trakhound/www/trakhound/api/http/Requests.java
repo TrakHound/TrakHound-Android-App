@@ -27,12 +27,12 @@ public class Requests {
 
     public static String post (String url, PostData[] postDatas) {
 
-        return runRequest(url, postDatas, POST);
+        return runRequest(url, postDatas, POST, 3);
     }
 
     public static String get (String url) {
 
-        return runRequest(url, null, GET);
+        return runRequest(url, null, GET, 3);
     }
 
     public static Bitmap getImage(String url) {
@@ -89,7 +89,7 @@ public class Requests {
         return result;
     }
 
-    private static String runRequest(String url, PostData[] postDatas, String method) {
+    private static String runRequest(String url, PostData[] postDatas, String method, int maxAttempts) {
 
         String result = null;
 
@@ -98,27 +98,45 @@ public class Requests {
 
         InputStream stream = null;
 
-        try {
+        Boolean success = false;
+        int i = 0;
 
-            HttpURLConnection conn = getConnection(url, method);
-            if (conn != null) {
+        while (!success && i < maxAttempts) {
 
-                if (postData != null) {
+            try {
 
-                    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                HttpURLConnection conn = getConnection(url, method);
+                if (conn != null) {
 
-                    wr.write( postData );
-                    wr.flush();
-                    wr.close();
+                    if (postData != null) {
+
+                        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                        wr.write( postData );
+                        wr.flush();
+                        wr.close();
+                    }
+
+                    stream = conn.getInputStream();
+                    result = readTextStream(stream);
+
+                    conn.disconnect();
+
+                    success = true;
                 }
-
-                stream = conn.getInputStream();
-                result = readTextStream(stream);
-
-                conn.disconnect();
             }
+            catch (Exception e) { e.printStackTrace(); }
+
+            // Delay a little before next request attempt
+            if (!success) {
+                try {
+                    Thread.sleep(250);
+                }
+                catch (Exception e) { }
+            }
+
+            i++;
         }
-        catch (Exception e) { e.printStackTrace(); }
 
         return result;
     }
@@ -137,8 +155,6 @@ public class Requests {
 
             conn.setDoInput(true);
             conn.setDoOutput(method.equals(POST));
-
-            //conn.setRequestMethod(method);
 
             conn.connect();
 
