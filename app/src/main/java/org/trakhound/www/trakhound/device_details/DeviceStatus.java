@@ -8,6 +8,9 @@ package org.trakhound.www.trakhound.device_details;
 import android.net.Uri;
 import android.util.Log;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,10 +50,19 @@ public class DeviceStatus {
 
         if (userConfig != null) {
 
+            DateTime now = DateTime.now();
+            DateTime from = new DateTime(now.year().get(), now.monthOfYear().get(), now.dayOfMonth().get(), 0, 0, 0);
+            DateTime to = from.plusDays(1);
+
+            DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+            String fromStr = fmt.print(from);
+            String toStr = fmt.print(to);
+
             String urlSuffix = "data/get/?" +
                 "token=" + userConfig.sessionToken +
                 "&sender_id=" + UserManagement.getSenderId() +
                 "&unique_id=" + uniqueId +
+                "&from=" + fromStr + "&to=" + toStr +
                 "&command=" + "01111"; // Get Status, Controller, Oee, and Timers tables
 
             String url = Uri.withAppendedPath(ApiConfiguration.apiHost, urlSuffix).toString();

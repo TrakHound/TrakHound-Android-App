@@ -6,10 +6,11 @@
         <shape>
 
             <solid android:color="@color/accent_normal_color" />
+            <!--<solid android:color="#eee" />-->
 
             <stroke
-                android:width="2dp"
-                android:color="#33000000" />
+                android:width="1dp"
+                android:color="#aaa" />
 
         </shape>
 

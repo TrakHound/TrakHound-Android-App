@@ -8,6 +8,9 @@ package org.trakhound.www.trakhound.device_list;
 import android.net.Uri;
 import android.util.Log;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +23,8 @@ import org.trakhound.www.trakhound.api.users.UserManagement;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -47,9 +52,18 @@ public class DeviceStatus {
 
             try {
 
+                DateTime now = DateTime.now();
+                DateTime from = new DateTime(now.year().get(), now.monthOfYear().get(), now.dayOfMonth().get(), 0, 0, 0);
+                DateTime to = from.plusDays(1);
+
+                DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+                String fromStr = fmt.print(from);
+                String toStr = fmt.print(to);
+
                 String urlSuffix = "data/get/?" +
                         "token=" + URLEncoder.encode(userConfig.sessionToken, "UTF-8") +
                         "&sender_id=" + URLEncoder.encode(UserManagement.getSenderId(), "UTF-8") +
+                        "&from=" + fromStr + "&to=" + toStr +
                         "&command=0101"; // Get Status and Oee tables
 
                 String url = Uri.withAppendedPath(ApiConfiguration.apiHost, urlSuffix).toString();

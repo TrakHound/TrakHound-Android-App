@@ -280,14 +280,14 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
         // Selection Arrow
         if (holder.SelectionArrow != null) {
 
-            if (MyApplication.User != null && MyApplication.User.type == 1) holder.SelectionArrow.setVisibility(View.VISIBLE);
+            if (MyApplication.User != null && MyApplication.User.type > 0) holder.SelectionArrow.setVisibility(View.VISIBLE);
             else holder.SelectionArrow.setVisibility(View.GONE);
         }
 
         // Oee
         if (holder.OeeLayout != null) {
 
-            if (MyApplication.User != null && MyApplication.User.type == 1) holder.OeeLayout.setVisibility(View.VISIBLE);
+            if (MyApplication.User != null && MyApplication.User.type > 0) holder.OeeLayout.setVisibility(View.VISIBLE);
             else holder.OeeLayout.setVisibility(View.GONE);
         }
     }

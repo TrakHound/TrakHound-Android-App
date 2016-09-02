@@ -22,20 +22,23 @@ public class ControllerInfo {
 
         ControllerInfo result = new ControllerInfo();
 
-        try {
+        if (json != null) {
 
-            result.availability = json.getString("availability");
-            result.emergencyStop = json.getString("emergency_stop");
-            result.controllerMode = json.getString("controller_mode");
-            result.executionMode = json.getString("execution_mode");
-            result.systemStatus = json.getString("system_status");
-            result.systemMessage = json.getString("system_message");
-            result.programName = json.getString("program_name");
+            try {
 
-            return result;
+                result.availability = json.getString("availability");
+                result.emergencyStop = json.getString("emergency_stop");
+                result.controllerMode = json.getString("controller_mode");
+                result.executionMode = json.getString("execution_mode");
+                result.systemStatus = json.getString("system_status");
+                result.systemMessage = json.getString("system_message");
+                result.programName = json.getString("program_name");
+
+                return result;
+            }
+            catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
         }
-        catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
-
+        
         return null;
     }
 }

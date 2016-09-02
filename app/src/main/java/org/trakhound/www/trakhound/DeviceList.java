@@ -57,7 +57,7 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
         if (MyApplication.User != null) {
 
-            if (MyApplication.User.type == 1) {
+            if (MyApplication.User.type > 0) {
 
                 // Set onClick listener
                 deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
