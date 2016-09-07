@@ -5,8 +5,7 @@
 
         <shape>
 
-            <solid android:color="@color/accent_normal_color" />
-            <!--<solid android:color="#eee" />-->
+            <solid android:color="@color/toolbar_color" />
 
             <stroke
                 android:width="1dp"

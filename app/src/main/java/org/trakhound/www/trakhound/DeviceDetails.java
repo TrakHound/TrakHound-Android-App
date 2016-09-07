@@ -179,7 +179,7 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
                 if (deviceStatus.equals("Alert")) {
                     banner.setBackgroundColor(getResources().getColor(R.color.statusRed));
                 } else if (deviceStatus.equals("Idle")) {
-                    banner.setBackgroundColor(getResources().getColor(R.color.statusYellow));
+                    banner.setBackgroundColor(getResources().getColor(R.color.statusOrange));
                 } else {
                     banner.setBackgroundColor(getResources().getColor(R.color.statusGreen));
                 }

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="90sp"
     >
 
     <FrameLayout
         android:id="@+id/StatusIndicator"
-        android:layout_width="25sp"
+        android:layout_width="35sp"
         android:layout_height="match_parent"
-        android:background="#eee"
-        android:paddingLeft="2.5dp"
-        android:paddingRight="2.5dp">
+        android:background="@color/disabled"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
         <ImageView
-            android:layout_width="20sp"
+            android:layout_width="25sp"
             android:layout_height="fill_parent"
-            android:id="@+id/AlertIcon"
-            android:src="@drawable/warning_01"
+            android:id="@+id/StatusIcon"
+            android:src="@drawable/power_01_white"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="false"
             android:layout_alignParentStart="false"
@@ -26,7 +26,7 @@
     <View
         android:layout_width="1sp"
         android:layout_height="match_parent"
-        android:background="#CCCCCC"
+        android:background="@color/border"
         android:layout_alignParentTop="true"
         android:id="@+id/StatusIndicatorBorder"
         android:layout_toRightOf="@+id/StatusIndicator" />
@@ -51,7 +51,7 @@
                 android:id="@+id/Description"
                 android:layout_width="wrap_content"
                 android:layout_height="18sp"
-                android:textColor="#333"
+                android:textColor="@color/text"
                 android:ellipsize="marquee"
                 android:singleLine="false"
                 android:text="[Description]"
@@ -66,7 +66,7 @@
                 android:text="[Device ID]"
                 android:id="@+id/DeviceId"
                 android:textSize="14sp"
-                android:textColor="#333"
+                android:textColor="@color/text"
                 android:layout_alignTop="@+id/Description"
                 android:layout_toRightOf="@+id/Description"
                 android:layout_toEndOf="@+id/Description"
@@ -82,7 +82,7 @@
                 android:layout_below="@+id/Description"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textColor="#333"
+                android:textColor="@color/text"
                 android:textStyle="bold" />
 
             <TextView
@@ -96,7 +96,7 @@
                 android:layout_toEndOf="@+id/Manufacturer"
                 android:layout_alignTop="@+id/Manufacturer"
                 android:layout_marginLeft="5sp"
-                android:textColor="#333"
+                android:textColor="@color/text"
                 android:textStyle="bold" />
 
             <TextView
@@ -109,7 +109,7 @@
                 android:layout_below="@+id/Manufacturer"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textColor="#888" />
+                android:textColor="@color/text_light" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -128,7 +128,7 @@
                 android:text="[Device Status]"
                 android:id="@+id/DeviceStatus"
                 android:textSize="14sp"
-                android:textColor="#888"
+                android:textColor="@color/text"
                 android:layout_alignParentRight="false"
                 android:layout_alignParentEnd="false"
                 android:layout_centerVertical="true"
@@ -141,7 +141,7 @@
                 android:text="00:00"
                 android:id="@+id/ProductionStatusTimer"
                 android:textSize="14sp"
-                android:textColor="#333"
+                android:textColor="@color/text"
 
                 android:layout_toRightOf="@+id/DeviceStatus"
                 android:layout_marginLeft="10sp"
@@ -167,7 +167,7 @@
                 android:textSize="14sp"
                 android:id="@+id/textView9"
                 android:layout_marginLeft="20sp"
-                android:textColor="#888"/>
+                android:textColor="@color/text_light"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
                 android:text="[OEE]"
 
                 android:id="@+id/OEE"
-                android:textColor="#333"
+                android:textColor="@color/text"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:layout_toRightOf="@+id/textView9"
@@ -196,7 +196,7 @@
         android:layout_width="match_parent"
         android:layout_height="1sp"
         android:layout_alignParentBottom="true"
-        android:background="#CCCCCC"
+        android:background="@color/border"
         android:id="@+id/BottomBorder" />
 
     <ImageView

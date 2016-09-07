@@ -167,20 +167,6 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
         return -1;
     }
 
-//    private int getListIndex(String uniqueId) {
-//
-//        Device[] devices = MyApplication.Devices;
-//        if (devices != null) {
-//
-//            for (int i = 0; i < devices.length; i++) {
-//
-//                if (devices[i].UniqueId.equals(uniqueId)) return i;
-//            }
-//        }
-//
-//        return -1;
-//    }
-
     public void addDevices() {
 
         listAdapter.clear();
@@ -282,13 +268,12 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
         // Set Title
         trakhoundToolbar.setTitle("Device List");
-        trakhoundToolbar.setTitleTextColor(Color.WHITE);
+        trakhoundToolbar.setTitleTextColor(this.getResources().getColor(R.color.toolbar_title_color));
 
         // Set Icon
         trakhoundToolbar.setLogo(R.drawable.th_logo_toolbar);
 
         toolbar = trakhoundToolbar;
-
         setSupportActionBar(trakhoundToolbar);
     }
 

@@ -11,7 +11,7 @@
         android:shape="ring"
         android:thicknessRatio="7.0">
 
-        <solid android:color="#fff"/>
+        <solid android:color="@color/colorPrimary"/>
 
         <!--<gradient-->
             <!--android:centerColor="#007DD6"-->

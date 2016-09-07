@@ -186,7 +186,15 @@ public class UserManagement {
 
         if (context != null) {
             SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
-            if (prefs != null) prefs.edit().putString("login_token", token).apply();
+            if (prefs != null) {
+
+                SharedPreferences.Editor editor = prefs.edit();
+                if (editor != null) {
+
+                    editor.putString("login_token", token);
+                    editor.apply();
+                }
+            }
         }
     }
 
@@ -213,7 +221,15 @@ public class UserManagement {
 
         if (context != null) {
             SharedPreferences prefs = context.getSharedPreferences("org.trakhound.www.trakhound", Context.MODE_PRIVATE);
-            if (prefs != null) prefs.edit().putString("login_username", username).apply();
+            if (prefs != null) {
+
+                SharedPreferences.Editor editor = prefs.edit();
+                if (editor != null) {
+
+                    editor.putString("login_username", username);
+                    editor.apply();
+                }
+            }
         }
     }
 

@@ -27,6 +27,7 @@ public class StatusInfo {
 
                 int connected = json.getInt("connected");
                 if (connected > 0) result.connected = true;
+                else result.connected = false;
 
                 result.deviceStatus = json.getString("device_status");
                 result.productionStatus = json.getString("production_status");

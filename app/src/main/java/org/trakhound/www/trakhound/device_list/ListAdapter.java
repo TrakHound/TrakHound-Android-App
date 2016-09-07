@@ -46,15 +46,16 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
         // Status
         public View StatusIndicator;
-        public ImageView AlertIcon;
+        public ImageView StatusIcon;
 
         public TextView ProductionStatus;
         public TextView ProductionStatusTimer;
 
         public TextView OEE;
 
+        public int StatusUnavailable;
         public int StatusRed;
-        public int StatusYellow;
+        public int StatusOrange;
         public int StatusGreen;
         public int ForegroundNormal;
 
@@ -81,7 +82,6 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
         //Device device = item.Device;
         DescriptionInfo description = item.descriptionInfo;
-        //DeviceStatus status = item.Status;
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (view == null) {
@@ -107,19 +107,15 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
         // Set the description components
         setDescription(holder, item.descriptionInfo);
-        //setDescription(holder, device);
 
         // Set the Status Indicator Color
         setStatusIndicator(holder, item.statusInfo);
-        //setStatusIndicator(holder, status);
 
         // Set Production Status Info
         setProductionStatus(holder, item.statusInfo);
-        //setProductionStatus(holder, status);
 
         // Set OEE Status Info
         setOEEStatus(holder, item.oeeInfo);
-        //setOEEStatus(holder, status);
 
         // Return the completed view to render on screen
         return view;
@@ -127,9 +123,10 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
 
     private void initializeColors(View view, ViewHolder holder) {
 
+        holder.StatusUnavailable = ContextCompat.getColor(view.getContext(), R.color.disabled);
         holder.StatusGreen = ContextCompat.getColor(view.getContext(), R.color.statusGreen);
         holder.StatusRed = ContextCompat.getColor(view.getContext(), R.color.statusRed);
-        holder.StatusYellow = ContextCompat.getColor(view.getContext(), R.color.statusYellow);
+        holder.StatusOrange = ContextCompat.getColor(view.getContext(), R.color.statusOrange);
 
         holder.ForegroundNormal = ContextCompat.getColor(view.getContext(), R.color.foreground_normal_color);
 
@@ -192,26 +189,36 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
         if (v != null) holder.StatusIndicator = v;
 
         // Alert Icon
-        v = view.findViewById(R.id.AlertIcon);
-        if (v != null) holder.AlertIcon = (ImageView)v;
+        v = view.findViewById(R.id.StatusIcon);
+        if (v != null) holder.StatusIcon = (ImageView)v;
     }
 
     private void setStatusIndicator(ViewHolder holder, StatusInfo info) {
 
-        if (holder.StatusIndicator != null && holder.AlertIcon != null && info != null && info.deviceStatus != null) {
+        if (holder.StatusIndicator != null && holder.StatusIcon != null && info != null && info.deviceStatus != null) {
 
-            if (info.deviceStatus.equals("Alert")) {
+            if (!info.connected) {
 
-                holder.StatusIndicator.setBackgroundColor(holder.StatusRed);
-
-                holder.AlertIcon.setVisibility(View.VISIBLE);
+                holder.StatusIndicator.setBackgroundColor(holder.StatusUnavailable);
+                holder.StatusIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.power_01_white));
 
             } else {
 
-                holder.AlertIcon.setVisibility(View.INVISIBLE);
+                if (info.deviceStatus.equals(("Alert"))) {
 
-                if (info.deviceStatus.equals("Idle")) holder.StatusIndicator.setBackgroundColor(holder.StatusYellow);
-                else if (info.deviceStatus.equals("Active")) holder.StatusIndicator.setBackgroundColor(holder.StatusGreen);
+                    holder.StatusIndicator.setBackgroundColor(holder.StatusRed);
+                    holder.StatusIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.warning_01));
+
+                } else if (info.deviceStatus.equals(("Idle"))) {
+
+                    holder.StatusIndicator.setBackgroundColor(holder.StatusOrange);
+                    holder.StatusIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.hourglass_01_white));
+
+                } else if (info.deviceStatus.equals("Active")) {
+
+                    holder.StatusIndicator.setBackgroundColor(holder.StatusGreen);
+                    holder.StatusIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.active_01_white));
+                }
             }
         }
     }
