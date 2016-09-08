@@ -26,9 +26,9 @@ Machine Data Collection (MDC) software is used to evaluate shop productivity and
 <table style="width:100%">
  
   <tr>
-    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/devicelist_01.png"/></td>
-    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/nav_01.png"/></td>
-    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/login_01.png"/></td>
+    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/v1.7/devicelist_01.png"/></td>
+    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/v1.7/navmenu_01.png"/></td>
+    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/v1.7/login_01.png"/></td>
   </tr>
   
 </table> 
