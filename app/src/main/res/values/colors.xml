@@ -30,6 +30,7 @@
     <color name="disabled">#cccccc</color>
     <color name="disabled_text">#888888</color>
 
+    <color name="statusbar_color">#0066cc</color>
     <color name="toolbar_color">#0080FF</color>
     <color name="toolbar_title_color">#FFFFFF</color>
 

@@ -50,7 +50,7 @@ public class About extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
             // finally change the color
-            window.setStatusBarColor(this.getResources().getColor(R.color.accent_normal_color));
+            window.setStatusBarColor(this.getResources().getColor(R.color.statusbar_color));
         }
     }
 }
