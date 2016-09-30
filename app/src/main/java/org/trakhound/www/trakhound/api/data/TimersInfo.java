@@ -32,19 +32,12 @@ public class TimersInfo {
 
         if (json != null) {
 
-            try {
+            result.total = json.optDouble("total");
+            result.active = json.optDouble("active");
+            result.idle = json.optDouble("idle");
+            result.alert = json.optDouble("alert");
 
-                result.total = json.getDouble("total");
-
-                result.active = json.getDouble("active");
-
-                result.idle = json.getDouble("idle");
-
-                result.alert = json.getDouble("alert");
-
-                return result;
-            }
-            catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
+            return result;
         }
 
         return null;

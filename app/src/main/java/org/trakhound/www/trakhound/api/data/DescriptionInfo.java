@@ -35,20 +35,15 @@ public class DescriptionInfo {
 
             result = new DescriptionInfo();
 
-            try {
+            result.description = json.optString("description");
+            result.deviceId = json.optString("device_id");
+            result.manufacturer = json.optString("manufacturer");
+            result.model = json.optString("model");
+            result.serial = json.optString("serial");
+            result.controller = json.optString("controller");
 
-                result.description = json.getString("description");
-                result.deviceId = json.getString("device_id");
-                result.manufacturer = json.getString("manufacturer");
-                result.model = json.getString("model");
-                result.serial = json.getString("serial");
-                result.controller = json.getString("controller");
-
-                result.imageUrl = json.getString("image_url");
-                result.logoUrl = json.getString("logo_url");
-            }
-            catch (JSONException ex) { ex.getStackTrace(); }
-            catch (Exception ex) { ex.getStackTrace(); }
+            result.imageUrl = json.optString("image_url");
+            result.logoUrl = json.optString("logo_url");
         }
 
         return result;

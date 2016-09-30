@@ -24,19 +24,15 @@ public class ControllerInfo {
 
         if (json != null) {
 
-            try {
+            result.availability = json.optString("availability");
+            result.emergencyStop = json.optString("emergency_stop");
+            result.controllerMode = json.optString("controller_mode");
+            result.executionMode = json.optString("execution_mode");
+            result.systemStatus = json.optString("system_status");
+            result.systemMessage = json.optString("system_message");
+            result.programName = json.optString("program_name");
 
-                result.availability = json.getString("availability");
-                result.emergencyStop = json.getString("emergency_stop");
-                result.controllerMode = json.getString("controller_mode");
-                result.executionMode = json.getString("execution_mode");
-                result.systemStatus = json.getString("system_status");
-                result.systemMessage = json.getString("system_message");
-                result.programName = json.getString("program_name");
-
-                return result;
-            }
-            catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
+            return result;
         }
         
         return null;

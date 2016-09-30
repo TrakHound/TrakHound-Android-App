@@ -23,19 +23,14 @@ public class StatusInfo {
 
             result = new StatusInfo();
 
-            try {
+            int connected = json.optInt("connected");
+            if (connected > 0) result.connected = true;
+            else result.connected = false;
 
-                int connected = json.getInt("connected");
-                if (connected > 0) result.connected = true;
-                else result.connected = false;
-
-                result.deviceStatus = json.getString("device_status");
-                result.productionStatus = json.getString("production_status");
-                result.deviceStatusTimer = json.getInt("device_status_timer");
-                result.productionStatusTimer = json.getInt("production_status_timer");
-
-            }
-            catch (JSONException ex) { ex.getStackTrace(); }
+            result.deviceStatus = json.optString("device_status");
+            result.productionStatus = json.optString("production_status");
+            result.deviceStatusTimer = json.optInt("device_status_timer");
+            result.productionStatusTimer = json.optInt("production_status_timer");
         }
 
         return result;

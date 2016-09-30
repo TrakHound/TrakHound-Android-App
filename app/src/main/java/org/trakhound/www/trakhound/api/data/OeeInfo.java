@@ -29,16 +29,12 @@ public class OeeInfo {
 
         if (json != null) {
 
-            try {
+            result.oee = json.optDouble("oee");
+            result.availability = json.optDouble("availability");
+            result.performance = json.optDouble("performance");
+            result.quality = json.optDouble("quality");
 
-                result.oee = json.getDouble("oee");
-                result.availability = json.getDouble("availability");
-                result.performance = json.getDouble("performance");
-                result.quality = json.getDouble("quality");
-
-                return result;
-            }
-            catch (JSONException ex) { Log.d("Exception", ex.getMessage()); }
+            return result;
         }
 
         return null;
