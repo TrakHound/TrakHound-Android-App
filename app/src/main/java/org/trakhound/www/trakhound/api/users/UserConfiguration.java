@@ -41,7 +41,7 @@ public class UserConfiguration {
     public String rememberToken;
     public String sessionToken;
 
-    public enum UserType { LOCAL, REMOTE }
+//    public enum UserType { LOCAL, REMOTE }
 
     public static UserConfiguration get(String json) {
 

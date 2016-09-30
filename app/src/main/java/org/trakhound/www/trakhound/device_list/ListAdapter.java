@@ -80,9 +80,6 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
         // Get the data item for this position
         ListItem item = getItem(position);
 
-        //Device device = item.Device;
-        DescriptionInfo description = item.descriptionInfo;
-
         // Check if an existing view is being reused, otherwise inflate the view
         if (view == null) {
 
@@ -173,10 +170,6 @@ public class ListAdapter extends ArrayAdapter<ListItem> {
             if (holder.Manufacturer != null) holder.Manufacturer.setText(info.manufacturer);
             if (holder.Model != null) holder.Model.setText(info.model);
             if (holder.Serial != null) holder.Serial.setText(info.serial);
-
-//            if (holder.Logo != null) holder.Logo.setImageBitmap(info.Logo);
-//            if (holder.Image != null) holder.Image.setImageBitmap(info.Image);
-
         }
     }
 

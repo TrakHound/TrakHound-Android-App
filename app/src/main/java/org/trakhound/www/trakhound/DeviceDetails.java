@@ -126,23 +126,25 @@ public class DeviceDetails extends AppCompatActivity implements NavigationView.O
 
     private void loadDescription(ListItem item) {
 
-        TextView txt;
+        if (item != null && item.descriptionInfo != null) {
 
-        txt = (TextView) findViewById(R.id.Description);
-        if (txt != null) txt.setText(item.descriptionInfo.description);
+            TextView txt;
 
-        txt = (TextView) findViewById(R.id.DeviceId);
-        if (txt != null) txt.setText(item.descriptionInfo.deviceId);
+            txt = (TextView) findViewById(R.id.Description);
+            if (txt != null) txt.setText(item.descriptionInfo.description);
 
-        txt = (TextView) findViewById(R.id.Manufacturer);
-        if (txt != null) txt.setText(item.descriptionInfo.manufacturer);
+            txt = (TextView) findViewById(R.id.DeviceId);
+            if (txt != null) txt.setText(item.descriptionInfo.deviceId);
 
-        txt = (TextView) findViewById(R.id.Model);
-        if (txt != null) txt.setText(item.descriptionInfo.model);
+            txt = (TextView) findViewById(R.id.Manufacturer);
+            if (txt != null) txt.setText(item.descriptionInfo.manufacturer);
 
-        txt = (TextView) findViewById(R.id.Serial);
-        if (txt != null) txt.setText(item.descriptionInfo.serial);
+            txt = (TextView) findViewById(R.id.Model);
+            if (txt != null) txt.setText(item.descriptionInfo.model);
 
+            txt = (TextView) findViewById(R.id.Serial);
+            if (txt != null) txt.setText(item.descriptionInfo.serial);
+        }
     }
 
     public void loadData() {
