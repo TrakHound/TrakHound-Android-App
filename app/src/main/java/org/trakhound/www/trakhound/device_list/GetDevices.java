@@ -170,6 +170,8 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
 
                     ListItem item = new ListItem();
                     item.uniqueId = obj.getString("unique_id");
+                    item.index = obj.optInt("index");
+                    item.enabled = obj.optBoolean("enabled");
 
                     item.descriptionInfo = DescriptionInfo.parse(obj.optJSONObject("description"));
                     item.statusInfo = StatusInfo.parse(obj.optJSONObject("status"));
@@ -177,7 +179,7 @@ public class GetDevices extends AsyncTask<String,Void,ListItem[]> {
                     item.oeeInfo = OeeInfo.parse(obj.optJSONObject("oee"));
                     item.timersInfo = TimersInfo.parse(obj.optJSONObject("timers"));
 
-                    result.add(item);
+                    if (item.enabled) result.add(item);
                 }
 
                 ListItem[] resultArray = new ListItem[result.size()];

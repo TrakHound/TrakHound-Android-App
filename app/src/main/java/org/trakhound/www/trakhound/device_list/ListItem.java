@@ -12,6 +12,8 @@ import org.trakhound.www.trakhound.api.data.TimersInfo;
 public class ListItem {
 
     public String uniqueId;
+    public int index;
+    public boolean enabled;
 
     public DescriptionInfo descriptionInfo;
     public StatusInfo statusInfo;
@@ -26,7 +28,6 @@ public class ListItem {
         controllerInfo = new ControllerInfo();
         oeeInfo = new OeeInfo();
         timersInfo = new TimersInfo();
-
     }
 
 }
