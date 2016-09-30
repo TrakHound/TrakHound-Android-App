@@ -31,6 +31,8 @@ import org.trakhound.www.trakhound.device_list.StatusHandler;
 import org.trakhound.www.trakhound.api.users.UserConfiguration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class DeviceList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -173,6 +175,16 @@ public class DeviceList extends AppCompatActivity implements NavigationView.OnNa
 
         ListItem[] listItems = MyApplication.ListItems;
         if (listItems != null && listItems.length > 0) {
+
+            Arrays.sort(listItems, new Comparator<ListItem>() {
+                @Override
+                public int compare(ListItem l1, ListItem l2) {
+
+                    if (l1.index > l2.index) return 1;
+                    if (l1.index < l2.index) return -1;
+                    return 0;
+                }
+            });
 
             listAdapter.addAll(listItems);
 
