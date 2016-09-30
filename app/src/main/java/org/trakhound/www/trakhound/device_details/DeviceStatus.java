@@ -59,12 +59,12 @@ public class DeviceStatus {
             String toStr = fmt.print(to);
 
             String urlSuffix = "data/get/?" +
-                "token=" + userConfig.sessionToken +
-                "&sender_id=" + UserManagement.getSenderId() +
-                "&unique_id=" + uniqueId +
-                "&from=" + fromStr + "&to=" + toStr +
-                "&command=" + "01111"; // Get Status, Controller, Oee, and Timers tables
-
+                    "token=" + userConfig.sessionToken +
+                    "&sender_id=" + UserManagement.getSenderId() +
+                    "&devices=[{\"unique_id\":\"" + uniqueId + "\"}]" +
+                    "&from=" + fromStr + "&to=" + toStr +
+                    "&command=" + "01111"; // Get Status, Controller, Oee, and Timers tables
+            
             String url = Uri.withAppendedPath(ApiConfiguration.apiHost, urlSuffix).toString();
 
             String response = Requests.get(url);
