@@ -10,9 +10,9 @@
 
   <a href="http://www.trakhound.com/">www.TrakHound.com</a>
   
-  <!--<br>
+  <br>
   
-  <a href='https://play.google.com/store/apps/details?id=org.trakhound.www.trakhound&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width='200' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>-->
+  <a href='https://play.google.com/store/apps/details?id=org.trakhound.www.trakhound&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width='200' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
   
 </p>
 
@@ -26,9 +26,9 @@ Machine Data Collection (MDC) software is used to evaluate shop productivity and
 <table style="width:100%">
  
   <tr>
-    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/devicelist_01.png"/></td>
-    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/nav_01.png"/></td>
-    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/login_01.png"/></td>
+    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/v1.7/devicelist_01.png"/></td>
+    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/v1.7/navmenu_01.png"/></td>
+    <td><img src="http://www.trakhound.com/images/download_screenshots/trakhound_mobile/v1.7/login_01.png"/></td>
   </tr>
   
 </table> 
