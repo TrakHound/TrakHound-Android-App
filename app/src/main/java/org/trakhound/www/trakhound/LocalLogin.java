@@ -7,9 +7,7 @@ package org.trakhound.www.trakhound;
 
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +16,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.trakhound.www.trakhound.device_list.GetDevices;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class LocalLogin extends AppCompatActivity {
 
