@@ -10,12 +10,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.joda.time.Period;
 import org.trakhound.www.trakhound.api.data.OeeInfo;
@@ -35,6 +31,12 @@ import org.trakhound.www.trakhound.device_details.StatusHandler;
 import org.trakhound.www.trakhound.device_list.ListItem;
 import org.trakhound.www.trakhound.devices.Device;
 import org.trakhound.www.trakhound.api.users.UserConfiguration;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 public class DeviceDetails extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

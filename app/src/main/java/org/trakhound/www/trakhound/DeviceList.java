@@ -11,12 +11,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -24,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.trakhound.www.trakhound.device_details.GetDeviceStatus;
 import org.trakhound.www.trakhound.device_list.*;
@@ -33,6 +29,12 @@ import org.trakhound.www.trakhound.api.users.UserConfiguration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 public class DeviceList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

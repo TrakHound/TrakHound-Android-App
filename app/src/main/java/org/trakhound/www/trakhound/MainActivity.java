@@ -8,7 +8,6 @@ package org.trakhound.www.trakhound;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.content.Intent;
 import android.view.Window;
@@ -18,6 +17,8 @@ import android.widget.TextView;
 
 import org.trakhound.www.trakhound.device_list.GetDevices;
 import org.trakhound.www.trakhound.api.users.UserManagement;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {

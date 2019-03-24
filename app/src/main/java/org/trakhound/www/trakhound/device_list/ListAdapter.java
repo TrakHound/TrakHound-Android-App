@@ -6,7 +6,6 @@
 package org.trakhound.www.trakhound.device_list;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,8 @@ import org.trakhound.www.trakhound.api.data.OeeInfo;
 import org.trakhound.www.trakhound.api.data.StatusInfo;
 
 import java.util.ArrayList;
+
+import androidx.core.content.ContextCompat;
 
 
 /**
